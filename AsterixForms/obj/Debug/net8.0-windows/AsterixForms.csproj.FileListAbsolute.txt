@@ -1,0 +1,81 @@
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\AsterixForms.exe
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\AsterixForms.deps.json
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\AsterixForms.runtimeconfig.json
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\AsterixForms.dll
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\AsterixForms.pdb
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\AsterixLib.dll
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\AsterixLib.pdb
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.csproj.AssemblyReference.cache
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.Form1.resources
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.csproj.GenerateResource.cache
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.AssemblyInfoInputs.cache
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.AssemblyInfo.cs
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.csproj.CoreCompileInputs.cache
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.sourcelink.json
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixF.B659088E.Up2Date
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.dll
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\refint\AsterixForms.dll
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.pdb
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.genruntimeconfig.cache
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\ref\AsterixForms.dll
+C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.csproj.AssemblyReference.cache
+C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.DataGridView.resources
+C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.Form1.resources
+C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.csproj.GenerateResource.cache
+C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.AssemblyInfoInputs.cache
+C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.AssemblyInfo.cs
+C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.csproj.CoreCompileInputs.cache
+C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.sourcelink.json
+C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.dll
+C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\refint\AsterixForms.dll
+C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.pdb
+C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\AsterixForms.exe
+C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\AsterixForms.deps.json
+C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\AsterixForms.runtimeconfig.json
+C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\AsterixForms.dll
+C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\AsterixForms.pdb
+C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\AsterixLib.dll
+C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\AsterixLib.pdb
+C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixF.B659088E.Up2Date
+C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.genruntimeconfig.cache
+C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\ref\AsterixForms.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\AsterixForms.exe
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\AsterixForms.deps.json
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\AsterixForms.runtimeconfig.json
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\AsterixForms.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\AsterixForms.pdb
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\AsterixLib.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\AsterixLib.pdb
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.csproj.AssemblyReference.cache
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.DataGridView.resources
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.Form1.resources
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.csproj.GenerateResource.cache
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.AssemblyInfoInputs.cache
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.AssemblyInfo.cs
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.csproj.CoreCompileInputs.cache
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.sourcelink.json
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixF.B659088E.Up2Date
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\refint\AsterixForms.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.pdb
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.genruntimeconfig.cache
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\ref\AsterixForms.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.Filter.resources
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.Search.resources
+C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.Filter.resources
+C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.Search.resources
+C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.Properties.Resources.resources
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.Properties.Resources.resources
+C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\Accord.dll.config
+C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\Accord.dll
+C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\Accord.Math.Core.dll
+C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\Accord.Math.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\Accord.dll.config
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\Accord.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\Accord.Math.Core.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\Accord.Math.dll
+C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.DataGridFiltrado.resources
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.DataGridFiltrado.resources

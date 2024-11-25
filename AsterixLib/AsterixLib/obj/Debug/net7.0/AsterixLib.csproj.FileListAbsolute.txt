@@ -1,0 +1,14 @@
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixLib\AsterixLib\bin\Debug\net7.0\Accord.dll.config
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixLib\AsterixLib\bin\Debug\net7.0\AsterixLib.deps.json
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixLib\AsterixLib\bin\Debug\net7.0\AsterixLib.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixLib\AsterixLib\bin\Debug\net7.0\AsterixLib.pdb
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixLib\AsterixLib\obj\Debug\net7.0\AsterixLib.csproj.AssemblyReference.cache
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixLib\AsterixLib\obj\Debug\net7.0\AsterixLib.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixLib\AsterixLib\obj\Debug\net7.0\AsterixLib.AssemblyInfoInputs.cache
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixLib\AsterixLib\obj\Debug\net7.0\AsterixLib.AssemblyInfo.cs
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixLib\AsterixLib\obj\Debug\net7.0\AsterixLib.csproj.CoreCompileInputs.cache
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixLib\AsterixLib\obj\Debug\net7.0\AsterixLib.sourcelink.json
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixLib\AsterixLib\obj\Debug\net7.0\AsterixLib.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixLib\AsterixLib\obj\Debug\net7.0\refint\AsterixLib.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixLib\AsterixLib\obj\Debug\net7.0\AsterixLib.pdb
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixLib\AsterixLib\obj\Debug\net7.0\ref\AsterixLib.dll
