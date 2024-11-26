@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/BmicY5rTUA=",
+  "dgSpecHash": "Vd2GYN8jWKs=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\Projecte 3 versió 1\\P2_PGTA-main\\AsterixLib\\AsterixLib\\AsterixLib.csproj",
+  "projectFilePath": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\Projecte 3 versió 1\\P2_PGTA-main\\AsterixLib\\AsterixLib\\AsterixLib.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Alex\\.nuget\\packages\\accord\\3.8.0\\accord.3.8.0.nupkg.sha512",
     "C:\\Users\\Alex\\.nuget\\packages\\accord.math\\3.8.0\\accord.math.3.8.0.nupkg.sha512",

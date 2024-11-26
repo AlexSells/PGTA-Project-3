@@ -1049,11 +1049,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\Projecte 3 versió 1\\P2_PGTA-main\\AsterixForms\\AsterixForms.csproj",
+      "projectUniqueName": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\Projecte 3 versió 1\\P2_PGTA-main\\AsterixForms\\AsterixForms.csproj",
       "projectName": "AsterixForms",
-      "projectPath": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\Projecte 3 versió 1\\P2_PGTA-main\\AsterixForms\\AsterixForms.csproj",
+      "projectPath": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\Projecte 3 versió 1\\P2_PGTA-main\\AsterixForms\\AsterixForms.csproj",
       "packagesPath": "C:\\Users\\Alex\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\Projecte 3 versió 1\\P2_PGTA-main\\AsterixForms\\obj\\",
+      "outputPath": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\Projecte 3 versió 1\\P2_PGTA-main\\AsterixForms\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1075,8 +1075,8 @@
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
           "projectReferences": {
-            "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\Projecte 3 versió 1\\P2_PGTA-main\\AsterixLib\\AsterixLib\\AsterixLib.csproj": {
-              "projectPath": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\Projecte 3 versió 1\\P2_PGTA-main\\AsterixLib\\AsterixLib\\AsterixLib.csproj"
+            "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\Projecte 3 versió 1\\P2_PGTA-main\\AsterixLib\\AsterixLib\\AsterixLib.csproj": {
+              "projectPath": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\Projecte 3 versió 1\\P2_PGTA-main\\AsterixLib\\AsterixLib\\AsterixLib.csproj"
             }
           }
         }

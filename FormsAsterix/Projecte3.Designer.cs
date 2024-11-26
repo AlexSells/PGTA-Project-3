@@ -40,6 +40,20 @@
             this.LoadSID24LBtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.DistanceCSVBtn = new System.Windows.Forms.ToolStripButton();
+            this.TotalPlanesTxt = new System.Windows.Forms.Label();
+            this.IncidentPlanesTxt = new System.Windows.Forms.Label();
+            this.TotalComparationsTxt = new System.Windows.Forms.Label();
+            this.TotalEstelaComparationsTxt = new System.Windows.Forms.Label();
+            this.TotalRadarTxt = new System.Windows.Forms.Label();
+            this.TotalEstelaTxt = new System.Windows.Forms.Label();
+            this.TotalLoATxt = new System.Windows.Forms.Label();
+            this.ANSTotalComparision = new System.Windows.Forms.Label();
+            this.ANSTotalEstelaComparations = new System.Windows.Forms.Label();
+            this.ANSTotalRadar = new System.Windows.Forms.Label();
+            this.ANSTotalEstela = new System.Windows.Forms.Label();
+            this.ANSTotalLoA = new System.Windows.Forms.Label();
+            this.ANSTotalPlanes = new System.Windows.Forms.Label();
+            this.ANSIncidentPlanes = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridProject3)).BeginInit();
             this.Project3ToolStrip.SuspendLayout();
             this.SuspendLayout();
@@ -47,11 +61,11 @@
             // dataGridProject3
             // 
             this.dataGridProject3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridProject3.Location = new System.Drawing.Point(209, 50);
+            this.dataGridProject3.Location = new System.Drawing.Point(249, 50);
             this.dataGridProject3.Name = "dataGridProject3";
             this.dataGridProject3.RowHeadersWidth = 51;
             this.dataGridProject3.RowTemplate.Height = 24;
-            this.dataGridProject3.Size = new System.Drawing.Size(1261, 701);
+            this.dataGridProject3.Size = new System.Drawing.Size(1221, 701);
             this.dataGridProject3.TabIndex = 6;
             // 
             // Project3ToolStrip
@@ -159,11 +173,151 @@
             this.DistanceCSVBtn.Text = "Distance CSV";
             this.DistanceCSVBtn.Click += new System.EventHandler(this.DistanceCSVBtn_Click);
             // 
+            // TotalPlanesTxt
+            // 
+            this.TotalPlanesTxt.AutoSize = true;
+            this.TotalPlanesTxt.Location = new System.Drawing.Point(25, 50);
+            this.TotalPlanesTxt.Name = "TotalPlanesTxt";
+            this.TotalPlanesTxt.Size = new System.Drawing.Size(83, 16);
+            this.TotalPlanesTxt.TabIndex = 8;
+            this.TotalPlanesTxt.Text = "Total Planes";
+            // 
+            // IncidentPlanesTxt
+            // 
+            this.IncidentPlanesTxt.AutoSize = true;
+            this.IncidentPlanesTxt.Location = new System.Drawing.Point(25, 150);
+            this.IncidentPlanesTxt.Name = "IncidentPlanesTxt";
+            this.IncidentPlanesTxt.Size = new System.Drawing.Size(98, 16);
+            this.IncidentPlanesTxt.TabIndex = 9;
+            this.IncidentPlanesTxt.Text = "Incident Planes";
+            // 
+            // TotalComparationsTxt
+            // 
+            this.TotalComparationsTxt.AutoSize = true;
+            this.TotalComparationsTxt.Location = new System.Drawing.Point(25, 250);
+            this.TotalComparationsTxt.Name = "TotalComparationsTxt";
+            this.TotalComparationsTxt.Size = new System.Drawing.Size(125, 16);
+            this.TotalComparationsTxt.TabIndex = 10;
+            this.TotalComparationsTxt.Text = "Total Comparations";
+            // 
+            // TotalEstelaComparationsTxt
+            // 
+            this.TotalEstelaComparationsTxt.AutoSize = true;
+            this.TotalEstelaComparationsTxt.Location = new System.Drawing.Point(25, 350);
+            this.TotalEstelaComparationsTxt.Name = "TotalEstelaComparationsTxt";
+            this.TotalEstelaComparationsTxt.Size = new System.Drawing.Size(169, 16);
+            this.TotalEstelaComparationsTxt.TabIndex = 11;
+            this.TotalEstelaComparationsTxt.Text = "Total Estela Comparations ";
+            // 
+            // TotalRadarTxt
+            // 
+            this.TotalRadarTxt.AutoSize = true;
+            this.TotalRadarTxt.Location = new System.Drawing.Point(25, 450);
+            this.TotalRadarTxt.Name = "TotalRadarTxt";
+            this.TotalRadarTxt.Size = new System.Drawing.Size(79, 16);
+            this.TotalRadarTxt.TabIndex = 12;
+            this.TotalRadarTxt.Text = "Total Radar";
+            // 
+            // TotalEstelaTxt
+            // 
+            this.TotalEstelaTxt.AutoSize = true;
+            this.TotalEstelaTxt.Location = new System.Drawing.Point(25, 550);
+            this.TotalEstelaTxt.Name = "TotalEstelaTxt";
+            this.TotalEstelaTxt.Size = new System.Drawing.Size(79, 16);
+            this.TotalEstelaTxt.TabIndex = 13;
+            this.TotalEstelaTxt.Text = "Total Estela";
+            // 
+            // TotalLoATxt
+            // 
+            this.TotalLoATxt.AutoSize = true;
+            this.TotalLoATxt.Location = new System.Drawing.Point(25, 650);
+            this.TotalLoATxt.Name = "TotalLoATxt";
+            this.TotalLoATxt.Size = new System.Drawing.Size(65, 16);
+            this.TotalLoATxt.TabIndex = 14;
+            this.TotalLoATxt.Text = "Total LoA";
+            // 
+            // ANSTotalComparision
+            // 
+            this.ANSTotalComparision.AutoSize = true;
+            this.ANSTotalComparision.Location = new System.Drawing.Point(25, 300);
+            this.ANSTotalComparision.Name = "ANSTotalComparision";
+            this.ANSTotalComparision.Size = new System.Drawing.Size(74, 16);
+            this.ANSTotalComparision.TabIndex = 15;
+            this.ANSTotalComparision.Text = "Nothing yet";
+            // 
+            // ANSTotalEstelaComparations
+            // 
+            this.ANSTotalEstelaComparations.AutoSize = true;
+            this.ANSTotalEstelaComparations.Location = new System.Drawing.Point(25, 400);
+            this.ANSTotalEstelaComparations.Name = "ANSTotalEstelaComparations";
+            this.ANSTotalEstelaComparations.Size = new System.Drawing.Size(74, 16);
+            this.ANSTotalEstelaComparations.TabIndex = 16;
+            this.ANSTotalEstelaComparations.Text = "Nothing yet";
+            // 
+            // ANSTotalRadar
+            // 
+            this.ANSTotalRadar.AutoSize = true;
+            this.ANSTotalRadar.Location = new System.Drawing.Point(25, 500);
+            this.ANSTotalRadar.Name = "ANSTotalRadar";
+            this.ANSTotalRadar.Size = new System.Drawing.Size(74, 16);
+            this.ANSTotalRadar.TabIndex = 17;
+            this.ANSTotalRadar.Text = "Nothing yet";
+            // 
+            // ANSTotalEstela
+            // 
+            this.ANSTotalEstela.AutoSize = true;
+            this.ANSTotalEstela.Location = new System.Drawing.Point(25, 600);
+            this.ANSTotalEstela.Name = "ANSTotalEstela";
+            this.ANSTotalEstela.Size = new System.Drawing.Size(74, 16);
+            this.ANSTotalEstela.TabIndex = 18;
+            this.ANSTotalEstela.Text = "Nothing yet";
+            // 
+            // ANSTotalLoA
+            // 
+            this.ANSTotalLoA.AutoSize = true;
+            this.ANSTotalLoA.Location = new System.Drawing.Point(25, 700);
+            this.ANSTotalLoA.Name = "ANSTotalLoA";
+            this.ANSTotalLoA.Size = new System.Drawing.Size(74, 16);
+            this.ANSTotalLoA.TabIndex = 19;
+            this.ANSTotalLoA.Text = "Nothing yet";
+            // 
+            // ANSTotalPlanes
+            // 
+            this.ANSTotalPlanes.AutoSize = true;
+            this.ANSTotalPlanes.Location = new System.Drawing.Point(25, 100);
+            this.ANSTotalPlanes.Name = "ANSTotalPlanes";
+            this.ANSTotalPlanes.Size = new System.Drawing.Size(74, 16);
+            this.ANSTotalPlanes.TabIndex = 20;
+            this.ANSTotalPlanes.Text = "Nothing yet";
+            // 
+            // ANSIncidentPlanes
+            // 
+            this.ANSIncidentPlanes.AutoSize = true;
+            this.ANSIncidentPlanes.Location = new System.Drawing.Point(25, 200);
+            this.ANSIncidentPlanes.Name = "ANSIncidentPlanes";
+            this.ANSIncidentPlanes.Size = new System.Drawing.Size(74, 16);
+            this.ANSIncidentPlanes.TabIndex = 21;
+            this.ANSIncidentPlanes.Text = "Nothing yet";
+            // 
             // Projecte3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1482, 763);
+            this.Controls.Add(this.ANSIncidentPlanes);
+            this.Controls.Add(this.ANSTotalPlanes);
+            this.Controls.Add(this.ANSTotalLoA);
+            this.Controls.Add(this.ANSTotalEstela);
+            this.Controls.Add(this.ANSTotalRadar);
+            this.Controls.Add(this.ANSTotalEstelaComparations);
+            this.Controls.Add(this.ANSTotalComparision);
+            this.Controls.Add(this.TotalLoATxt);
+            this.Controls.Add(this.TotalEstelaTxt);
+            this.Controls.Add(this.TotalRadarTxt);
+            this.Controls.Add(this.TotalEstelaComparationsTxt);
+            this.Controls.Add(this.TotalComparationsTxt);
+            this.Controls.Add(this.IncidentPlanesTxt);
+            this.Controls.Add(this.TotalPlanesTxt);
             this.Controls.Add(this.Project3ToolStrip);
             this.Controls.Add(this.dataGridProject3);
             this.Name = "Projecte3";
@@ -190,5 +344,19 @@
         private System.Windows.Forms.ToolStripButton LoadSID24LBtn;
         private System.Windows.Forms.ToolStripButton toolStripButton4;
         private System.Windows.Forms.ToolStripButton DistanceCSVBtn;
+        private System.Windows.Forms.Label TotalPlanesTxt;
+        private System.Windows.Forms.Label IncidentPlanesTxt;
+        private System.Windows.Forms.Label TotalComparationsTxt;
+        private System.Windows.Forms.Label TotalEstelaComparationsTxt;
+        private System.Windows.Forms.Label TotalRadarTxt;
+        private System.Windows.Forms.Label TotalEstelaTxt;
+        private System.Windows.Forms.Label TotalLoATxt;
+        private System.Windows.Forms.Label ANSTotalComparision;
+        private System.Windows.Forms.Label ANSTotalEstelaComparations;
+        private System.Windows.Forms.Label ANSTotalRadar;
+        private System.Windows.Forms.Label ANSTotalEstela;
+        private System.Windows.Forms.Label ANSTotalLoA;
+        private System.Windows.Forms.Label ANSTotalPlanes;
+        private System.Windows.Forms.Label ANSIncidentPlanes;
     }
 }

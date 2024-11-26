@@ -2017,7 +2017,9 @@ namespace FormsAsterix
             // Split the time string by the colon
             string[] timeParts = time.Split(':');
             double sec = Convert.ToDouble(timeParts[2]);
-            return Convert.ToDouble(timeParts[0]) * 3600 + Convert.ToDouble(timeParts[1]) * 60 + Convert.ToDouble(sec);
+            double hour_sec = Convert.ToDouble(timeParts[0])*3600;
+            double min_sec = Convert.ToDouble(timeParts[1]) * 60;
+            return hour_sec+min_sec+sec;
         }
         private void Project3Btn_Click(object sender, EventArgs e)
         {
@@ -2025,6 +2027,7 @@ namespace FormsAsterix
             if (click == 1)
             {
                 rowData = ReadExcel();
+                
 
                 if (rowData.Count != 0)
                 {
@@ -2037,8 +2040,9 @@ namespace FormsAsterix
                         // Buscar el AircraftID correspondiente en rowData
                         while (j < rowData.Count)
                         {
-                            if (rowData[j].AircraftID.Trim().Equals(asterixGrids[i].Aircraft_Indentification.Trim())) //(Convert.ToString(rowData[j].AircraftID) == Convert.ToString(asterixGrids[i].Aircraft_Indentification))
+                            if (rowData[j].AircraftID.Trim().Equals(asterixGrids[i].Aircraft_Indentification.Trim()) || Convert.ToString(rowData[j].AircraftID) == Convert.ToString(asterixGrids[i].Aircraft_Indentification))
                             {
+                                double a = rowData[j].secs;
                                 find = true;
                                 break; // Detener la búsqueda en el primer match
                             }
