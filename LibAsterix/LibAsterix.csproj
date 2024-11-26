@@ -108,6 +108,7 @@
     <Compile Include="AsterixGrid.cs" />
     <Compile Include="data_item.cs" />
     <Compile Include="Dictionary_Info.cs" />
+    <Compile Include="Functions4Statistics.cs" />
     <Compile Include="GeneralMatrix_v2.cs" />
     <Compile Include="Geodesic_Coord.cs" />
     <Compile Include="GeoUtils.cs" />
