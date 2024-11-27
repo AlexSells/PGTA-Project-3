@@ -316,10 +316,17 @@ namespace FormsAsterix
         int TotalLoAIncidents = 0;
         // Auxiliar variables (will be erased each iteration)
         int numPlanesTotal, numPlanesRadar, numPlanesEstela, numPlanesLOA, countEstela, numPlanesIncidence = 0, numPlanesComparision = 0;
-
+        
         private void GenStatisticsBtn_Click(object sender, EventArgs e)
         {
-            GeneralStatistics GenStats = new GeneralStatistics(ListDistanceCSV);
+            List<int> listIncidents = new List<int>();
+            listIncidents.Add(TotalIncidencePlanes);
+            listIncidents.Add(TotalMessageComparation);
+            listIncidents.Add(TotalEstaleComparationMessages);
+            listIncidents.Add(TotalRadarIncidents);
+            listIncidents.Add(TotalEstelaIncidents);
+            listIncidents.Add(TotalLoAIncidents);
+            GeneralStatistics GenStats = new GeneralStatistics(ListDistanceCSV, listIncidents);
             GenStats.Show();
         }
 

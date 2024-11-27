@@ -1,18 +1,27 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\AsterixLib\\",
+  "WorkspaceRootPath": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\Projecte 3 versi\u00F3 1\\P2_PGTA-main\\AsterixLib\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p3_pgta\\pgta-project-3\\formsasterix\\projecte3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\alex\\desktop\\universitat\\5a\\pgta\\p2\\github\\projecte 3 versi\u00F3 1\\p2_pgta-main\\formsasterix\\generalstatistics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p3_pgta\\pgta-project-3\\formsasterix\\projecte3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\alex\\desktop\\universitat\\5a\\pgta\\p2\\github\\projecte 3 versi\u00F3 1\\p2_pgta-main\\formsasterix\\projecte3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p3_pgta\\pgta-project-3\\formsasterix\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\alex\\desktop\\universitat\\5a\\pgta\\p2\\github\\projecte 3 versi\u00F3 1\\p2_pgta-main\\formsasterix\\projecte3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p3_pgta\\pgta-project-3\\formsasterix\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\FormsAsterix\\Projecte3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\alex\\desktop\\universitat\\5a\\pgta\\p2\\github\\projecte 3 versi\u00F3 1\\p2_pgta-main\\formsasterix\\generalstatistics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\FormsAsterix\\Form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p3_pgta\\pgta-project-3\\formsasterix\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,56 +31,118 @@
       "DocumentGroups": [
         {
           "DockedWidth": 233,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Form1.cs",
-              "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\FormsAsterix\\Form1.cs",
-              "RelativeDocumentMoniker": "..\\FormsAsterix\\Form1.cs",
-              "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\FormsAsterix\\Form1.cs",
-              "RelativeToolTip": "..\\FormsAsterix\\Form1.cs",
-              "ViewState": "AgIAAIEIAAAAAAAAAAAAAIkIAABFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-27T16:40:17.116Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Projecte3.cs",
-              "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\FormsAsterix\\Projecte3.cs",
-              "RelativeDocumentMoniker": "..\\FormsAsterix\\Projecte3.cs",
-              "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\FormsAsterix\\Projecte3.cs",
-              "RelativeToolTip": "..\\FormsAsterix\\Projecte3.cs",
-              "ViewState": "AgIAALUBAAAAAAAAAAAkwMQBAAAAAAAAAAAAAA==",
+              "Title": "GeneralStatistics.cs",
+              "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\Projecte 3 versi\u00F3 1\\P2_PGTA-main\\FormsAsterix\\GeneralStatistics.cs",
+              "RelativeDocumentMoniker": "..\\FormsAsterix\\GeneralStatistics.cs",
+              "ToolTip": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\Projecte 3 versi\u00F3 1\\P2_PGTA-main\\FormsAsterix\\GeneralStatistics.cs",
+              "RelativeToolTip": "..\\FormsAsterix\\GeneralStatistics.cs",
+              "ViewState": "AgIAADQAAAAAAAAAAIAwwD0AAABEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-27T16:27:22.613Z",
+              "WhenOpened": "2024-11-27T21:58:32.091Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "Form1.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\FormsAsterix\\Form1.cs",
-              "RelativeDocumentMoniker": "..\\FormsAsterix\\Form1.cs",
-              "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\FormsAsterix\\Form1.cs [Dise\u00F1o]",
-              "RelativeToolTip": "..\\FormsAsterix\\Form1.cs [Dise\u00F1o]",
+              "Title": "Projecte3.cs",
+              "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\FormsAsterix\\Projecte3.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\..\\..\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\FormsAsterix\\Projecte3.cs",
+              "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\FormsAsterix\\Projecte3.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\..\\..\\..\\..\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\FormsAsterix\\Projecte3.cs",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-27T16:08:39.187Z",
+              "WhenOpened": "2024-11-27T16:27:22.613Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "GeneralStatistics.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\Projecte 3 versi\u00F3 1\\P2_PGTA-main\\FormsAsterix\\GeneralStatistics.cs",
+              "RelativeDocumentMoniker": "..\\FormsAsterix\\GeneralStatistics.cs",
+              "ToolTip": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\Projecte 3 versi\u00F3 1\\P2_PGTA-main\\FormsAsterix\\GeneralStatistics.cs [Dise\u00F1o]",
+              "RelativeToolTip": "..\\FormsAsterix\\GeneralStatistics.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-27T21:56:56.972Z",
               "EditorCaption": " [Dise\u00F1o]"
             },
             {
               "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\FormsAsterix\\Form1.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\..\\..\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\FormsAsterix\\Form1.cs",
+              "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\FormsAsterix\\Form1.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\..\\..\\..\\..\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\FormsAsterix\\Form1.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-27T16:40:17.116Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Form1.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\FormsAsterix\\Form1.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\..\\..\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\FormsAsterix\\Form1.cs",
+              "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\FormsAsterix\\Form1.cs [Dise\u00F1o]",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\..\\..\\..\\..\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\FormsAsterix\\Form1.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-27T16:08:39.187Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "FloatingWindowState": {
+        "Id": "b1b02759-27da-45cb-9933-92c5cf76bc54",
+        "Display": 0,
+        "X": 730,
+        "Y": 53,
+        "Width": 311,
+        "Height": 599,
+        "WindowState": 0
+      },
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Projecte3.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\FormsAsterix\\Projecte3.cs",
+              "Title": "Projecte3.cs",
+              "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\Projecte 3 versi\u00F3 1\\P2_PGTA-main\\FormsAsterix\\Projecte3.cs",
               "RelativeDocumentMoniker": "..\\FormsAsterix\\Projecte3.cs",
-              "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\FormsAsterix\\Projecte3.cs [Dise\u00F1o]",
+              "ToolTip": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\Projecte 3 versi\u00F3 1\\P2_PGTA-main\\FormsAsterix\\Projecte3.cs",
+              "RelativeToolTip": "..\\FormsAsterix\\Projecte3.cs",
+              "ViewState": "AgIAACcBAAAAAAAAAAAQwEgBAABdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-27T22:05:24.681Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Projecte3.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\Projecte 3 versi\u00F3 1\\P2_PGTA-main\\FormsAsterix\\Projecte3.cs",
+              "RelativeDocumentMoniker": "..\\FormsAsterix\\Projecte3.cs",
+              "ToolTip": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\Projecte 3 versi\u00F3 1\\P2_PGTA-main\\FormsAsterix\\Projecte3.cs [Dise\u00F1o]",
               "RelativeToolTip": "..\\FormsAsterix\\Projecte3.cs [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-27T16:08:20.667Z",
+              "WhenOpened": "2024-11-27T22:00:01.288Z",
               "EditorCaption": " [Dise\u00F1o]"
             }
           ]
