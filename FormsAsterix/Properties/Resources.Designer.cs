@@ -103,6 +103,16 @@ namespace FormsAsterix.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap control_tower {
+            get {
+                object obj = ResourceManager.GetObject("control-tower", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap csv {
             get {
                 object obj = ResourceManager.GetObject("csv", resourceCulture);
@@ -126,6 +136,16 @@ namespace FormsAsterix.Properties {
         internal static System.Drawing.Bitmap d2fcf1c06735d7899e5e0766edd9498e1 {
             get {
                 object obj = ResourceManager.GetObject("d2fcf1c06735d7899e5e0766edd9498e1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap distance {
+            get {
+                object obj = ResourceManager.GetObject("distance", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -224,6 +244,16 @@ namespace FormsAsterix.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap loading {
+            get {
+                object obj = ResourceManager.GetObject("loading", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap pause {
             get {
                 object obj = ResourceManager.GetObject("pause", resourceCulture);
@@ -267,6 +297,16 @@ namespace FormsAsterix.Properties {
         internal static System.Drawing.Bitmap statistics {
             get {
                 object obj = ResourceManager.GetObject("statistics", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap statistics__1_ {
+            get {
+                object obj = ResourceManager.GetObject("statistics (1)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

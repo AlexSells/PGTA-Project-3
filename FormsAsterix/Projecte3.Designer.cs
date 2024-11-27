@@ -31,15 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Projecte3));
             this.dataGridProject3 = new System.Windows.Forms.DataGridView();
             this.Project3ToolStrip = new System.Windows.Forms.ToolStrip();
-            this.Back2P2Btn = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.LoadTableBtn = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-            this.LoadSID06RBtn = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
-            this.LoadSID24LBtn = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
-            this.DistanceCSVBtn = new System.Windows.Forms.ToolStripButton();
             this.TotalPlanesTxt = new System.Windows.Forms.Label();
             this.IncidentPlanesTxt = new System.Windows.Forms.Label();
             this.TotalComparationsTxt = new System.Windows.Forms.Label();
@@ -54,6 +45,15 @@
             this.ANSTotalLoA = new System.Windows.Forms.Label();
             this.ANSTotalPlanes = new System.Windows.Forms.Label();
             this.ANSIncidentPlanes = new System.Windows.Forms.Label();
+            this.Back2P2Btn = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.LoadTableBtn = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.LoadSID06RBtn = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
+            this.LoadSID24LBtn = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
+            this.DistanceCSVBtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
             this.GenStatisticsBtn = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridProject3)).BeginInit();
@@ -90,92 +90,6 @@
             this.Project3ToolStrip.Size = new System.Drawing.Size(1482, 31);
             this.Project3ToolStrip.TabIndex = 7;
             this.Project3ToolStrip.Text = "toolStrip";
-            // 
-            // Back2P2Btn
-            // 
-            this.Back2P2Btn.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.Back2P2Btn.Image = ((System.Drawing.Image)(resources.GetObject("Back2P2Btn.Image")));
-            this.Back2P2Btn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.Back2P2Btn.Name = "Back2P2Btn";
-            this.Back2P2Btn.Size = new System.Drawing.Size(102, 28);
-            this.Back2P2Btn.Text = "Back to P2";
-            this.Back2P2Btn.Click += new System.EventHandler(this.Back2P2Btn_Click);
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(29, 28);
-            this.toolStripButton1.Text = "toolStripButton1";
-            // 
-            // LoadTableBtn
-            // 
-            this.LoadTableBtn.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.LoadTableBtn.Image = ((System.Drawing.Image)(resources.GetObject("LoadTableBtn.Image")));
-            this.LoadTableBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.LoadTableBtn.Name = "LoadTableBtn";
-            this.LoadTableBtn.Size = new System.Drawing.Size(104, 28);
-            this.LoadTableBtn.Text = "Load table";
-            this.LoadTableBtn.Click += new System.EventHandler(this.LoadTableBtn_Click);
-            // 
-            // toolStripButton2
-            // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(29, 28);
-            this.toolStripButton2.Text = "toolStripButton2";
-            // 
-            // LoadSID06RBtn
-            // 
-            this.LoadSID06RBtn.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.LoadSID06RBtn.Image = ((System.Drawing.Image)(resources.GetObject("LoadSID06RBtn.Image")));
-            this.LoadSID06RBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.LoadSID06RBtn.Name = "LoadSID06RBtn";
-            this.LoadSID06RBtn.Size = new System.Drawing.Size(122, 28);
-            this.LoadSID06RBtn.Text = "Load SID 06R";
-            this.LoadSID06RBtn.Click += new System.EventHandler(this.LoadSID06RBtn_Click);
-            // 
-            // toolStripButton3
-            // 
-            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
-            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(29, 28);
-            this.toolStripButton3.Text = "toolStripButton3";
-            // 
-            // LoadSID24LBtn
-            // 
-            this.LoadSID24LBtn.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.LoadSID24LBtn.Image = ((System.Drawing.Image)(resources.GetObject("LoadSID24LBtn.Image")));
-            this.LoadSID24LBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.LoadSID24LBtn.Name = "LoadSID24LBtn";
-            this.LoadSID24LBtn.Size = new System.Drawing.Size(120, 28);
-            this.LoadSID24LBtn.Text = "Load SID 24L";
-            this.LoadSID24LBtn.Click += new System.EventHandler(this.LoadSID24LBtn_Click);
-            // 
-            // toolStripButton4
-            // 
-            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
-            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(29, 28);
-            this.toolStripButton4.Text = "toolStripButton4";
-            // 
-            // DistanceCSVBtn
-            // 
-            this.DistanceCSVBtn.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.DistanceCSVBtn.Image = ((System.Drawing.Image)(resources.GetObject("DistanceCSVBtn.Image")));
-            this.DistanceCSVBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.DistanceCSVBtn.Name = "DistanceCSVBtn";
-            this.DistanceCSVBtn.Size = new System.Drawing.Size(120, 28);
-            this.DistanceCSVBtn.Text = "Distance CSV";
-            this.DistanceCSVBtn.Click += new System.EventHandler(this.DistanceCSVBtn_Click);
             // 
             // TotalPlanesTxt
             // 
@@ -303,6 +217,92 @@
             this.ANSIncidentPlanes.TabIndex = 21;
             this.ANSIncidentPlanes.Text = "Nothing yet";
             // 
+            // Back2P2Btn
+            // 
+            this.Back2P2Btn.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.Back2P2Btn.Image = global::FormsAsterix.Properties.Resources.back;
+            this.Back2P2Btn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Back2P2Btn.Name = "Back2P2Btn";
+            this.Back2P2Btn.Size = new System.Drawing.Size(102, 28);
+            this.Back2P2Btn.Text = "Back to P2";
+            this.Back2P2Btn.Click += new System.EventHandler(this.Back2P2Btn_Click);
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(29, 28);
+            this.toolStripButton1.Text = "toolStripButton1";
+            // 
+            // LoadTableBtn
+            // 
+            this.LoadTableBtn.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.LoadTableBtn.Image = global::FormsAsterix.Properties.Resources.loading;
+            this.LoadTableBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.LoadTableBtn.Name = "LoadTableBtn";
+            this.LoadTableBtn.Size = new System.Drawing.Size(104, 28);
+            this.LoadTableBtn.Text = "Load table";
+            this.LoadTableBtn.Click += new System.EventHandler(this.LoadTableBtn_Click);
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
+            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(29, 28);
+            this.toolStripButton2.Text = "toolStripButton2";
+            // 
+            // LoadSID06RBtn
+            // 
+            this.LoadSID06RBtn.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.LoadSID06RBtn.Image = global::FormsAsterix.Properties.Resources.loading;
+            this.LoadSID06RBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.LoadSID06RBtn.Name = "LoadSID06RBtn";
+            this.LoadSID06RBtn.Size = new System.Drawing.Size(122, 28);
+            this.LoadSID06RBtn.Text = "Load SID 06R";
+            this.LoadSID06RBtn.Click += new System.EventHandler(this.LoadSID06RBtn_Click);
+            // 
+            // toolStripButton3
+            // 
+            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
+            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
+            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton3.Name = "toolStripButton3";
+            this.toolStripButton3.Size = new System.Drawing.Size(29, 28);
+            this.toolStripButton3.Text = "toolStripButton3";
+            // 
+            // LoadSID24LBtn
+            // 
+            this.LoadSID24LBtn.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.LoadSID24LBtn.Image = global::FormsAsterix.Properties.Resources.loading;
+            this.LoadSID24LBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.LoadSID24LBtn.Name = "LoadSID24LBtn";
+            this.LoadSID24LBtn.Size = new System.Drawing.Size(120, 28);
+            this.LoadSID24LBtn.Text = "Load SID 24L";
+            this.LoadSID24LBtn.Click += new System.EventHandler(this.LoadSID24LBtn_Click);
+            // 
+            // toolStripButton4
+            // 
+            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
+            this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
+            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton4.Name = "toolStripButton4";
+            this.toolStripButton4.Size = new System.Drawing.Size(29, 28);
+            this.toolStripButton4.Text = "toolStripButton4";
+            // 
+            // DistanceCSVBtn
+            // 
+            this.DistanceCSVBtn.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.DistanceCSVBtn.Image = global::FormsAsterix.Properties.Resources.distance;
+            this.DistanceCSVBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.DistanceCSVBtn.Name = "DistanceCSVBtn";
+            this.DistanceCSVBtn.Size = new System.Drawing.Size(120, 28);
+            this.DistanceCSVBtn.Text = "Distance CSV";
+            this.DistanceCSVBtn.Click += new System.EventHandler(this.DistanceCSVBtn_Click);
+            // 
             // toolStripButton5
             // 
             this.toolStripButton5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
@@ -315,7 +315,7 @@
             // GenStatisticsBtn
             // 
             this.GenStatisticsBtn.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.GenStatisticsBtn.Image = ((System.Drawing.Image)(resources.GetObject("GenStatisticsBtn.Image")));
+            this.GenStatisticsBtn.Image = global::FormsAsterix.Properties.Resources.statistics__1_;
             this.GenStatisticsBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.GenStatisticsBtn.Name = "GenStatisticsBtn";
             this.GenStatisticsBtn.Size = new System.Drawing.Size(91, 28);

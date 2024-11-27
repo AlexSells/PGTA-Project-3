@@ -254,5 +254,17 @@
   <ItemGroup>
     <None Include="Resources\compass.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\control-tower.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\loading.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\statistics %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\distance.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

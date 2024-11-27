@@ -22,7 +22,7 @@ namespace FormsAsterix
 
         public void SetGenStatsGrid()
         {
-            // Crear columnas para el DataGridView
+            // Crear columnas y filas para el DataGridView
             GenStatisticsGird.ColumnCount = 2;
             GenStatisticsGird.Rows.Add("Averge");
             GenStatisticsGird.Rows.Add("Variance");
@@ -41,6 +41,14 @@ namespace FormsAsterix
             GenStatisticsGird.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             GenStatisticsGird.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
+            // Otros parametros de diseño
+            GenStatisticsGird.AllowUserToAddRows = false; // como evitar que salga una fila extra
+
+            for (int i = 0; i < GenStatisticsGird.RowCount; i++)
+            {
+                GenStatisticsGird.Rows[i].Cells[0].Style.Font = new Font(GenStatisticsGird.Font, FontStyle.Bold); // diseño de las filas 
+                GenStatisticsGird.Rows[i].Cells[0].Style.BackColor = Color.LightCyan;
+            }
         }
         private void GeneralStatistics_Load(object sender, EventArgs e)
         {
