@@ -59,11 +59,11 @@ namespace FormsAsterix
             this.CSV_File = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton7 = new System.Windows.Forms.ToolStripButton();
+            this.Project3Btn = new System.Windows.Forms.ToolStripButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.TitolTXT = new System.Windows.Forms.Label();
             this.DescodBUT = new System.Windows.Forms.Button();
-            this.toolStripButton7 = new System.Windows.Forms.ToolStripButton();
-            this.Project3Btn = new System.Windows.Forms.ToolStripButton();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
@@ -262,7 +262,7 @@ namespace FormsAsterix
             this.Project3Btn});
             this.toolStrip1.Location = new System.Drawing.Point(3, 17);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1245, 31);
+            this.toolStrip1.Size = new System.Drawing.Size(1556, 39);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -273,7 +273,7 @@ namespace FormsAsterix
             this.GetKMLBut.Image = global::FormsAsterix.Properties.Resources.kml_file_format_variant;
             this.GetKMLBut.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.GetKMLBut.Name = "GetKMLBut";
-            this.GetKMLBut.Size = new System.Drawing.Size(94, 28);
+            this.GetKMLBut.Size = new System.Drawing.Size(94, 36);
             this.GetKMLBut.Text = "Get KML";
             this.GetKMLBut.ToolTipText = "Get KML";
             this.GetKMLBut.Click += new System.EventHandler(this.GetKMLBut_Click);
@@ -284,7 +284,7 @@ namespace FormsAsterix
             this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
             this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(29, 28);
+            this.toolStripButton3.Size = new System.Drawing.Size(29, 36);
             this.toolStripButton3.Text = "   ";
             // 
             // RestartSimBut
@@ -295,7 +295,7 @@ namespace FormsAsterix
             this.RestartSimBut.Image = global::FormsAsterix.Properties.Resources.restart;
             this.RestartSimBut.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.RestartSimBut.Name = "RestartSimBut";
-            this.RestartSimBut.Size = new System.Drawing.Size(114, 28);
+            this.RestartSimBut.Size = new System.Drawing.Size(114, 36);
             this.RestartSimBut.Text = "Restart Sim";
             this.RestartSimBut.Click += new System.EventHandler(this.RestartSimBut_Click);
             // 
@@ -305,7 +305,7 @@ namespace FormsAsterix
             this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
             this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(29, 28);
+            this.toolStripButton4.Size = new System.Drawing.Size(29, 36);
             // 
             // NewDataBut
             // 
@@ -315,7 +315,7 @@ namespace FormsAsterix
             this.NewDataBut.Image = global::FormsAsterix.Properties.Resources.folder;
             this.NewDataBut.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.NewDataBut.Name = "NewDataBut";
-            this.NewDataBut.Size = new System.Drawing.Size(102, 28);
+            this.NewDataBut.Size = new System.Drawing.Size(102, 36);
             this.NewDataBut.Text = "New Data";
             this.NewDataBut.Click += new System.EventHandler(this.NewDataBut_Click);
             // 
@@ -325,7 +325,7 @@ namespace FormsAsterix
             this.toolStripButton5.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton5.Image")));
             this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton5.Name = "toolStripButton5";
-            this.toolStripButton5.Size = new System.Drawing.Size(29, 28);
+            this.toolStripButton5.Size = new System.Drawing.Size(29, 36);
             this.toolStripButton5.Text = "toolStripButton5";
             // 
             // ShowDataBut
@@ -335,7 +335,7 @@ namespace FormsAsterix
             this.ShowDataBut.Image = global::FormsAsterix.Properties.Resources.sheet;
             this.ShowDataBut.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ShowDataBut.Name = "ShowDataBut";
-            this.ShowDataBut.Size = new System.Drawing.Size(108, 28);
+            this.ShowDataBut.Size = new System.Drawing.Size(108, 36);
             this.ShowDataBut.Text = "Show Data";
             this.ShowDataBut.Click += new System.EventHandler(this.ShowDataBut_Click);
             // 
@@ -345,7 +345,7 @@ namespace FormsAsterix
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(29, 28);
+            this.toolStripButton1.Size = new System.Drawing.Size(29, 36);
             this.toolStripButton1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // CSV_File
@@ -354,7 +354,7 @@ namespace FormsAsterix
             this.CSV_File.Image = global::FormsAsterix.Properties.Resources.csv;
             this.CSV_File.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.CSV_File.Name = "CSV_File";
-            this.CSV_File.Size = new System.Drawing.Size(88, 28);
+            this.CSV_File.Size = new System.Drawing.Size(88, 36);
             this.CSV_File.Text = "CSV File";
             this.CSV_File.Click += new System.EventHandler(this.CSV_File_Click);
             // 
@@ -364,7 +364,7 @@ namespace FormsAsterix
             this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(29, 28);
+            this.toolStripButton2.Size = new System.Drawing.Size(29, 36);
             // 
             // toolStripButton6
             // 
@@ -372,9 +372,28 @@ namespace FormsAsterix
             this.toolStripButton6.Image = global::FormsAsterix.Properties.Resources.compass;
             this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton6.Name = "toolStripButton6";
-            this.toolStripButton6.Size = new System.Drawing.Size(176, 28);
+            this.toolStripButton6.Size = new System.Drawing.Size(176, 36);
             this.toolStripButton6.Text = "Horitzontal Distance";
             this.toolStripButton6.Click += new System.EventHandler(this.toolStripButton6_Click);
+            // 
+            // toolStripButton7
+            // 
+            this.toolStripButton7.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
+            this.toolStripButton7.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton7.Image")));
+            this.toolStripButton7.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton7.Name = "toolStripButton7";
+            this.toolStripButton7.Size = new System.Drawing.Size(29, 36);
+            this.toolStripButton7.Text = "toolStripButton7";
+            // 
+            // Project3Btn
+            // 
+            this.Project3Btn.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.Project3Btn.Image = global::FormsAsterix.Properties.Resources.control_tower;
+            this.Project3Btn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Project3Btn.Name = "Project3Btn";
+            this.Project3Btn.Size = new System.Drawing.Size(95, 36);
+            this.Project3Btn.Text = "Project 3";
+            this.Project3Btn.Click += new System.EventHandler(this.Project3Btn_Click);
             // 
             // groupBox1
             // 
@@ -420,25 +439,6 @@ namespace FormsAsterix
             this.DescodBUT.Text = "Seleccionar fitxer .ast a descodificar";
             this.DescodBUT.UseVisualStyleBackColor = false;
             this.DescodBUT.Click += new System.EventHandler(this.DescodBUT_Click);
-            // 
-            // toolStripButton7
-            // 
-            this.toolStripButton7.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.toolStripButton7.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton7.Image")));
-            this.toolStripButton7.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton7.Name = "toolStripButton7";
-            this.toolStripButton7.Size = new System.Drawing.Size(29, 28);
-            this.toolStripButton7.Text = "toolStripButton7";
-            // 
-            // Project3Btn
-            // 
-            this.Project3Btn.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.Project3Btn.Image = ((System.Drawing.Image)(resources.GetObject("Project3Btn.Image")));
-            this.Project3Btn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.Project3Btn.Name = "Project3Btn";
-            this.Project3Btn.Size = new System.Drawing.Size(95, 28);
-            this.Project3Btn.Text = "Project 3";
-            this.Project3Btn.Click += new System.EventHandler(this.Project3Btn_Click);
             // 
             // Form1
             // 
