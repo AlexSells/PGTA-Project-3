@@ -316,8 +316,17 @@ namespace FormsAsterix
         int TotalLoAIncidents = 0;
         // Auxiliar variables (will be erased each iteration)
         int numPlanesTotal, numPlanesRadar, numPlanesEstela, numPlanesLOA, countEstela, numPlanesIncidence = 0, numPlanesComparision = 0;
+
+        private void GenStatisticsBtn_Click(object sender, EventArgs e)
+        {
+            GeneralStatistics GenStats = new GeneralStatistics(ListDistanceCSV);
+            GenStats.Show();
+        }
+
         private void DistanceCSVBtn_Click(object sender, EventArgs e)
         {
+            GenStatisticsBtn.Enabled = true;
+            GenStatisticsBtn.Visible = true;
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "File CSV| *.csv";
             saveFileDialog.Title = "Save CSV file";
@@ -430,6 +439,8 @@ namespace FormsAsterix
         {
             ListFilteredPlanes = ListFilteredPlanes.OrderBy(data => data.time_sec).ToList();
             dataGridProject3.DataSource = ListFilteredPlanes;
+            GenStatisticsBtn.Enabled = false;
+            GenStatisticsBtn.Visible = false;
         }
     }
 }

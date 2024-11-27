@@ -159,3 +159,4 @@ C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte 3 versió 1\P2_PGTA
 C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte 3 versió 1\P2_PGTA-main\FormsAsterix\obj\Debug\FormsAst.03163ECF.Up2Date
 C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte 3 versió 1\P2_PGTA-main\FormsAsterix\obj\Debug\FormsAsterix.exe
 C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte 3 versió 1\P2_PGTA-main\FormsAsterix\obj\Debug\FormsAsterix.pdb
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte 3 versió 1\P2_PGTA-main\FormsAsterix\obj\Debug\FormsAsterix.GeneralStatistics.resources
