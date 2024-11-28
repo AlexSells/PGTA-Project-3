@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -537,8 +538,488 @@ namespace FormsAsterix
             // Si no hay viraje detectado, retornar null
             return null;
         }
+        bool filterEnabled = false;
+        private void Btn_Filter_Click(object sender, EventArgs e)
+        {
+            // Make the Filtered_Values, No_ground_flights, and blancos_puros controls visible.
+            FilteredValues.Visible = true;
+            //No_ground_flights.Visible = true;
+            //blancos_puros.Visible = true;
 
-        
+            // Bring the toolStrip1 to the front of other controls, making it visible above other elements.
+            //toolStrip1.BringToFront();
+
+            // Toggle the state of the filterEnabled variable between true and false.
+            filterEnabled = !filterEnabled;
+
+            // If filter is enabled (i.e., filterEnabled is true):
+            if (filterEnabled)
+            {
+                // Add arrows to column headers to indicate sorting or filtering.
+                AddArrowToColumnHeaders(true);
+                dataGridProject3.ColumnHeaderMouseClick += dataGridProjec3_ColumnHeaderMouseClick;
+            }
+            else
+            {
+                // Remove the arrows from the column headers when filtering is disabled.
+                AddArrowToColumnHeaders(false);
+                ResetForm();
+            }
+
+            // Refresh the DataGridView to reflect any changes in its UI.
+            dataGridProject3.Refresh();
+        }
+        private Dictionary<string, List<Control>> filterControls = new Dictionary<string, List<Control>>();
+        private Dictionary<string, Dictionary_Info> originalColumnNames = new Dictionary<string, Dictionary_Info>();
+        bool filterDisabled = false;
+        BindingSource bindingSource = new BindingSource();
+        private void dataGridProjec3_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            // Check if filtering is enabled
+            if (filterEnabled)
+            {
+                if (!filterEnabled) return;
+
+                string columnName = dataGridProject3.Columns[e.ColumnIndex].DataPropertyName;
+
+
+                if (filterControls.ContainsKey(columnName))
+                {
+                    RemoveFilterControls(columnName);
+                }
+                else
+                {
+                    ShowFilterBox(columnName, e.ColumnIndex);
+                }
+
+            }
+
+        }
+        // Method to get distinct values from a specific column in the DataGridView
+        private IEnumerable<object> GetDistinctValues(DataGridViewColumn column)
+        {
+            return dataGridProject3.Rows.Cast<DataGridViewRow>()
+                .Select(row => row.Cells[column.Name].Value)
+                .Distinct();
+        }
+
+        // Dictionary to store the selected filter values for each column
+        private Dictionary<string, object> selectedFilters = new Dictionary<string, object>();
+
+        // Dictionary to store the selected range (min, max) for columns that require a range filter
+        private Dictionary<string, Tuple<int, int>> rangoSeleccionado = new Dictionary<string, Tuple<int, int>>();
+
+
+        private void ShowFilterBox(string columna, int index)
+        {
+
+            // Remove any existing filter controls for the selected column.
+            RemoveFilterControls(columna);
+            //string propertyName = dataGridProject3.Columns[index].DataPropertyName;
+            var uniques = ListFilteredPlanes.Select(x => x.GetType().GetProperty(columna)?.GetValue(x)?.ToString())
+                            .Distinct()
+                            .Where(val => val != null)
+                            .ToList();
+
+
+            Rectangle headerRect = dataGridProject3.GetCellDisplayRectangle(index, -1, true);
+            var specificColumns = new List<string> { "Lat", "Lon", "Altitude"};
+            List<Control> controlsToAdd = new List<Control>();
+
+            // If there are more than 10 unique values, show a control to select a range
+            if (columna == "Lat" || columna == "Lon" || columna == "Altitude")
+            {
+                // If the column is numeric, display a numeric range; otherwise, request a text range
+                if (uniques.All(val => double.TryParse(val, out _)))
+                {
+                    // Determine the minimum and maximum values to set up the ranges
+                    var minValue = uniques.Min(val => Convert.ToDouble(val));
+                    var maxValue = uniques.Max(val => Convert.ToDouble(val));
+
+                    // Factor for scaling double to integer
+                    double range = maxValue - minValue;
+                    double scaleFactor = range < 10 ? 1000 : 100;
+
+                    // Normalize the min and max values to be integers
+                    int minTrackBarValue = (int)(minValue * scaleFactor);
+                    int maxTrackBarValue = (int)(maxValue * scaleFactor);
+
+                    Label minLabel = new Label
+                    {
+                        Text = "Mínimo:",
+                        Location = new Point(headerRect.X, headerRect.Bottom + 10),
+                        Width = 60
+                    };
+
+                    Label maxLabel = new Label
+                    {
+                        Text = "Máximo:",
+                        Location = new Point(headerRect.X, headerRect.Bottom + 50),
+                        Width = 60
+                    };
+
+                    Label minValueLabel = new Label
+                    {
+                        Text = minValue.ToString(),
+                        Location = new Point(headerRect.X + 70, headerRect.Bottom + 10),
+                        Width = 80
+                    };
+
+                    Label maxValueLabel = new Label
+                    {
+                        Text = maxValue.ToString(),
+                        Location = new Point(headerRect.X + 70, headerRect.Bottom + 50),
+                        Width = 80
+                    };
+
+                    TrackBar minTrackBar = new TrackBar
+                    {
+                        Minimum = minTrackBarValue,
+                        Maximum = maxTrackBarValue,
+                        Value = minTrackBarValue,
+                        Location = new Point(headerRect.X + 150, headerRect.Bottom + 10),
+                        Width = 200
+                    };
+
+                    TrackBar maxTrackBar = new TrackBar
+                    {
+                        Minimum = minTrackBarValue,
+                        Maximum = maxTrackBarValue,
+                        Value = maxTrackBarValue,
+                        Location = new Point(headerRect.X + 150, headerRect.Bottom + 50),
+                        Width = 200
+                    };
+
+                    // Update values when TrackBar changes
+                    minTrackBar.Scroll += (s, e) =>
+                    {
+                        double currentMinValue = minTrackBar.Value / scaleFactor;
+                        minValueLabel.Text = currentMinValue.ToString("F2");
+                    };
+
+                    maxTrackBar.Scroll += (s, e) =>
+                    {
+                        double currentMaxValue = maxTrackBar.Value / scaleFactor;
+                        maxValueLabel.Text = currentMaxValue.ToString("F2");
+                    };
+
+                    Button acceptButton = new Button()
+                    {
+                        Text = "Aceptar",
+                        Height = 30,
+                        Location = new Point(headerRect.X, maxTrackBar.Bottom + 10),
+                        FlatStyle = FlatStyle.Flat
+                    };
+
+                    acceptButton.FlatAppearance.BorderSize = 3;
+                    acceptButton.FlatAppearance.BorderColor = Color.Black;
+
+                    acceptButton.Click += (s, e) =>
+                    {
+                        double selectedMin = minTrackBar.Value / scaleFactor;
+                        double selectedMax = maxTrackBar.Value / scaleFactor;
+                        // Apply the filter with the selected values
+                        selectedFilters[columna] = new List<double> { selectedMin, selectedMax };
+
+                        acceptButton.Dispose();
+                        //RemoveFilterControls(columna);
+                        dataGridProject3.Controls.Remove(minLabel);
+                        dataGridProject3.Controls.Remove(maxLabel);
+                        dataGridProject3.Controls.Remove(minValueLabel);
+                        dataGridProject3.Controls.Remove(maxValueLabel);
+                        dataGridProject3.Controls.Remove(minTrackBar);
+                        dataGridProject3.Controls.Remove(maxTrackBar);
+                        dataGridProject3.Controls.Remove(acceptButton);
+
+                    };
+
+                    // Add controls to the DataGridView so they are displayed on the screen
+                    dataGridProject3.Controls.Add(minLabel);
+                    dataGridProject3.Controls.Add(maxLabel);
+                    dataGridProject3.Controls.Add(minValueLabel);
+                    dataGridProject3.Controls.Add(maxValueLabel);
+                    dataGridProject3.Controls.Add(minTrackBar);
+                    dataGridProject3.Controls.Add(maxTrackBar);
+                    dataGridProject3.Controls.Add(acceptButton);
+
+                    // Bring each control to the front so they are visible
+                    minLabel.BringToFront();
+                    maxLabel.BringToFront();
+                    minValueLabel.BringToFront();
+                    maxValueLabel.BringToFront();
+                    minTrackBar.BringToFront();
+                    maxTrackBar.BringToFront();
+                    acceptButton.BringToFront();
+
+                    dataGridProject3.Controls.AddRange(new Control[] { minLabel, maxLabel, minValueLabel, maxValueLabel, minTrackBar, maxTrackBar, acceptButton });
+                    controlsToAdd.AddRange(new Control[] { minLabel, maxLabel, minValueLabel, maxValueLabel, minTrackBar, maxTrackBar, acceptButton });
+                }
+                else
+                {
+                    // If the values are text, show a range of values using TextBox controls
+                    TextBox minValueTextBox = new TextBox
+                    {
+                        Width = 100,
+                        Location = new Point(headerRect.X, headerRect.Bottom + 10)
+                    };
+
+                    TextBox maxValueTextBox = new TextBox
+                    {
+                        Width = 100,
+                        Location = new Point(minValueTextBox.Right + 10, headerRect.Bottom + 10)
+                    };
+
+                    Button acceptButton = new Button
+                    {
+                        Text = "Aceptar",
+                        Height = 30,
+                        Location = new Point(maxValueTextBox.Right + 10, headerRect.Bottom + 10),
+                        FlatStyle = FlatStyle.Flat
+                    };
+
+                    acceptButton.Click += (s, e) =>
+                    {
+                        // Apply filter based on the text range
+                        var minVal = minValueTextBox.Text;
+                        var maxVal = maxValueTextBox.Text;
+
+                        // Get values within the specified text range
+                        var rangeValues = uniques.Where(val => string.Compare(val, minVal) >= 0 && string.Compare(val, maxVal) <= 0).ToList();
+
+                        if (selectedFilters.ContainsKey(columna))
+                        {
+                            selectedFilters[columna] = rangeValues;
+                        }
+                        else
+                        {
+                            selectedFilters.Add(columna, rangeValues);
+                        }
+
+                        // Clean up controls
+                        minValueTextBox.Dispose();
+                        maxValueTextBox.Dispose();
+                        acceptButton.Dispose();
+                    };
+
+                    dataGridProject3.Controls.Add(minValueTextBox);
+                    dataGridProject3.Controls.Add(maxValueTextBox);
+                    dataGridProject3.Controls.Add(acceptButton);
+                    minValueTextBox.BringToFront();
+                    maxValueTextBox.BringToFront();
+                    acceptButton.BringToFront();
+
+
+                }
+            }
+            else
+            {
+                // Show the filter with a CheckedListBox for columns with fewer than 10 unique values
+                CheckedListBox filterBox = new CheckedListBox
+                {
+                    DataSource = uniques,
+                    Width = dataGridProject3.Columns[index].Width,
+                    Height = 150,
+                    IntegralHeight = true,
+                    Location = new Point(headerRect.X, headerRect.Bottom)
+                };
+
+                // Handle item check events in the CheckedListBox
+                filterBox.ItemCheck += (s, e) =>
+                {
+                    var timer = new Timer();
+                    timer.Interval = 100;
+                    timer.Tick += (sender, args) =>
+                    {
+                        // Get all selected values
+                        var values = filterBox.CheckedItems.Cast<string>().ToList();
+
+                        // Add or update the selected filters for this column
+                        if (selectedFilters.ContainsKey(columna))
+                        {
+                            selectedFilters[columna] = values;
+                        }
+                        else
+                        {
+                            selectedFilters.Add(columna, values);
+                        }
+
+                        timer.Stop();
+                    };
+                    timer.Start();
+                };
+
+                Button acceptButton = new Button
+                {
+                    Text = "Aceptar",
+                    Height = 30,
+                    Location = new Point(headerRect.X, filterBox.Bottom + 5),
+                    FlatStyle = FlatStyle.Flat
+                };
+
+                acceptButton.Click += (s, e) =>
+                {
+                    // Clean up filter box and button when the user accepts
+                    filterBox.Dispose();
+                    acceptButton.Dispose();
+                };
+
+                // Set up the location for the filter box
+                filterBox.Location = new Point(headerRect.X, headerRect.Bottom);
+
+                // Add controls to the DataGridView
+                dataGridProject3.Controls.Add(filterBox);
+                dataGridProject3.Controls.Add(acceptButton);
+
+                // Track the controls for this column
+                controlsToAdd.AddRange(new Control[] { filterBox, acceptButton });
+
+                // Bring controls to the front
+                filterBox.BringToFront();
+                acceptButton.BringToFront();
+            }
+
+            // Store the controls associated with the current column for later management
+            filterControls[columna] = controlsToAdd;
+
+        }
+
+        public void ApplyFilter()
+        {
+            // Filter the data based on the selected filters
+            var filteredData = ListFilteredPlanes.Where(item =>
+            {
+                foreach (var filter in selectedFilters)
+                {
+                    var propertyValue = item.GetType().GetProperty(filter.Key)?.GetValue(item)?.ToString();
+                    if (propertyValue == null)
+                    {
+                        MessageBox.Show($"Property {filter.Key} does not exist in YourDataObject!");
+                        return false;
+                    }
+
+                    if (filter.Value is List<string> stringValues && !stringValues.Contains(propertyValue))
+                    {
+                        return false;
+                    }
+                    else if (filter.Value is Tuple<double, double> range && double.TryParse(propertyValue, out double numericValue))
+                    {
+                        if (numericValue < range.Item1 || numericValue > range.Item2) return false;
+                    }
+                }
+                return true;
+            }).ToList();
+
+
+            // If no data matches the filters, show a message and stop
+            if (filteredData.Count == 0)
+            {
+                MessageBox.Show("No hay datos con los filtros");
+                return;
+            }
+
+            DataGridFiltrado.DataSource = new BindingSource { DataSource = filteredData };
+            DataGridFiltrado.Visible = true;
+
+            // Ocultar el DataGridView original
+            dataGridProject3.Visible = false;
+        }
+        private void RemoveFilterBoxes()
+        {
+            // Remove all controls of type CheckedListBox or Button from the DataGridView
+            foreach (Control control in dataGridProject3.Controls)
+            {
+                if (control is CheckedListBox || control is Button)
+                {
+                    control.Dispose();
+                }
+            }
+        }
+
+
+
+        private void AddArrowToColumnHeaders(bool showArrows)
+        {
+            dataGridProject3.ColumnHeadersVisible = true;
+
+            foreach (DataGridViewColumn column in dataGridProject3.Columns)
+            {
+                string headerText = column.HeaderText;
+
+                // Check if the headerText contains an arrow and get the name without the arrow for comparison
+                string columnNameToCompare = headerText.EndsWith(" ⬇")
+                    ? headerText.Substring(0, headerText.Length - 2)  // Eliminar " ⬇"
+                    : headerText;  // Mantener el nombre sin cambiar
+
+                // Check if the name without the arrow exists in the dictionary
+                if (originalColumnNames.ContainsKey(columnNameToCompare))
+                {
+                    var columnInfo = originalColumnNames[columnNameToCompare];
+
+                    // If arrows should be displayed, show the name with the arrow
+                    if (showArrows)
+                    {
+                        column.HeaderCell.Value = columnInfo.NameWithArrow;  // Display the name with the arrow
+                    }
+                    else
+                    {
+                        column.HeaderCell.Value = columnInfo.OriginalName;  // Display only the original name
+                    }
+                }
+                else
+                {
+                    // If it does not exist in the dictionary, keep the current value (unchanged)
+                    column.HeaderCell.Value = headerText;
+                }
+            }
+
+            // Force the view to refresh
+            dataGridProject3.Refresh();
+        }
+        private void RemoveFilterControls(string columna)
+        {
+            // Check if there are any filter controls associated with the given column
+            if (filterControls.ContainsKey(columna))
+            {
+                // Get the list of controls (such as TextBox, ComboBox) for this column
+                var controlsToRemove = filterControls[columna];
+
+                // Remove the control from the DataGridView's control collection
+                foreach (var control in controlsToRemove)
+                {
+                    dataGridProject3.Controls.Remove(control);
+                    control.Dispose();
+                }
+
+                // Remove the entry from the filterControls dictionary
+                filterControls.Remove(columna);
+            }
+        }
+        private void ResetForm()
+        {
+            
+            FilteredValues.Visible = false;
+            Return_Btn.Visible = false;
+            DataGridFiltrado.Visible = false;
+            dataGridProject3.Visible = true;
+            dataGridProject3.DataSource = null;
+            dataGridProject3.DataSource = ListFilteredPlanes;
+            ListFilteredPlanes = ListFilteredPlanes.OrderBy(data => data.time_sec).ToList();
+
+            // Refrescar el DataGrid
+            dataGridProject3.Refresh();
+
+        }
+
+        private void FilteredValues_Click(object sender, EventArgs e)
+        {
+            ApplyFilter();
+            Return_Btn.Visible = true;
+        }
+
+        private void Return_Btn_Click(object sender, EventArgs e)
+        {
+            ResetForm();
+        }
 
         static double CalculateRadial(double lat, double lon)
         {

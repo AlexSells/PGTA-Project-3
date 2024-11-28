@@ -90,3 +90,35 @@ C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte 3 versió 1\P2_PGTA
 C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte 3 versió 1\P2_PGTA-main\LibAsterix\obj\Debug\LibAsterix.csproj.Up2Date
 C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte 3 versió 1\P2_PGTA-main\LibAsterix\obj\Debug\LibAsterix.dll
 C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte 3 versió 1\P2_PGTA-main\LibAsterix\obj\Debug\LibAsterix.pdb
+C:\Users\judig\OneDrive\Escritorio\P3 PGTA\PGTA-Project-3\LibAsterix\bin\Debug\Accord.dll.config
+C:\Users\judig\OneDrive\Escritorio\P3 PGTA\PGTA-Project-3\LibAsterix\bin\Debug\LibAsterix.dll
+C:\Users\judig\OneDrive\Escritorio\P3 PGTA\PGTA-Project-3\LibAsterix\bin\Debug\LibAsterix.pdb
+C:\Users\judig\OneDrive\Escritorio\P3 PGTA\PGTA-Project-3\LibAsterix\bin\Debug\Accord.dll
+C:\Users\judig\OneDrive\Escritorio\P3 PGTA\PGTA-Project-3\LibAsterix\bin\Debug\Accord.Math.Core.dll
+C:\Users\judig\OneDrive\Escritorio\P3 PGTA\PGTA-Project-3\LibAsterix\bin\Debug\Accord.Math.dll
+C:\Users\judig\OneDrive\Escritorio\P3 PGTA\PGTA-Project-3\LibAsterix\bin\Debug\EPPlus.dll
+C:\Users\judig\OneDrive\Escritorio\P3 PGTA\PGTA-Project-3\LibAsterix\bin\Debug\EPPlus.Interfaces.dll
+C:\Users\judig\OneDrive\Escritorio\P3 PGTA\PGTA-Project-3\LibAsterix\bin\Debug\EPPlus.System.Drawing.dll
+C:\Users\judig\OneDrive\Escritorio\P3 PGTA\PGTA-Project-3\LibAsterix\bin\Debug\Microsoft.IO.RecyclableMemoryStream.dll
+C:\Users\judig\OneDrive\Escritorio\P3 PGTA\PGTA-Project-3\LibAsterix\bin\Debug\System.Buffers.dll
+C:\Users\judig\OneDrive\Escritorio\P3 PGTA\PGTA-Project-3\LibAsterix\bin\Debug\System.ComponentModel.Annotations.dll
+C:\Users\judig\OneDrive\Escritorio\P3 PGTA\PGTA-Project-3\LibAsterix\bin\Debug\System.Drawing.Common.dll
+C:\Users\judig\OneDrive\Escritorio\P3 PGTA\PGTA-Project-3\LibAsterix\bin\Debug\System.Memory.dll
+C:\Users\judig\OneDrive\Escritorio\P3 PGTA\PGTA-Project-3\LibAsterix\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\judig\OneDrive\Escritorio\P3 PGTA\PGTA-Project-3\LibAsterix\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\judig\OneDrive\Escritorio\P3 PGTA\PGTA-Project-3\LibAsterix\bin\Debug\Accord.xml
+C:\Users\judig\OneDrive\Escritorio\P3 PGTA\PGTA-Project-3\LibAsterix\bin\Debug\Accord.Math.xml
+C:\Users\judig\OneDrive\Escritorio\P3 PGTA\PGTA-Project-3\LibAsterix\bin\Debug\Accord.Math.Core.xml
+C:\Users\judig\OneDrive\Escritorio\P3 PGTA\PGTA-Project-3\LibAsterix\bin\Debug\EPPlus.xml
+C:\Users\judig\OneDrive\Escritorio\P3 PGTA\PGTA-Project-3\LibAsterix\bin\Debug\Microsoft.IO.RecyclableMemoryStream.xml
+C:\Users\judig\OneDrive\Escritorio\P3 PGTA\PGTA-Project-3\LibAsterix\bin\Debug\System.Buffers.xml
+C:\Users\judig\OneDrive\Escritorio\P3 PGTA\PGTA-Project-3\LibAsterix\bin\Debug\System.Drawing.Common.pdb
+C:\Users\judig\OneDrive\Escritorio\P3 PGTA\PGTA-Project-3\LibAsterix\bin\Debug\System.Drawing.Common.xml
+C:\Users\judig\OneDrive\Escritorio\P3 PGTA\PGTA-Project-3\LibAsterix\bin\Debug\System.Memory.xml
+C:\Users\judig\OneDrive\Escritorio\P3 PGTA\PGTA-Project-3\LibAsterix\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\judig\OneDrive\Escritorio\P3 PGTA\PGTA-Project-3\LibAsterix\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\judig\OneDrive\Escritorio\P3 PGTA\PGTA-Project-3\LibAsterix\obj\Debug\LibAsterix.csproj.AssemblyReference.cache
+C:\Users\judig\OneDrive\Escritorio\P3 PGTA\PGTA-Project-3\LibAsterix\obj\Debug\LibAsterix.csproj.CoreCompileInputs.cache
+C:\Users\judig\OneDrive\Escritorio\P3 PGTA\PGTA-Project-3\LibAsterix\obj\Debug\LibAsterix.csproj.Up2Date
+C:\Users\judig\OneDrive\Escritorio\P3 PGTA\PGTA-Project-3\LibAsterix\obj\Debug\LibAsterix.dll
+C:\Users\judig\OneDrive\Escritorio\P3 PGTA\PGTA-Project-3\LibAsterix\obj\Debug\LibAsterix.pdb
