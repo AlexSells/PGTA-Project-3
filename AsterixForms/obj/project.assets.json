@@ -1043,24 +1043,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\judig\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\julia\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\judig\\OneDrive\\Escritorio\\P3 PGTA\\PGTA-Project-3\\AsterixForms\\AsterixForms.csproj",
+      "projectUniqueName": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\AsterixForms\\AsterixForms.csproj",
       "projectName": "AsterixForms",
-      "projectPath": "C:\\Users\\judig\\OneDrive\\Escritorio\\P3 PGTA\\PGTA-Project-3\\AsterixForms\\AsterixForms.csproj",
-      "packagesPath": "C:\\Users\\judig\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\judig\\OneDrive\\Escritorio\\P3 PGTA\\PGTA-Project-3\\AsterixForms\\obj\\",
+      "projectPath": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\AsterixForms\\AsterixForms.csproj",
+      "packagesPath": "C:\\Users\\julia\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\AsterixForms\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\judig\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\julia\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1074,8 +1069,8 @@
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
           "projectReferences": {
-            "C:\\Users\\judig\\OneDrive\\Escritorio\\P3 PGTA\\PGTA-Project-3\\AsterixLib\\AsterixLib\\AsterixLib.csproj": {
-              "projectPath": "C:\\Users\\judig\\OneDrive\\Escritorio\\P3 PGTA\\PGTA-Project-3\\AsterixLib\\AsterixLib\\AsterixLib.csproj"
+            "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\AsterixLib\\AsterixLib\\AsterixLib.csproj": {
+              "projectPath": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\AsterixLib\\AsterixLib\\AsterixLib.csproj"
             }
           }
         }

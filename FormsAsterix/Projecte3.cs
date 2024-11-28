@@ -453,91 +453,7 @@ namespace FormsAsterix
 
 
 
-        private void InicioViraje ()
-        {
-            // Pasar del form principal llistes --> Roll Angle, True Track Angle, heading, posicion (lat,lon) i altitud. 
-            // List<PlaneFilter> FilteredList
-
-
-            // 2. Calcular el inicio del viraje para cada avión
-            var turnStartPoints = new List<TurnStartPoint>();
-            
-
-            foreach (var planeData in ListFilteredPlanes)
-            {
-                var turnStart = CalculateTurnStart(planeData);
-                if (turnStart != null)
-                    turnStartPoints.Add(turnStart);
-            }
-
-            // 3. Calcular estadísticas de posición, altitud y radial
-            var stats = CalculateStatistics(turnStartPoints);
-
-            // 4. Mostrar resultados
-            Console.WriteLine("Estadísticas de posición y altitud:");
-            Console.WriteLine($"Latitud promedio: {stats.AverageLat}");
-            Console.WriteLine($"Longitud promedio: {stats.AverageLon}");
-            Console.WriteLine($"Altitud promedio: {stats.AverageAltitude}");
-            Console.WriteLine($"Radial promedio del DVOR BCN: {stats.AverageRadial}");
-
-            // Comprobar si se cumplen las condiciones de la SID
-            foreach (var point in turnStartPoints)
-            {
-                bool sidCompliant = CheckSIDCompliance(point);
-                Console.WriteLine($"Vuelo {point.FlightId} cumple con SID: {sidCompliant}");
-            }
-
-
-            // Nos quedamos con los aviones que hacen departure por RWY 24L 
-
-            // interpolar valors RA i TTA amb Heading
-
-            // trobar lat i lon en el moment en que es segueix la condicio de l'angle --> tambe calcular alçada
-
-            // calcul radial des del punt inici viratge al DVOR --> veure SID segons AIP
-
-            // calcul estadisitiques --> segueixen SID?
-        }
-
-        static TurnStartPoint CalculateTurnStart(PlaneFilter flightData)
-        {
-            // Coordenadas iniciales (posición alineada con RWY 24L)
-            const double initialLatitude = 41.296944;  // Ejemplo: Coordenadas aproximadas de la cabecera de RWY 24L
-            const double initialLongitude = 2.078333;
-            const double initialHeading = 240.0;      // Rumbo inicial aproximado en grados
-            const double rollAngleThreshold = 5.0;    // Umbral para detectar inicio de viraje (RollAngle)
-            const double headingChangeThreshold = 5.0; // Umbral para detectar cambios en el Heading
-
-            // Obtener valores actuales del avión
-            double currentHeading = 1; // Convert.ToDouble(flightData.Heading); //***************** FALTA PASSAR?
-            double currentRollAngle = Convert.ToDouble(flightData.RollAngle);
-            double currentLatitude = Convert.ToDouble(flightData.Lat);
-            double currentLongitude = Convert.ToDouble(flightData.Lon);
-
-            // Detectar si hay un cambio significativo en RollAngle o Heading
-            bool rollStart = Math.Abs(currentRollAngle) > rollAngleThreshold;
-            bool headingStart = Math.Abs(currentHeading - initialHeading) > headingChangeThreshold;
-
-            // Si detectamos inicio de viraje
-            if (rollStart || headingStart)
-            {
-                // Cálculo del radial al DVOR BCN
-                double radial = CalculateRadial(currentLatitude, currentLongitude);
-
-                // Retornar el punto donde se inicia el viraje
-                return new TurnStartPoint
-                {
-                    FlightId = flightData.AircraftID, // Cambiar según tu propiedad para ID del avión
-                    Latitude = currentLatitude,
-                    Longitude = currentLongitude,
-                    Altitude = Convert.ToDouble(flightData.Altitude),
-                    Radial = radial
-                };
-            }
-
-            // Si no hay viraje detectado, retornar null
-            return null;
-        }
+        
         bool filterEnabled = false;
         private void Btn_Filter_Click(object sender, EventArgs e)
         {
@@ -1021,6 +937,90 @@ namespace FormsAsterix
             ResetForm();
         }
 
+
+        private void toolStripButton10_Click(object sender, EventArgs e)
+        {
+            // Pasar del form principal llistes --> Roll Angle, True Track Angle, heading, posicion (lat,lon) i altitud. 
+
+            // 2. Calcular el inicio del viraje para cada avión
+            var turnStartPoints = new List<TurnStartPoint>();
+
+
+            foreach (var planeData in ListFilteredPlanes)
+            {
+                var turnStart = CalculateTurnStart(planeData);
+                if (turnStart != null)
+                    turnStartPoints.Add(turnStart);
+            }
+
+            // 3. Calcular estadísticas de posición, altitud y radial
+            var stats = CalculateStatistics(turnStartPoints);
+
+            // 4. Mostrar resultados
+            Debug.WriteLine("Estadísticas de posición y altitud:");
+            Debug.WriteLine($"Latitud promedio: {stats.AverageLat}");
+            Debug.WriteLine($"Longitud promedio: {stats.AverageLon}");
+            Debug.WriteLine($"Altitud promedio: {stats.AverageAltitude}");
+            Debug.WriteLine($"Radial promedio del DVOR BCN: {stats.AverageRadial}");
+
+            // Comprobar si se cumplen las condiciones de la SID
+            foreach (var point in turnStartPoints)
+            {
+                bool sidCompliant = CheckSIDCompliance(point);
+                Debug.WriteLine($"Vuelo {point.FlightId} cumple con SID: {sidCompliant}");
+            }
+
+
+            // Nos quedamos con los aviones que hacen departure por RWY 24L 
+
+            // interpolar valors RA i TTA amb Heading
+
+            // trobar lat i lon en el moment en que es segueix la condicio de l'angle --> tambe calcular alçada
+
+            // calcul radial des del punt inici viratge al DVOR --> veure SID segons AIP
+
+            // calcul estadisitiques --> segueixen SID?
+        }
+
+        static TurnStartPoint CalculateTurnStart(PlaneFilter flightData)
+        {
+            // Coordenadas iniciales (posición alineada con RWY 24L)
+            const double initialLatitude = 41.296944;  // Ejemplo: Coordenadas aproximadas de la cabecera de RWY 24L
+            const double initialLongitude = 2.078333;
+            const double initialHeading = 240.0;      // Rumbo inicial aproximado en grados
+            const double rollAngleThreshold = 5.0;    // Umbral para detectar inicio de viraje (RollAngle)
+            const double headingChangeThreshold = 5.0; // Umbral para detectar cambios en el Heading
+
+            // Obtener valores actuales del avión
+            double currentHeading = Convert.ToDouble(flightData.MagneticHeading); //***************** esta be?
+            double currentRollAngle = Convert.ToDouble(flightData.RollAngle);
+            double currentLatitude = Convert.ToDouble(flightData.Lat);
+            double currentLongitude = Convert.ToDouble(flightData.Lon);
+
+            // Detectar si hay un cambio significativo en RollAngle o Heading
+            bool rollStart = Math.Abs(currentRollAngle) > rollAngleThreshold;
+            bool headingStart = Math.Abs(currentHeading - initialHeading) > headingChangeThreshold;
+
+            // Si detectamos inicio de viraje
+            if (rollStart || headingStart)
+            {
+                // Cálculo del radial al DVOR BCN
+                double radial = CalculateRadial(currentLatitude, currentLongitude);
+
+                // Retornar el punto donde se inicia el viraje
+                return new TurnStartPoint
+                {
+                    FlightId = flightData.AircraftID, // Cambiar según tu propiedad para ID del avión
+                    Latitude = currentLatitude,
+                    Longitude = currentLongitude,
+                    Altitude = Convert.ToDouble(flightData.Altitude),
+                    Radial = radial
+                };
+            }
+
+            // Si no hay viraje detectado, retornar null
+            return null;
+        }
         static double CalculateRadial(double lat, double lon)
         {
             // Calcular el radial desde el DVOR BCN (41.297445, 2.083294)

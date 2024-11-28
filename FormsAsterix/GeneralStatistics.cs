@@ -24,50 +24,67 @@ namespace FormsAsterix
 
         public void SetGenStatsGrid()
         {
-            // Crear columnas y filas para el DataGridView
-            GenStatisticsGird.ColumnCount = 2;
-            GenStatisticsGird.Rows.Add("Averge");
-            GenStatisticsGird.Rows.Add("Variance");
-            GenStatisticsGird.Rows.Add("Standard deviation");
-            GenStatisticsGird.Rows.Add("Percentil 95");
-            GenStatisticsGird.Rows.Add("Minimum");
-            GenStatisticsGird.Rows.Add("Maximum");
+
+            List<string> lista = new List<string> {
+            "Average","Variance", "Standard Deviation","Percentil 95", "Minimum", "Maximum"};
+
+            
+            foreach (string headerText in lista)
+            {
+                int rowIndex = GenStatisticsGird.Rows.Add();
+                GenStatisticsGird.Rows[rowIndex].HeaderCell.Value = headerText; // Assign the header text as the row header
+            }
+
+            GenStatisticsGird.RowHeadersDefaultCellStyle.Font = new Font(GenStatisticsGird.Font, FontStyle.Bold);
+
+            GenStatisticsGird.RowHeadersDefaultCellStyle.BackColor = Color.LightCyan;
+
+
             // Añadimos los valores respecto a la lista introducida
-            GenStatisticsGird.Rows[0].Cells[1].Value = Functions4Statistics.CalculateAverageDistanceDiff(StatsList);
-            GenStatisticsGird.Rows[1].Cells[1].Value = Functions4Statistics.CalculateVarianceDistanceDiff(StatsList);
-            GenStatisticsGird.Rows[2].Cells[1].Value = Functions4Statistics.CalculateStandardDeviatioDistanceDiff(StatsList);
-            GenStatisticsGird.Rows[3].Cells[1].Value = Functions4Statistics.CalculatePercentile95DistanceDiff(StatsList);
-            GenStatisticsGird.Rows[4].Cells[1].Value = Functions4Statistics.FindMinDistanceDiff(StatsList);
-            GenStatisticsGird.Rows[5].Cells[1].Value = Functions4Statistics.FindMaxDistanceDiff(StatsList);
+            GenStatisticsGird.Rows[0].Cells[0].Value = Functions4Statistics.CalculateAverageDistanceDiff(StatsList);
+            GenStatisticsGird.Rows[1].Cells[0].Value = Functions4Statistics.CalculateVarianceDistanceDiff(StatsList);
+            GenStatisticsGird.Rows[2].Cells[0].Value = Functions4Statistics.CalculateStandardDeviatioDistanceDiff(StatsList);
+            GenStatisticsGird.Rows[3].Cells[0].Value = Functions4Statistics.CalculatePercentile95DistanceDiff(StatsList);
+            GenStatisticsGird.Rows[4].Cells[0].Value = Functions4Statistics.FindMinDistanceDiff(StatsList);
+            GenStatisticsGird.Rows[5].Cells[0].Value = Functions4Statistics.FindMaxDistanceDiff(StatsList);
+
+
             //Ajustamos el datagrid al contenido
             GenStatisticsGird.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             GenStatisticsGird.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
             // Otros parametros de diseño
             GenStatisticsGird.AllowUserToAddRows = false; // como evitar que salga una fila extra
-
-            for (int i = 0; i < GenStatisticsGird.RowCount; i++)
-            {
-                GenStatisticsGird.Rows[i].Cells[0].Style.Font = new Font(GenStatisticsGird.Font, FontStyle.Bold); // diseño de las filas 
-                GenStatisticsGird.Rows[i].Cells[0].Style.BackColor = Color.LightCyan;
-            }
         }
 
         public void SetIncidentStatsGrid()
         {
+
+            List<string> lista = new List<string> {
+            "Total Planes","Incident Planes", "Total Estela Comparations","Total Radar Incidents", "Total Estela Incidents", "Total LoA Incidents"};
+
             // Crear columnas y filas para el DataGridView
             IncidentStatsGrid.ColumnCount = 2;
-            IncidentStatsGrid.Rows.Add("Total Planes");
-            IncidentStatsGrid.Rows.Add("Incident Planes");
-            IncidentStatsGrid.Rows.Add("Total Estela Comparations");
-            IncidentStatsGrid.Rows.Add("Total Radar Incidents");
-            IncidentStatsGrid.Rows.Add("Total Estela Incidents");
-            IncidentStatsGrid.Rows.Add("Total LoA Incidents");
+
+            foreach (string headerText in lista)
+            {
+                int rowIndex = IncidentStatsGrid.Rows.Add();
+                IncidentStatsGrid.Rows[rowIndex].HeaderCell.Value = headerText; // Assign the header text as the row header
+            }
+
+            IncidentStatsGrid.RowHeadersDefaultCellStyle.Font = new Font(IncidentStatsGrid.Font, FontStyle.Bold);
+
+            IncidentStatsGrid.RowHeadersDefaultCellStyle.BackColor = Color.LightCyan;
+
+
+
+
             // Añadimos los valores respecto a la lista introducida
             for (int i = 0; i < GenStatisticsGird.RowCount; i++)
             {
                 IncidentStatsGrid.Rows[i].Cells[1].Value = incidentData[i];
             }
+
             //Ajustamos el datagrid al contenido
             IncidentStatsGrid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             IncidentStatsGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
@@ -75,11 +92,7 @@ namespace FormsAsterix
             // Otros parametros de diseño
             IncidentStatsGrid.AllowUserToAddRows = false; // como evitar que salga una fila extra
 
-            for (int i = 0; i < IncidentStatsGrid.RowCount; i++)
-            {
-                IncidentStatsGrid.Rows[i].Cells[0].Style.Font = new Font(IncidentStatsGrid.Font, FontStyle.Bold); // diseño de las filas 
-                IncidentStatsGrid.Rows[i].Cells[0].Style.BackColor = Color.LightCyan;
-            }
+
         }
         private void GeneralStatistics_Load(object sender, EventArgs e)
         {
