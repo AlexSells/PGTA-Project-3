@@ -948,9 +948,13 @@ namespace FormsAsterix
 
             foreach (var planeData in ListFilteredPlanes)
             {
-                var turnStart = CalculateTurnStart(planeData);
-                if (turnStart != null)
-                    turnStartPoints.Add(turnStart);
+                if (planeData.TrackAngleRate != -999 && planeData.RollAngle != -999 && planeData.Heading !=-999)
+                {
+                    var turnStart = CalculateTurnStart(planeData);
+                    if (turnStart != null)
+                        turnStartPoints.Add(turnStart);
+                }
+                
             }
 
             // 3. Calcular estadísticas de posición, altitud y radial

@@ -2019,90 +2019,6 @@ namespace FormsAsterix
             double totaltime = hour_sec + min_sec + sec;
             return hour_sec+min_sec+sec;
         }
-        public bool CreateListPlanes(List<(string ID, string AircraftID, double secs, string Rute, string TypePlane, string EstelaType, string TakeoffProcess, string TakeoffRWY)> rowData)
-        {
-            bool done = false;
-            ListPlanes = new List<PlaneFilter>();
-
-            ListPlanes = new List<PlaneFilter>();
-
-            for (int i = 0; i < asterixGrids.Count; i++)
-            {
-                bool find = false;
-                int j = 0;
-                // Buscar el AircraftID correspondiente en rowData
-                for (int k=0; k < rowData.Count; k++)
-                {
-                    if (rowData[k].AircraftID.Trim().Equals(asterixGrids[i].Aircraft_Indentification.Trim()) || Convert.ToString(rowData[k].AircraftID) == Convert.ToString(asterixGrids[i].Aircraft_Indentification))
-                    {
-                        double a = rowData[k].secs;
-                        find = true;
-                        j = k;
-                        break; // Detener la búsqueda en el primer match
-                    }
-                }
-                
-                // Si se encontró un match, procesar el AircraftData
-                if (find)
-                {
-                    var AircraftData = rowData[j];
-                    if (AircraftData != default)
-                    {
-                        // Validación de tiempo
-                        if (AircraftData.secs <= ConvertToSeconds(asterixGrids[i].Time))
-                        {
-                            // Validación de coordenadas con el filtro geografico
-                            if ((40.9 > Convert.ToDouble(asterixGrids[i].Latitude) || Convert.ToDouble(asterixGrids[i].Latitude) > 41.7) || (1.5 > Convert.ToDouble(asterixGrids[i].Longitude) || Convert.ToDouble(asterixGrids[i].Longitude) > 2.6))
-                            {
-                                continue; // Skip invalid coordinates
-                            }
-                            else if (Convert.ToDouble(asterixGrids[i].Height) > 20000 || asterixGrids[i].Flight_Level == "NAN")
-                            {
-                                continue; // Skip invalid heights or NAN flight levels
-                            }
-                            else
-                            {
-                                UVCoordinates WGS84Coordinates = new LibAsterix.UVCoordinates();
-                                CoordinatesUVH steorographicSys = WGS84Coordinates.GetUV(Convert.ToDouble(asterixGrids[i].Latitude) * GeoUtils.DEGS2RADS, Convert.ToDouble(asterixGrids[i].Latitude) * GeoUtils.DEGS2RADS, Convert.ToDouble(asterixGrids[i].Height));
-                                PlaneFilter planeFilter = new PlaneFilter
-                                {
-                                    num = asterixGrids[i].Num,
-                                    EstelaType = AircraftData.EstelaType,
-                                    TakeoffProcess = AircraftData.TakeoffProcess,
-                                    TakeoffRWY = AircraftData.TakeoffRWY,
-                                    U = steorographicSys.U * GeoUtils.METERS2NM,
-                                    V = steorographicSys.V * GeoUtils.METERS2NM,
-                                    ID = Convert.ToInt32(AircraftData.ID),
-                                    AircraftType = AircraftData.TypePlane,
-                                    AircraftID = asterixGrids[i].Aircraft_Indentification,
-                                    AircraftAddress = asterixGrids[i].Aircraft_Address,
-                                    TrackNum = asterixGrids[i].Track_Number,
-                                    time_sec = ConvertToSeconds(asterixGrids[i].Time),
-                                    Lat = Convert.ToDouble(asterixGrids[i].Latitude),
-                                    Lon = Convert.ToDouble(asterixGrids[i].Longitude),
-                                    Altitude = Convert.ToDouble(asterixGrids[i].Height),
-                                    BDS50 = asterixGrids[i].BDS_5_0,
-                                    BDS60 = asterixGrids[i].BDS_6_0,
-                                    RollAngle = asterixGrids[i].Rolltxt,
-                                    TrueTrackAngle = asterixGrids[i].TrackAngletxt,
-                                    GroundSpeed = asterixGrids[i].GroundSpeedtxt,
-                                    MagneticHeading = asterixGrids[i].MagHeadtxt,
-                                    IndicatedAirspeed = asterixGrids[i].IndAirtxt,
-                                    Mach = asterixGrids[i].MACHtxt,
-                                    BarometricAltitudeRate = asterixGrids[i].BarAlttxt,
-                                    InertialVerticalVelocity = asterixGrids[i].InerVerttxt
-                                };
-                                ListPlanes.Add(planeFilter);
-                            }
-                        }
-                        //ListPlanes = ListPlanes.OrderBy(data => data.time_sec).ToList();
-                    }
-                }
-
-            }
-
-            return done;
-        }
         private void Project3Btn_Click(object sender, EventArgs e)
         {
             string filePath = OpenExcel();
@@ -2178,6 +2094,22 @@ namespace FormsAsterix
                                     {
                                         UVCoordinates WGS84Coordinates = new LibAsterix.UVCoordinates();
                                         CoordinatesUVH steorographicSys = WGS84Coordinates.GetUV(Convert.ToDouble(asterixGrids[i].Latitude) * GeoUtils.DEGS2RADS, Convert.ToDouble(asterixGrids[i].Latitude) * GeoUtils.DEGS2RADS, Convert.ToDouble(asterixGrids[i].Height));
+                                        double rollangle = -999;
+                                        if (asterixGrids[i].Rolltxt != "N/A" && asterixGrids[i].Rolltxt != null && asterixGrids[i].Rolltxt != "")
+                                        {
+                                            rollangle = Convert.ToDouble(asterixGrids[i].Rolltxt);
+                                        }
+                                        double heading = -999;
+                                        if (asterixGrids[i].Heading != "N/A" && asterixGrids[i].Heading != null && asterixGrids[i].Heading != "")
+                                        {
+                                            heading = Convert.ToDouble(asterixGrids[i].Heading);
+                                        }
+                                        double ta = -999;
+                                        if (asterixGrids[i].TrackAngletxt != "N/A" && asterixGrids[i].TrackAngletxt != null && asterixGrids[i].TrackAngletxt != "")
+                                        {
+                                            ta = Convert.ToDouble(asterixGrids[i].TrackAngletxt);
+                                        }
+
                                         PlaneFilter planeFilter = new PlaneFilter
                                         {
                                             num = asterixGrids[i].Num,
@@ -2197,14 +2129,15 @@ namespace FormsAsterix
                                             Altitude = Convert.ToDouble(asterixGrids[i].Height),
                                             BDS50 = asterixGrids[i].BDS_5_0,
                                             BDS60 = asterixGrids[i].BDS_6_0,
-                                            RollAngle = asterixGrids[i].Rolltxt,
-                                            TrueTrackAngle = asterixGrids[i].TrackAngletxt,
+                                            RollAngle = rollangle,
+                                            TrueTrackAngle = ta,
                                             GroundSpeed = asterixGrids[i].GroundSpeedtxt,
-                                            MagneticHeading = asterixGrids[i].MagHeadtxt,
-                                            IndicatedAirspeed = asterixGrids[i].IndAirtxt,
+                                            MagneticHeading = Convert.ToDouble(asterixGrids[i].MagHeadtxt),
+                                            IndicatedAirspeed = Convert.ToDouble(asterixGrids[i].IndAirtxt),
                                             Mach = asterixGrids[i].MACHtxt,
                                             BarometricAltitudeRate = asterixGrids[i].BarAlttxt,
-                                            InertialVerticalVelocity = asterixGrids[i].InerVerttxt
+                                            InertialVerticalVelocity = asterixGrids[i].InerVerttxt,
+                                            Heading = heading
                                         };
                                         ListPlanes.Add(planeFilter);
                                     }
