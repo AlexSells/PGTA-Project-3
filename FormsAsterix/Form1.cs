@@ -2109,6 +2109,21 @@ namespace FormsAsterix
                                         {
                                             ta = Convert.ToDouble(asterixGrids[i].TrackAngletxt);
                                         }
+                                        double maghead = -999;
+                                        if (asterixGrids[i].MagHeadtxt != "N/A" && asterixGrids[i].MagHeadtxt != null && asterixGrids[i].MagHeadtxt != "")
+                                        {
+                                            maghead = Convert.ToDouble(asterixGrids[i].MagHeadtxt);
+                                        }
+                                        double ias = -999;
+                                        if (asterixGrids[i].IndAirtxt != "N/A" && asterixGrids[i].IndAirtxt != null && asterixGrids[i].IndAirtxt != "")
+                                        {
+                                            ias = Convert.ToDouble(asterixGrids[i].IndAirtxt);
+                                        }
+                                        double ias_double = -999;
+                                        if (asterixGrids[i].IndAirtxt != "N/A" && asterixGrids[i].IndAirtxt != null && asterixGrids[i].IndAirtxt != "")
+                                        {
+                                            ias = Convert.ToDouble(asterixGrids[i].IndAirtxt);
+                                        }
 
                                         PlaneFilter planeFilter = new PlaneFilter
                                         {
@@ -2132,8 +2147,8 @@ namespace FormsAsterix
                                             RollAngle = rollangle,
                                             TrueTrackAngle = ta,
                                             GroundSpeed = asterixGrids[i].GroundSpeedtxt,
-                                            MagneticHeading = Convert.ToDouble(asterixGrids[i].MagHeadtxt),
-                                            IndicatedAirspeed = Convert.ToDouble(asterixGrids[i].IndAirtxt),
+                                            MagneticHeading = maghead,
+                                            IndicatedAirspeed = ias_double,
                                             Mach = asterixGrids[i].MACHtxt,
                                             BarometricAltitudeRate = asterixGrids[i].BarAlttxt,
                                             InertialVerticalVelocity = asterixGrids[i].InerVerttxt,
