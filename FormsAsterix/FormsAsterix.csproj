@@ -146,6 +146,12 @@
     <Compile Include="Search.Designer.cs">
       <DependentUpon>Search.cs</DependentUpon>
     </Compile>
+    <Compile Include="Viraje.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Viraje.Designer.cs">
+      <DependentUpon>Viraje.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="DataGridFiltrado.resx">
       <DependentUpon>DataGridFiltrado.cs</DependentUpon>
     </EmbeddedResource>
@@ -179,6 +185,9 @@
     </Compile>
     <EmbeddedResource Include="Search.resx">
       <DependentUpon>Search.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Viraje.resx">
+      <DependentUpon>Viraje.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
