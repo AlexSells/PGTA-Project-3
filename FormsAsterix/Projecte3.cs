@@ -1,4 +1,5 @@
 ﻿using LibAsterix;
+using MultiCAT6.Utils;
 using OfficeOpenXml;
 using SharpKml.Base;
 using SharpKml.Dom;
@@ -272,15 +273,7 @@ namespace FormsAsterix
         }
         public void GetListDistanceCSV(bool aux)
         {
-            if (aux == true)
-            {
-              ListDistanceCSV = FindDistances();
-            }
-        }
-        public int CheckConsecutive(int auxSeguiment, int i, bool found, string SameSIDFront, string ClassFront)
-        {
-           
-            return 0;
+            if (aux == true) { ListDistanceCSV = FindDistances(); }
         }
         /*### EVENTS ############################################################################################################*/
         
@@ -441,7 +434,6 @@ namespace FormsAsterix
             }
             else { MessageBox.Show("CSV file generation failed"); }
         }
-
 
         public void EreaseMainColumn(string nombreEncabezado)
         {
@@ -604,13 +596,8 @@ namespace FormsAsterix
             dataGridProject3.DataSource = ListFilteredPlanes;
             ReplaceString2(7,"-999", "NAN", 0);
 
-            //GenStatisticsBtn.Enabled = false;
-            //GenStatisticsBtn.Visible = false;
         }
 
-
-
-        
         bool filterEnabled = false;
         private void Btn_Filter_Click(object sender, EventArgs e)
         {
@@ -1014,8 +1001,6 @@ namespace FormsAsterix
                 }
             }
         }
-
-
 
         private void AddArrowToColumnHeaders(bool showArrows)
         {
@@ -1742,6 +1727,54 @@ namespace FormsAsterix
             public string Description { get; set; }
         }
 
+        // IAS implementation
+        class IASData
+        {
+            public string AircraftId { get; set; }
+            public double Time { get; set; }
+            public double Altitude { get; set; }   
+            public double IASBefore {  get; set; }
+            public double IASAfter { get; set; }
+            public double TrueTrackAngle { get; set; }
+        }
+        List<IASData> IASList;
 
+        public void AddIasData(PlaneFilter planeBefore, double IASAfter)
+        {
+            IASData aux = new IASData();
+            
+            aux.AircraftId = planeBefore.AircraftID;
+            aux.Time = planeBefore.time_sec;
+            aux.Altitude = planeBefore.Altitude;
+            aux.IASBefore = planeBefore.IndicatedAirspeed;
+            aux.IASAfter = IASAfter;
+            aux.TrueTrackAngle = planeBefore.TrueTrackAngle;
+            
+            IASList.Add(aux);
+        }
+        
+        public void FindIASatDetAltitude()
+        {
+            ListFilteredPlanes = ListFilteredPlanes.OrderBy(item => item.AircraftID).ToList();
+            int j = 0;
+            for (int i = 0; i < ListFilteredPlanes.Count; i++)
+            {
+                // ALtitude 850 ft
+                if (GeoUtils.METERS2FEET * 850 - ListFilteredPlanes[i].Altitude < 0)
+                {
+                    AddIasData(ListFilteredPlanes[i - 1], ListFilteredPlanes[i].IndicatedAirspeed);
+                }
+                // ALtitude 1500 ft
+                else if (GeoUtils.METERS2FEET * 1500 - ListFilteredPlanes[i].Altitude < 0)
+                {
+                    AddIasData(ListFilteredPlanes[i - 1], ListFilteredPlanes[i].IndicatedAirspeed);
+                }
+                // ALtitude 3500 ft
+                else if (GeoUtils.METERS2FEET * 3500 - ListFilteredPlanes[i].Altitude < 0)
+                {
+                    AddIasData(ListFilteredPlanes[i - 1], ListFilteredPlanes[i].IndicatedAirspeed);
+                }
+            }
+        }
     }
 }
