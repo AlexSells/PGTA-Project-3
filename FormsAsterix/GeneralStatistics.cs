@@ -28,7 +28,8 @@ namespace FormsAsterix
             List<string> lista = new List<string> {
             "Average","Variance", "Standard Deviation","Percentil 95", "Minimum", "Maximum"};
 
-            
+            GenStatisticsGird.ColumnCount = 1;
+
             foreach (string headerText in lista)
             {
                 int rowIndex = GenStatisticsGird.Rows.Add();
@@ -50,6 +51,7 @@ namespace FormsAsterix
 
 
             //Ajustamos el datagrid al contenido
+            GenStatisticsGird.RowHeadersWidth = 210;
             GenStatisticsGird.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             GenStatisticsGird.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
@@ -64,13 +66,15 @@ namespace FormsAsterix
             "Total Planes","Incident Planes", "Total Estela Comparations","Total Radar Incidents", "Total Estela Incidents", "Total LoA Incidents"};
 
             // Crear columnas y filas para el DataGridView
-            IncidentStatsGrid.ColumnCount = 2;
+            IncidentStatsGrid.ColumnCount = 1;
 
             foreach (string headerText in lista)
             {
                 int rowIndex = IncidentStatsGrid.Rows.Add();
                 IncidentStatsGrid.Rows[rowIndex].HeaderCell.Value = headerText; // Assign the header text as the row header
             }
+
+            IncidentStatsGrid.RowHeadersWidth = 210;
 
             IncidentStatsGrid.RowHeadersDefaultCellStyle.Font = new Font(IncidentStatsGrid.Font, FontStyle.Bold);
 
@@ -82,7 +86,7 @@ namespace FormsAsterix
             // Añadimos los valores respecto a la lista introducida
             for (int i = 0; i < GenStatisticsGird.RowCount; i++)
             {
-                IncidentStatsGrid.Rows[i].Cells[1].Value = incidentData[i];
+                IncidentStatsGrid.Rows[i].Cells[0].Value = incidentData[i];
             }
 
             //Ajustamos el datagrid al contenido

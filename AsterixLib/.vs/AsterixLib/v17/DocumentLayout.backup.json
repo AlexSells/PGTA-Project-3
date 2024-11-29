@@ -6,16 +6,13 @@
       "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p3_pgta\\pgta-project-3\\formsasterix\\projecte3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p3_pgta\\pgta-project-3\\formsasterix\\projecte3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p3_pgta\\pgta-project-3\\formsasterix\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p3_pgta\\pgta-project-3\\formsasterix\\generalstatistics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p3_pgta\\pgta-project-3\\formsasterix\\disthoritzontal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p3_pgta\\pgta-project-3\\formsasterix\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p3_pgta\\pgta-project-3\\formsasterix\\projecte3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -25,21 +22,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 233,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 3,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "DistHoritzontal.cs",
-              "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\FormsAsterix\\DistHoritzontal.cs",
-              "RelativeDocumentMoniker": "..\\FormsAsterix\\DistHoritzontal.cs",
-              "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\FormsAsterix\\DistHoritzontal.cs",
-              "RelativeToolTip": "..\\FormsAsterix\\DistHoritzontal.cs",
-              "ViewState": "AgIAAHUAAAAAAAAAAAAYwIMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-28T18:06:20.367Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 2,
@@ -48,27 +32,27 @@
               "RelativeDocumentMoniker": "..\\FormsAsterix\\GeneralStatistics.cs",
               "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\FormsAsterix\\GeneralStatistics.cs",
               "RelativeToolTip": "..\\FormsAsterix\\GeneralStatistics.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAAwF4AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAACcAAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-28T18:05:34.037Z",
+              "WhenOpened": "2024-11-28T22:46:07.264Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\FormsAsterix\\Form1.cs",
               "RelativeDocumentMoniker": "..\\FormsAsterix\\Form1.cs",
               "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\FormsAsterix\\Form1.cs",
               "RelativeToolTip": "..\\FormsAsterix\\Form1.cs",
-              "ViewState": "AgIAAAoIAAAAAAAAAAAuwCMIAABEAAAAAAAAAA==",
+              "ViewState": "AgIAACkIAAAAAAAAAAAvwKMHAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-28T16:04:21.457Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "Projecte3.cs [Dise\u00F1o]",
               "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\FormsAsterix\\Projecte3.cs",
               "RelativeDocumentMoniker": "..\\FormsAsterix\\Projecte3.cs",
@@ -86,7 +70,7 @@
               "RelativeDocumentMoniker": "..\\FormsAsterix\\Projecte3.cs",
               "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P3_PGTA\\PGTA-Project-3\\FormsAsterix\\Projecte3.cs",
               "RelativeToolTip": "..\\FormsAsterix\\Projecte3.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABkAAAAsAAAAAAAAAA==",
+              "ViewState": "AgIAAPkEAAAAAAAAAAASwKIEAAA/AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-28T15:54:21.436Z",
               "EditorCaption": ""

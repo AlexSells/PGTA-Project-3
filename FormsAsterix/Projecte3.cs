@@ -1,5 +1,8 @@
 ﻿using LibAsterix;
 using OfficeOpenXml;
+using SharpKml.Base;
+using SharpKml.Dom;
+using SharpKml.Engine;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Point = System.Drawing.Point;
 
 namespace FormsAsterix
 {
@@ -333,8 +337,8 @@ namespace FormsAsterix
 
         private void DistanceCSVBtn_Click(object sender, EventArgs e)
         {
-            GenStatisticsBtn.Enabled = true;
-            GenStatisticsBtn.Visible = true;
+            //GenStatisticsBtn.Enabled = true;
+            //GenStatisticsBtn.Visible = true;
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "File CSV| *.csv";
             saveFileDialog.Title = "Save CSV file";
@@ -446,9 +450,12 @@ namespace FormsAsterix
         private void Projecte3_Load(object sender, EventArgs e)
         {
             ListFilteredPlanes = ListFilteredPlanes.OrderBy(data => data.time_sec).ToList();
+            dataGridProject3.RowHeadersDefaultCellStyle.Font = new Font(dataGridProject3.Font, FontStyle.Bold);
+            dataGridProject3.RowHeadersDefaultCellStyle.BackColor = Color.LightCyan;
             dataGridProject3.DataSource = ListFilteredPlanes;
-            GenStatisticsBtn.Enabled = false;
-            GenStatisticsBtn.Visible = false;
+
+            //GenStatisticsBtn.Enabled = false;
+            //GenStatisticsBtn.Visible = false;
         }
 
 
@@ -942,13 +949,15 @@ namespace FormsAsterix
         {
             // Pasar del form principal llistes --> Roll Angle, True Track Angle, heading, posicion (lat,lon) i altitud. 
 
+            ListFilteredPlanes = InterpolateData(ListFilteredPlanes);
+
             // 2. Calcular el inicio del viraje para cada avión
             var turnStartPoints = new List<TurnStartPoint>();
 
 
             foreach (var planeData in ListFilteredPlanes)
             {
-                if (planeData.TrackAngleRate != -999 && planeData.RollAngle != -999 && planeData.Heading !=-999)
+                if (planeData.TrackAngleRate != -999 && planeData.RollAngle != -999 && planeData.Heading !=-999 && planeData.TakeoffRWY == "LEBL-24L")
                 {
                     var turnStart = CalculateTurnStart(planeData);
                     if (turnStart != null)
@@ -971,8 +980,14 @@ namespace FormsAsterix
             foreach (var point in turnStartPoints)
             {
                 bool sidCompliant = CheckSIDCompliance(point);
-                Debug.WriteLine($"Vuelo {point.FlightId} cumple con SID: {sidCompliant}");
+                if (sidCompliant == true)
+                {
+                    //Debug.WriteLine($"Vuelo {point.FlightId} cumple con SID: {sidCompliant}");
+                }
             }
+
+            // 5. Obtenir fitxer KML
+            GetKML(ListFilteredPlanes);
 
 
             // Nos quedamos con los aviones que hacen departure por RWY 24L 
@@ -986,50 +1001,108 @@ namespace FormsAsterix
             // calcul estadisitiques --> segueixen SID?
         }
 
+        static List<PlaneFilter> InterpolateData(List<PlaneFilter> originalData)
+        {
+            var interpolatedData = new List<PlaneFilter>();
+
+            for (int i = 0; i < originalData.Count - 1; i++)
+            {
+                var current = originalData[i];
+                var next = originalData[i + 1];
+
+                // Intervalo de tiempo entre puntos consecutivos
+                double timeDiff = next.time_sec - current.time_sec; 
+
+                // Agregar el punto actual
+                interpolatedData.Add(current);
+
+                // Si el intervalo es mayor que la frecuencia deseada (4 segundos), interpolar
+                if (timeDiff > 4)
+                {
+                    int steps = (int)(timeDiff / 4); // Número de pasos de 4 segundos a interpolar
+                    for (int j = 1; j < steps; j++)
+                    {
+                        double ratio = (4.0 * j) / timeDiff;
+
+                        // Crear un nuevo punto interpolado
+                        interpolatedData.Add(new PlaneFilter
+                        {
+                            time_sec = current.time_sec + 4 * j, // Sumar los segundos directamente
+                            RollAngle = current.RollAngle + ratio * (next.RollAngle - current.RollAngle),
+                            TrueTrackAngle = current.TrueTrackAngle + ratio * (next.TrueTrackAngle - current.TrueTrackAngle),
+                            Heading = current.Heading + ratio * (next.Heading - current.Heading),
+                            Lat = current.Lat + ratio * (next.Lat - current.Lat),
+                            Lon = current.Lon + ratio * (next.Lon - current.Lon),
+                            Altitude = current.Altitude + ratio * (next.Altitude - current.Altitude)
+                        });
+                    }
+                }
+            }
+
+            // Agregar el último punto
+            interpolatedData.Add(originalData.Last());
+
+            return interpolatedData;
+        }
+
         static TurnStartPoint CalculateTurnStart(PlaneFilter flightData)
         {
             // Coordenadas iniciales (posición alineada con RWY 24L)
-            const double initialLatitude = 41.296944;  // Ejemplo: Coordenadas aproximadas de la cabecera de RWY 24L
-            const double initialLongitude = 2.078333;
+            //const double initialLatitude = 41.296944;  // Ejemplo: Coordenadas aproximadas de la cabecera de RWY 24L
+            //const double initialLongitude = 2.078333;
             const double initialHeading = 240.0;      // Rumbo inicial aproximado en grados
-            const double rollAngleThreshold = 5.0;    // Umbral para detectar inicio de viraje (RollAngle)
-            const double headingChangeThreshold = 5.0; // Umbral para detectar cambios en el Heading
+            const double rollAngleThreshold = 3.0;    // Umbral para detectar inicio de viraje (RollAngle)
+            const double headingChangeThreshold = 3.0; // Umbral para detectar cambios en el Heading
 
             // Obtener valores actuales del avión
-            double currentHeading = Convert.ToDouble(flightData.MagneticHeading); //***************** esta be?
+            double currentHeading = Convert.ToDouble(flightData.MagneticHeading); 
             double currentRollAngle = Convert.ToDouble(flightData.RollAngle);
             double currentLatitude = Convert.ToDouble(flightData.Lat);
             double currentLongitude = Convert.ToDouble(flightData.Lon);
+            double currentAltitude = Convert.ToDouble(flightData.Altitude);
 
-            // Detectar si hay un cambio significativo en RollAngle o Heading
+            // Restricciones de altitud (según SID: ejemplo ficticio)
+            const double minimumAltitude = 500; // Altitud mínima antes de realizar el viraje
+            const double maximumAltitude = 3000; // Altitud máxima durante el viraje
+
+
+            // Detectar si el avión está en el punto de inicio del viraje
+            bool isAlignedWithRunway = Math.Abs(currentHeading - initialHeading) <= headingChangeThreshold;
             bool rollStart = Math.Abs(currentRollAngle) > rollAngleThreshold;
-            bool headingStart = Math.Abs(currentHeading - initialHeading) > headingChangeThreshold;
 
-            // Si detectamos inicio de viraje
-            if (rollStart || headingStart)
+            // Detectar si el avión cumple con las restricciones de altitud
+            bool validAltitude = currentAltitude >= minimumAltitude && currentAltitude <= maximumAltitude;
+
+            if ((rollStart || isAlignedWithRunway) && validAltitude)
             {
                 // Cálculo del radial al DVOR BCN
                 double radial = CalculateRadial(currentLatitude, currentLongitude);
 
-                // Retornar el punto donde se inicia el viraje
-                return new TurnStartPoint
+                // Verificar el cumplimiento del radial según las SID (234° ± 2°)
+                if (radial >= 232 && radial <= 236)
                 {
-                    FlightId = flightData.AircraftID, // Cambiar según tu propiedad para ID del avión
-                    Latitude = currentLatitude,
-                    Longitude = currentLongitude,
-                    Altitude = Convert.ToDouble(flightData.Altitude),
-                    Radial = radial
-                };
+                    return new TurnStartPoint
+                    {
+                        FlightId = flightData.AircraftID, // Cambiar según tu propiedad para ID del avión
+                        Latitude = currentLatitude,
+                        Longitude = currentLongitude,
+                        Altitude = currentAltitude,
+                        Radial = radial
+                    };
+                }
             }
 
-            // Si no hay viraje detectado, retornar null
+            // Si no hay viraje detectado o no cumple con las restricciones, retornar null
             return null;
         }
+
+
+
         static double CalculateRadial(double lat, double lon)
         {
-            // Calcular el radial desde el DVOR BCN (41.297445, 2.083294)
-            double dLat = lat - 41.297445;
-            double dLon = lon - 2.083294;
+            // Calcular el radial desde el DVOR BCN (41.307222,  2.107778)
+            double dLat = lat - 41.307222;
+            double dLon = lon - 2.107778;
             double angle = Math.Atan2(dLon, dLat) * (180 / Math.PI);
             return (angle + 360) % 360; // Normalizar a 0-360 grados
         }
@@ -1045,11 +1118,18 @@ namespace FormsAsterix
             };
         }
 
+        //*********************** FALTA MIRAR SI EL QUE RETORNA ES EL QUE ES DEMANA
         static bool CheckSIDCompliance(TurnStartPoint point)
         {
             // Comprobar si el radial y la posición cumplen con la nota de la SID
-            double requiredRadial = 234;
-            return point.Radial >= requiredRadial - 2 && point.Radial <= requiredRadial + 2;
+            const double requiredRadial = 234;
+            const double radialMargin = 2; // ± 2 grados de tolerancia
+            const double minAltitude = 500; // Restricción mínima de altitud
+            const double maxAltitude = 3000; // Restricción máxima de altitud
+
+            return point.Radial >= requiredRadial - radialMargin &&
+                   point.Radial <= requiredRadial + radialMargin &&
+                   point.Altitude >= minAltitude && point.Altitude <= maxAltitude;
         }
 
         // Clases de apoyo
@@ -1081,6 +1161,131 @@ namespace FormsAsterix
             public double AverageAltitude { get; set; }
             public double AverageRadial { get; set; }
         }
+
+        // Method to generate a KML file ******************* NO ESTA BE
+        static void GetKML(List<PlaneFilter> originalData)
+        {
+            // Initialize a SaveFileDialog to allow the user to choose where to save the KML file
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Archivo KML|*.kml";
+            saveFileDialog.Title = "Guardar archivo KML";
+
+
+            DialogResult result = saveFileDialog.ShowDialog();
+
+            // If the user selects a file path and clicks OK
+            if (result == DialogResult.OK)
+            {
+                string filePath = saveFileDialog.FileName; // Saves the file name 
+
+                // Dictionary to store aircraft data with the name of the aircraft as the key
+                Dictionary<string, KML_DATA> posicionesDeRepeticiones = new Dictionary<string, KML_DATA>();
+
+                // Iterate over each item in the "bloque" list (aircraft data)
+                for (int i = 0; i < originalData.Count; i++)
+                {
+                    if (originalData[i].TakeoffRWY == "LEBL-24L")
+                    {
+                        string nombre = originalData[i].AircraftID;
+                        if (!posicionesDeRepeticiones.ContainsKey(nombre))
+                        {
+                            posicionesDeRepeticiones[nombre] = new KML_DATA();
+                            posicionesDeRepeticiones[nombre].Positions = new List<Vector>();
+                            posicionesDeRepeticiones[nombre].Description = "Aircraft address: " + nombre + " ; Aircraft indentification: " + originalData[i].AircraftID + " ; Track number: " + originalData[i].TrackNum;
+                        }
+                        posicionesDeRepeticiones[nombre].Positions.Add(new Vector(originalData[i].Lat, originalData[i].Lon, originalData[i].Altitude));
+                    }
+                }
+
+                // Create the KML document and KML object
+                var document = new Document();
+                var kml = new Kml();
+
+                int styleCount = 0; // Counter to create unique style IDs for each aircraft
+                // Loop through the dictionary to create KML elements for each aircraft
+                foreach (var kvp in posicionesDeRepeticiones)
+                {
+                    string nombreAeronave = kvp.Key;
+                    string description = kvp.Value.Description;
+
+                    var placemark = new SharpKml.Dom.Placemark();
+                    placemark.Name = nombreAeronave;
+                    placemark.Description = new Description { Text = description };
+
+                    // Create a custom style for each placemark
+                    var style = new Style();
+                    style.Id = "Style" + styleCount;
+                    style.Line = new LineStyle
+                    {
+                        Color = new Color32(255, 0, 0, 255),
+                        Width = 0.5
+                    };
+
+                    placemark.StyleUrl = new Uri("#" + style.Id, UriKind.Relative); // Link the style to the placemark
+
+                    // Create a LineString geometry (path of the aircraft's trajectory)
+                    var lineString = new LineString();
+                    lineString.Coordinates = new CoordinateCollection();
+
+                    var point = new SharpKml.Dom.Point();
+
+                    // Iterate through the positions of the aircraft and add them as coordinates in the LineString
+                    foreach (Vector posicion in kvp.Value.Positions)
+                    {
+                        lineString.Coordinates.Add(posicion);
+                        if (posicion.Altitude <= 1828.8)
+                        {
+                            lineString.AltitudeMode = AltitudeMode.RelativeToGround;
+                        }
+                        else
+                        {
+                            lineString.AltitudeMode = AltitudeMode.Absolute;
+                        }
+
+                    }
+
+                    placemark.Geometry = lineString;
+
+                    // Add the custom style to the KML
+                    document.AddStyle(style);
+                    document.AddFeature(placemark);
+
+                    styleCount++;
+                }
+
+                Style lineStyle = new Style();
+                lineStyle.Line = new LineStyle();
+                lineStyle.Line.Width = 5;
+                lineStyle.Line.Color = new Color32(0, 255, 0, 255);
+
+                document.AddStyle(lineStyle);
+
+                // Add the document (with all the placemarks) to the KML object
+                kml.Feature = document;
+
+                // Create a KML file from the document object
+                KmlFile kmlFile = KmlFile.Create(kml, false);
+
+                // Save file to a memory stream
+                MemoryStream memStream = new MemoryStream();
+                kmlFile.Save(memStream);
+
+                // Write the KML data from the memory stream to the file
+                using (FileStream fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    memStream.Seek(0, SeekOrigin.Begin);
+                    memStream.CopyTo(fileStream);
+                }
+            }
+        }
+
+        private class KML_DATA
+        {
+            public List<Vector> Positions { get; set; }
+            public string Description { get; set; }
+        }
+
+        
 
     }
 }

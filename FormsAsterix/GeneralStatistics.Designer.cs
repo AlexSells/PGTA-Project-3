@@ -43,7 +43,7 @@
             this.GenStatisticsGird.Name = "GenStatisticsGird";
             this.GenStatisticsGird.RowHeadersWidth = 51;
             this.GenStatisticsGird.RowTemplate.Height = 24;
-            this.GenStatisticsGird.Size = new System.Drawing.Size(407, 223);
+            this.GenStatisticsGird.Size = new System.Drawing.Size(389, 175);
             this.GenStatisticsGird.TabIndex = 0;
             // 
             // label1
@@ -73,14 +73,14 @@
             this.IncidentStatsGrid.Name = "IncidentStatsGrid";
             this.IncidentStatsGrid.RowHeadersWidth = 51;
             this.IncidentStatsGrid.RowTemplate.Height = 24;
-            this.IncidentStatsGrid.Size = new System.Drawing.Size(407, 223);
+            this.IncidentStatsGrid.Size = new System.Drawing.Size(388, 175);
             this.IncidentStatsGrid.TabIndex = 2;
             // 
             // GeneralStatistics
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(933, 450);
+            this.ClientSize = new System.Drawing.Size(933, 375);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.IncidentStatsGrid);
             this.Controls.Add(this.label1);
