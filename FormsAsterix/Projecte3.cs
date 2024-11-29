@@ -442,12 +442,167 @@ namespace FormsAsterix
             else { MessageBox.Show("CSV file generation failed"); }
         }
 
+
+        public void EreaseMainColumn(string nombreEncabezado)
+        {
+            // Buscar la columna por nombre de encabezado
+            foreach (DataGridViewColumn columna in dataGridProject3.Columns)
+            {
+                if (columna.HeaderText == nombreEncabezado)
+                {
+                    // Eliminar la columna
+                    dataGridProject3.Columns.Remove(columna);
+                    return; // Salir del método después de eliminar la columna
+                }
+            }
+        }
+        public void EreaseFilteredColumn(string nombreEncabezado)
+        {
+            // Buscar la columna por nombre de encabezado
+            foreach (DataGridViewColumn columna in dataGridProject3.Columns)
+            {
+                if (columna.HeaderText == nombreEncabezado)
+                {
+                    // Eliminar la columna
+                    dataGridProject3.Columns.Remove(columna);
+                    return; // Salir del método después de eliminar la columna
+                }
+            }
+        }
+        public void ReplaceString2(int column, string string2change, string replace, int selGrid)
+        {
+            
+            if (selGrid == 0)
+            {
+                if (dataGridProject3.Rows.Count != 0)
+                {
+                    // Convertir la columna 7 en una columna de strings
+                    ConvertMainColumnToString(column, "Roll Angle", "Roll Angle");
+
+                    // Recorrer las filas y modificar los valores
+                    foreach (DataGridViewRow fila in dataGridProject3.Rows)
+                    {
+                        if (!fila.IsNewRow) // Ignorar filas nuevas
+                        {
+                            // Obtener el valor actual de la celda
+                            object valorActual = fila.Cells[column].Value;
+
+                            // Reemplazar el valor si coincide con `string2change`
+                            if (valorActual != null && valorActual.ToString() == string2change)
+                            {
+                                fila.Cells[column].Value = replace; // Asignar el nuevo valor como string
+                            }
+                            else if (valorActual != null)
+                            {
+                                fila.Cells[column].Value = valorActual.ToString(); // Asegurar que sea string
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (DataGridFiltrado.Rows.Count != 0)
+                {
+                    // Convertir la columna 7 en una columna de strings
+                    ConvertFilteredColumnToString(column, "Roll Angle", "Roll Angle");
+
+                    // Recorrer las filas y modificar los valores
+                    foreach (DataGridViewRow fila in DataGridFiltrado.Rows)
+                    {
+                        if (!fila.IsNewRow) // Ignorar filas nuevas
+                        {
+                            // Obtener el valor actual de la celda
+                            object valorActual = fila.Cells[column].Value;
+
+                            // Reemplazar el valor si coincide con `string2change`
+                            if (valorActual != null && valorActual.ToString() == string2change)
+                            {
+                                fila.Cells[column].Value = replace; // Asignar el nuevo valor como string
+                            }
+                            else if (valorActual != null)
+                            {
+                                fila.Cells[column].Value = valorActual.ToString(); // Asegurar que sea string
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
+
+        // Método para convertir una columna en tipo string
+        public void ConvertMainColumnToString(int column, string name, string header)
+        {
+            // Crear una nueva columna de tipo string
+            DataGridViewTextBoxColumn nuevaColumna = new DataGridViewTextBoxColumn
+            {
+                Name = name,
+                HeaderText = header,
+                ValueType = typeof(string)
+            };
+
+            // Guardar el índice de la columna actual
+            int indiceColumna = column;
+
+            // Eliminar la columna antigua
+            dataGridProject3.Columns.RemoveAt(indiceColumna);
+
+            // Insertar la nueva columna en la misma posición
+            dataGridProject3.Columns.Insert(indiceColumna, nuevaColumna);
+            int i = 0;
+            // Copiar los valores antiguos a la nueva columna como strings
+            foreach (DataGridViewRow fila in dataGridProject3.Rows)
+            {
+                if (!fila.IsNewRow) // Ignorar filas nuevas
+                {
+                    object valorAntiguo = fila.Cells[indiceColumna].Value;
+                    fila.Cells[indiceColumna].Value = ListFilteredPlanes[i].RollAngle.ToString(); // Convertir a string
+                }
+                i++;
+            }
+            
+        }
+        
+        // Método para convertir una columna en tipo string
+        public void ConvertFilteredColumnToString(int column, string name, string header)
+        {
+            // Crear una nueva columna de tipo string
+            DataGridViewTextBoxColumn nuevaColumna = new DataGridViewTextBoxColumn
+            {
+                Name = name,
+                HeaderText = header,
+                ValueType = typeof(string)
+            };
+
+            // Guardar el índice de la columna actual
+            int indiceColumna = column;
+
+            // Eliminar la columna antigua
+            DataGridFiltrado.Columns.RemoveAt(indiceColumna);
+
+            // Insertar la nueva columna en la misma posición
+            DataGridFiltrado.Columns.Insert(indiceColumna, nuevaColumna);
+            int i = 0;
+            // Copiar los valores antiguos a la nueva columna como strings
+            foreach (DataGridViewRow fila in DataGridFiltrado.Rows)
+            {
+                if (!fila.IsNewRow) // Ignorar filas nuevas
+                {
+                    object valorAntiguo = fila.Cells[indiceColumna].Value;
+                    fila.Cells[indiceColumna].Value = ListFilteredPlanes[fila.Index].RollAngle.ToString(); // Convertir a string
+                }
+                i++;
+            }
+
+        }
         private void Projecte3_Load(object sender, EventArgs e)
         {
             ListFilteredPlanes = ListFilteredPlanes.OrderBy(data => data.time_sec).ToList();
             dataGridProject3.RowHeadersDefaultCellStyle.Font = new Font(dataGridProject3.Font, FontStyle.Bold);
             dataGridProject3.RowHeadersDefaultCellStyle.BackColor = Color.LightCyan;
             dataGridProject3.DataSource = ListFilteredPlanes;
+            ReplaceString2(7,"-999", "NAN", 0);
 
             //GenStatisticsBtn.Enabled = false;
             //GenStatisticsBtn.Visible = false;
@@ -486,6 +641,9 @@ namespace FormsAsterix
 
             // Refresh the DataGridView to reflect any changes in its UI.
             dataGridProject3.Refresh();
+            ReplaceString2(7, "-999", "NAN", 0);
+            // Eliminar la columna
+            dataGridProject3.Columns.RemoveAt(0);
         }
         private Dictionary<string, List<Control>> filterControls = new Dictionary<string, List<Control>>();
         private Dictionary<string, Dictionary_Info> originalColumnNames = new Dictionary<string, Dictionary_Info>();
@@ -838,6 +996,10 @@ namespace FormsAsterix
             DataGridFiltrado.DataSource = new BindingSource { DataSource = filteredData };
             DataGridFiltrado.Visible = true;
 
+            ReplaceString2(7, "-999", "NAN", 1);
+            // Eliminar la columna
+            DataGridFiltrado.Columns.RemoveAt(0);
+            EreaseMainColumn("RollAngle");
             // Ocultar el DataGridView original
             dataGridProject3.Visible = false;
         }
@@ -922,10 +1084,14 @@ namespace FormsAsterix
             dataGridProject3.DataSource = null;
             dataGridProject3.DataSource = ListFilteredPlanes;
             ListFilteredPlanes = ListFilteredPlanes.OrderBy(data => data.time_sec).ToList();
+            
 
             // Refrescar el DataGrid
             dataGridProject3.Refresh();
-
+            ReplaceString2(7, "-999", "NAN", 0);
+            // Eliminar la columna
+            dataGridProject3.Columns.RemoveAt(0);
+            EreaseMainColumn("RollAngle");
         }
 
         private void FilteredValues_Click(object sender, EventArgs e)
@@ -1252,7 +1418,7 @@ namespace FormsAsterix
 
         private void BTNCountLeft_Click(object sender, EventArgs e)
         {
-            LBLNumLeft.Text = "Total LEBL-06R takeoffs=" + CountTakeoffRWY(ListFilteredPlanes, "LEBEL-24L");
+            LBLNumLeft.Text = "Total LEBL-24L takeoffs=" + CountTakeoffRWY(ListFilteredPlanes, "LEBEL-24L");
         }
 
         class Statistics
