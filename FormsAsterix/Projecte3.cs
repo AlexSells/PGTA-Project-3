@@ -255,15 +255,6 @@ namespace FormsAsterix
             }
             return check;
         }
-        public void WriteANS()
-        {
-            ANSTotalComparision.Text = $"Total messages = {TotalMessageComparation}";
-            ANSIncidentPlanes.Text = $"Total planes with incidents = {TotalIncidencePlanes}";
-            ANSTotalEstelaComparations.Text = $"Total messages estela = {TotalEstaleComparationMessages}";
-            ANSTotalRadar.Text = $"Total radar incidents = {TotalRadarIncidents}";
-            ANSTotalEstela.Text = $"Total estela incidents = {TotalEstelaIncidents}";
-            ANSTotalLoA.Text = $"Total LoA incidents = {TotalLoAIncidents}";
-        }
         public bool IncidenceDetector(bool auxDetection, string PlaneFront, string auxPlaneBack)
         {
             bool check = true;
@@ -295,7 +286,7 @@ namespace FormsAsterix
         
         private void Back2P2Btn_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void LoadTableBtn_Click(object sender, EventArgs e)
@@ -443,7 +434,7 @@ namespace FormsAsterix
                         }
                     }
                 }
-                WriteANS();
+                
 
                 File.WriteAllText(filePath, sbCSV.ToString());
                 MessageBox.Show("CSV file generated");
@@ -1241,6 +1232,27 @@ namespace FormsAsterix
             public double Longitude { get; set; }
             public double Altitude { get; set; }
             public double Radial { get; set; }
+        }
+        public int CountTakeoffRWY(List<PlaneFilter> planes, string rwy)
+        {
+            int count = 0;
+            for (int i = 0; i < planes.Count; i++)
+            { 
+                if (planes[i].TakeoffRWY == rwy)
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
+        private void BTNCountRight_Click(object sender, EventArgs e)
+        {
+            LBLNumRight.Text = "Total LEBL-06R takeoffs="+CountTakeoffRWY(ListFilteredPlanes, "LEBL-06R");
+        }
+
+        private void BTNCountLeft_Click(object sender, EventArgs e)
+        {
+            LBLNumLeft.Text = "Total LEBL-06R takeoffs=" + CountTakeoffRWY(ListFilteredPlanes, "LEBEL-24L");
         }
 
         class Statistics

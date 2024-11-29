@@ -31,21 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Projecte3));
             this.dataGridProject3 = new System.Windows.Forms.DataGridView();
             this.Project3ToolStrip = new System.Windows.Forms.ToolStrip();
-            this.TotalPlanesTxt = new System.Windows.Forms.Label();
-            this.IncidentPlanesTxt = new System.Windows.Forms.Label();
-            this.TotalComparationsTxt = new System.Windows.Forms.Label();
-            this.TotalEstelaComparationsTxt = new System.Windows.Forms.Label();
-            this.TotalRadarTxt = new System.Windows.Forms.Label();
-            this.TotalEstelaTxt = new System.Windows.Forms.Label();
-            this.TotalLoATxt = new System.Windows.Forms.Label();
-            this.ANSTotalComparision = new System.Windows.Forms.Label();
-            this.ANSTotalEstelaComparations = new System.Windows.Forms.Label();
-            this.ANSTotalRadar = new System.Windows.Forms.Label();
-            this.ANSTotalEstela = new System.Windows.Forms.Label();
-            this.ANSTotalLoA = new System.Windows.Forms.Label();
-            this.ANSTotalPlanes = new System.Windows.Forms.Label();
-            this.ANSIncidentPlanes = new System.Windows.Forms.Label();
-            this.DataGridFiltrado = new System.Windows.Forms.DataGridView();
             this.Back2P2Btn = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.LoadTableBtn = new System.Windows.Forms.ToolStripButton();
@@ -57,14 +42,21 @@
             this.DistanceCSVBtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
             this.GenStatisticsBtn = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton9 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton10 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
             this.Btn_Filter = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton7 = new System.Windows.Forms.ToolStripButton();
             this.FilteredValues = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton8 = new System.Windows.Forms.ToolStripButton();
             this.Return_Btn = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton9 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton10 = new System.Windows.Forms.ToolStripButton();
+            this.TotalPlanesTxt = new System.Windows.Forms.Label();
+            this.ANSTotalPlanes = new System.Windows.Forms.Label();
+            this.DataGridFiltrado = new System.Windows.Forms.DataGridView();
+            this.BTNCountRight = new System.Windows.Forms.Button();
+            this.BTNCountLeft = new System.Windows.Forms.Button();
+            this.LBLNumRight = new System.Windows.Forms.Label();
+            this.LBLNumLeft = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridProject3)).BeginInit();
             this.Project3ToolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridFiltrado)).BeginInit();
@@ -108,149 +100,9 @@
             this.Return_Btn});
             this.Project3ToolStrip.Location = new System.Drawing.Point(0, 0);
             this.Project3ToolStrip.Name = "Project3ToolStrip";
-            this.Project3ToolStrip.Size = new System.Drawing.Size(1482, 27);
+            this.Project3ToolStrip.Size = new System.Drawing.Size(1482, 31);
             this.Project3ToolStrip.TabIndex = 7;
             this.Project3ToolStrip.Text = "toolStrip";
-            // 
-            // TotalPlanesTxt
-            // 
-            this.TotalPlanesTxt.AutoSize = true;
-            this.TotalPlanesTxt.Location = new System.Drawing.Point(25, 50);
-            this.TotalPlanesTxt.Name = "TotalPlanesTxt";
-            this.TotalPlanesTxt.Size = new System.Drawing.Size(83, 16);
-            this.TotalPlanesTxt.TabIndex = 8;
-            this.TotalPlanesTxt.Text = "Total Planes";
-            // 
-            // IncidentPlanesTxt
-            // 
-            this.IncidentPlanesTxt.AutoSize = true;
-            this.IncidentPlanesTxt.Location = new System.Drawing.Point(25, 150);
-            this.IncidentPlanesTxt.Name = "IncidentPlanesTxt";
-            this.IncidentPlanesTxt.Size = new System.Drawing.Size(98, 16);
-            this.IncidentPlanesTxt.TabIndex = 9;
-            this.IncidentPlanesTxt.Text = "Incident Planes";
-            // 
-            // TotalComparationsTxt
-            // 
-            this.TotalComparationsTxt.AutoSize = true;
-            this.TotalComparationsTxt.Location = new System.Drawing.Point(25, 250);
-            this.TotalComparationsTxt.Name = "TotalComparationsTxt";
-            this.TotalComparationsTxt.Size = new System.Drawing.Size(125, 16);
-            this.TotalComparationsTxt.TabIndex = 10;
-            this.TotalComparationsTxt.Text = "Total Comparations";
-            // 
-            // TotalEstelaComparationsTxt
-            // 
-            this.TotalEstelaComparationsTxt.AutoSize = true;
-            this.TotalEstelaComparationsTxt.Location = new System.Drawing.Point(25, 350);
-            this.TotalEstelaComparationsTxt.Name = "TotalEstelaComparationsTxt";
-            this.TotalEstelaComparationsTxt.Size = new System.Drawing.Size(169, 16);
-            this.TotalEstelaComparationsTxt.TabIndex = 11;
-            this.TotalEstelaComparationsTxt.Text = "Total Estela Comparations ";
-            // 
-            // TotalRadarTxt
-            // 
-            this.TotalRadarTxt.AutoSize = true;
-            this.TotalRadarTxt.Location = new System.Drawing.Point(25, 450);
-            this.TotalRadarTxt.Name = "TotalRadarTxt";
-            this.TotalRadarTxt.Size = new System.Drawing.Size(79, 16);
-            this.TotalRadarTxt.TabIndex = 12;
-            this.TotalRadarTxt.Text = "Total Radar";
-            // 
-            // TotalEstelaTxt
-            // 
-            this.TotalEstelaTxt.AutoSize = true;
-            this.TotalEstelaTxt.Location = new System.Drawing.Point(25, 550);
-            this.TotalEstelaTxt.Name = "TotalEstelaTxt";
-            this.TotalEstelaTxt.Size = new System.Drawing.Size(79, 16);
-            this.TotalEstelaTxt.TabIndex = 13;
-            this.TotalEstelaTxt.Text = "Total Estela";
-            // 
-            // TotalLoATxt
-            // 
-            this.TotalLoATxt.AutoSize = true;
-            this.TotalLoATxt.Location = new System.Drawing.Point(25, 650);
-            this.TotalLoATxt.Name = "TotalLoATxt";
-            this.TotalLoATxt.Size = new System.Drawing.Size(65, 16);
-            this.TotalLoATxt.TabIndex = 14;
-            this.TotalLoATxt.Text = "Total LoA";
-            // 
-            // ANSTotalComparision
-            // 
-            this.ANSTotalComparision.AutoSize = true;
-            this.ANSTotalComparision.Location = new System.Drawing.Point(25, 300);
-            this.ANSTotalComparision.Name = "ANSTotalComparision";
-            this.ANSTotalComparision.Size = new System.Drawing.Size(74, 16);
-            this.ANSTotalComparision.TabIndex = 15;
-            this.ANSTotalComparision.Text = "Nothing yet";
-            // 
-            // ANSTotalEstelaComparations
-            // 
-            this.ANSTotalEstelaComparations.AutoSize = true;
-            this.ANSTotalEstelaComparations.Location = new System.Drawing.Point(25, 400);
-            this.ANSTotalEstelaComparations.Name = "ANSTotalEstelaComparations";
-            this.ANSTotalEstelaComparations.Size = new System.Drawing.Size(74, 16);
-            this.ANSTotalEstelaComparations.TabIndex = 16;
-            this.ANSTotalEstelaComparations.Text = "Nothing yet";
-            // 
-            // ANSTotalRadar
-            // 
-            this.ANSTotalRadar.AutoSize = true;
-            this.ANSTotalRadar.Location = new System.Drawing.Point(25, 500);
-            this.ANSTotalRadar.Name = "ANSTotalRadar";
-            this.ANSTotalRadar.Size = new System.Drawing.Size(74, 16);
-            this.ANSTotalRadar.TabIndex = 17;
-            this.ANSTotalRadar.Text = "Nothing yet";
-            // 
-            // ANSTotalEstela
-            // 
-            this.ANSTotalEstela.AutoSize = true;
-            this.ANSTotalEstela.Location = new System.Drawing.Point(25, 600);
-            this.ANSTotalEstela.Name = "ANSTotalEstela";
-            this.ANSTotalEstela.Size = new System.Drawing.Size(74, 16);
-            this.ANSTotalEstela.TabIndex = 18;
-            this.ANSTotalEstela.Text = "Nothing yet";
-            // 
-            // ANSTotalLoA
-            // 
-            this.ANSTotalLoA.AutoSize = true;
-            this.ANSTotalLoA.Location = new System.Drawing.Point(25, 700);
-            this.ANSTotalLoA.Name = "ANSTotalLoA";
-            this.ANSTotalLoA.Size = new System.Drawing.Size(74, 16);
-            this.ANSTotalLoA.TabIndex = 19;
-            this.ANSTotalLoA.Text = "Nothing yet";
-            // 
-            // ANSTotalPlanes
-            // 
-            this.ANSTotalPlanes.AutoSize = true;
-            this.ANSTotalPlanes.Location = new System.Drawing.Point(25, 100);
-            this.ANSTotalPlanes.Name = "ANSTotalPlanes";
-            this.ANSTotalPlanes.Size = new System.Drawing.Size(74, 16);
-            this.ANSTotalPlanes.TabIndex = 20;
-            this.ANSTotalPlanes.Text = "Nothing yet";
-            // 
-            // ANSIncidentPlanes
-            // 
-            this.ANSIncidentPlanes.AutoSize = true;
-            this.ANSIncidentPlanes.Location = new System.Drawing.Point(25, 200);
-            this.ANSIncidentPlanes.Name = "ANSIncidentPlanes";
-            this.ANSIncidentPlanes.Size = new System.Drawing.Size(74, 16);
-            this.ANSIncidentPlanes.TabIndex = 21;
-            this.ANSIncidentPlanes.Text = "Nothing yet";
-            // 
-            // DataGridFiltrado
-            // 
-            this.DataGridFiltrado.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.DataGridFiltrado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridFiltrado.Location = new System.Drawing.Point(240, 50);
-            this.DataGridFiltrado.Name = "DataGridFiltrado";
-            this.DataGridFiltrado.RowHeadersWidth = 51;
-            this.DataGridFiltrado.RowTemplate.Height = 24;
-            this.DataGridFiltrado.Size = new System.Drawing.Size(1230, 653);
-            this.DataGridFiltrado.TabIndex = 22;
-            this.DataGridFiltrado.Visible = false;
             // 
             // Back2P2Btn
             // 
@@ -258,7 +110,7 @@
             this.Back2P2Btn.Image = global::FormsAsterix.Properties.Resources.back;
             this.Back2P2Btn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Back2P2Btn.Name = "Back2P2Btn";
-            this.Back2P2Btn.Size = new System.Drawing.Size(102, 24);
+            this.Back2P2Btn.Size = new System.Drawing.Size(102, 28);
             this.Back2P2Btn.Text = "Back to P2";
             this.Back2P2Btn.Click += new System.EventHandler(this.Back2P2Btn_Click);
             // 
@@ -268,7 +120,7 @@
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(29, 24);
+            this.toolStripButton1.Size = new System.Drawing.Size(29, 28);
             this.toolStripButton1.Text = "toolStripButton1";
             // 
             // LoadTableBtn
@@ -277,7 +129,7 @@
             this.LoadTableBtn.Image = global::FormsAsterix.Properties.Resources.loading;
             this.LoadTableBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.LoadTableBtn.Name = "LoadTableBtn";
-            this.LoadTableBtn.Size = new System.Drawing.Size(104, 24);
+            this.LoadTableBtn.Size = new System.Drawing.Size(104, 28);
             this.LoadTableBtn.Text = "Load table";
             this.LoadTableBtn.Click += new System.EventHandler(this.LoadTableBtn_Click);
             // 
@@ -287,7 +139,7 @@
             this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(29, 24);
+            this.toolStripButton2.Size = new System.Drawing.Size(29, 28);
             this.toolStripButton2.Text = "toolStripButton2";
             // 
             // LoadSID06RBtn
@@ -296,7 +148,7 @@
             this.LoadSID06RBtn.Image = global::FormsAsterix.Properties.Resources.loading;
             this.LoadSID06RBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.LoadSID06RBtn.Name = "LoadSID06RBtn";
-            this.LoadSID06RBtn.Size = new System.Drawing.Size(122, 24);
+            this.LoadSID06RBtn.Size = new System.Drawing.Size(122, 28);
             this.LoadSID06RBtn.Text = "Load SID 06R";
             this.LoadSID06RBtn.Click += new System.EventHandler(this.LoadSID06RBtn_Click);
             // 
@@ -306,7 +158,7 @@
             this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
             this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(29, 24);
+            this.toolStripButton3.Size = new System.Drawing.Size(29, 28);
             this.toolStripButton3.Text = "toolStripButton3";
             // 
             // LoadSID24LBtn
@@ -315,7 +167,7 @@
             this.LoadSID24LBtn.Image = global::FormsAsterix.Properties.Resources.loading;
             this.LoadSID24LBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.LoadSID24LBtn.Name = "LoadSID24LBtn";
-            this.LoadSID24LBtn.Size = new System.Drawing.Size(120, 24);
+            this.LoadSID24LBtn.Size = new System.Drawing.Size(120, 28);
             this.LoadSID24LBtn.Text = "Load SID 24L";
             this.LoadSID24LBtn.Click += new System.EventHandler(this.LoadSID24LBtn_Click);
             // 
@@ -325,7 +177,7 @@
             this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
             this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(29, 24);
+            this.toolStripButton4.Size = new System.Drawing.Size(29, 28);
             this.toolStripButton4.Text = "toolStripButton4";
             // 
             // DistanceCSVBtn
@@ -334,7 +186,7 @@
             this.DistanceCSVBtn.Image = global::FormsAsterix.Properties.Resources.distance;
             this.DistanceCSVBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.DistanceCSVBtn.Name = "DistanceCSVBtn";
-            this.DistanceCSVBtn.Size = new System.Drawing.Size(120, 24);
+            this.DistanceCSVBtn.Size = new System.Drawing.Size(120, 28);
             this.DistanceCSVBtn.Text = "Distance CSV";
             this.DistanceCSVBtn.Click += new System.EventHandler(this.DistanceCSVBtn_Click);
             // 
@@ -344,7 +196,7 @@
             this.toolStripButton5.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton5.Image")));
             this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton5.Name = "toolStripButton5";
-            this.toolStripButton5.Size = new System.Drawing.Size(29, 24);
+            this.toolStripButton5.Size = new System.Drawing.Size(29, 28);
             this.toolStripButton5.Text = "toolStripButton5";
             // 
             // GenStatisticsBtn
@@ -353,9 +205,27 @@
             this.GenStatisticsBtn.Image = global::FormsAsterix.Properties.Resources.statistics__1_;
             this.GenStatisticsBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.GenStatisticsBtn.Name = "GenStatisticsBtn";
-            this.GenStatisticsBtn.Size = new System.Drawing.Size(91, 24);
+            this.GenStatisticsBtn.Size = new System.Drawing.Size(91, 28);
             this.GenStatisticsBtn.Text = "Statistics";
             this.GenStatisticsBtn.Click += new System.EventHandler(this.GenStatisticsBtn_Click);
+            // 
+            // toolStripButton9
+            // 
+            this.toolStripButton9.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton9.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton9.Image")));
+            this.toolStripButton9.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton9.Name = "toolStripButton9";
+            this.toolStripButton9.Size = new System.Drawing.Size(29, 28);
+            // 
+            // toolStripButton10
+            // 
+            this.toolStripButton10.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.toolStripButton10.Image = global::FormsAsterix.Properties.Resources.plane;
+            this.toolStripButton10.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton10.Name = "toolStripButton10";
+            this.toolStripButton10.Size = new System.Drawing.Size(71, 28);
+            this.toolStripButton10.Text = "Viraje";
+            this.toolStripButton10.Click += new System.EventHandler(this.toolStripButton10_Click);
             // 
             // toolStripButton6
             // 
@@ -363,7 +233,7 @@
             this.toolStripButton6.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton6.Image")));
             this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton6.Name = "toolStripButton6";
-            this.toolStripButton6.Size = new System.Drawing.Size(29, 24);
+            this.toolStripButton6.Size = new System.Drawing.Size(29, 28);
             // 
             // Btn_Filter
             // 
@@ -371,7 +241,7 @@
             this.Btn_Filter.Image = global::FormsAsterix.Properties.Resources.filter;
             this.Btn_Filter.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Btn_Filter.Name = "Btn_Filter";
-            this.Btn_Filter.Size = new System.Drawing.Size(66, 24);
+            this.Btn_Filter.Size = new System.Drawing.Size(66, 28);
             this.Btn_Filter.Text = "Filter";
             this.Btn_Filter.Click += new System.EventHandler(this.Btn_Filter_Click);
             // 
@@ -381,7 +251,7 @@
             this.toolStripButton7.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton7.Image")));
             this.toolStripButton7.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton7.Name = "toolStripButton7";
-            this.toolStripButton7.Size = new System.Drawing.Size(29, 24);
+            this.toolStripButton7.Size = new System.Drawing.Size(29, 28);
             // 
             // FilteredValues
             // 
@@ -400,7 +270,7 @@
             this.toolStripButton8.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton8.Image")));
             this.toolStripButton8.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton8.Name = "toolStripButton8";
-            this.toolStripButton8.Size = new System.Drawing.Size(29, 24);
+            this.toolStripButton8.Size = new System.Drawing.Size(29, 28);
             // 
             // Return_Btn
             // 
@@ -413,43 +283,87 @@
             this.Return_Btn.Visible = false;
             this.Return_Btn.Click += new System.EventHandler(this.Return_Btn_Click);
             // 
-            // toolStripButton9
+            // TotalPlanesTxt
             // 
-            this.toolStripButton9.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton9.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton9.Image")));
-            this.toolStripButton9.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton9.Name = "toolStripButton9";
-            this.toolStripButton9.Size = new System.Drawing.Size(29, 24);
+            this.TotalPlanesTxt.AutoSize = true;
+            this.TotalPlanesTxt.Location = new System.Drawing.Point(25, 50);
+            this.TotalPlanesTxt.Name = "TotalPlanesTxt";
+            this.TotalPlanesTxt.Size = new System.Drawing.Size(83, 16);
+            this.TotalPlanesTxt.TabIndex = 8;
+            this.TotalPlanesTxt.Text = "Total Planes";
             // 
-            // toolStripButton10
+            // ANSTotalPlanes
             // 
-            this.toolStripButton10.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.toolStripButton10.Image = global::FormsAsterix.Properties.Resources.plane;
-            this.toolStripButton10.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton10.Name = "toolStripButton10";
-            this.toolStripButton10.Size = new System.Drawing.Size(71, 24);
-            this.toolStripButton10.Text = "Viraje";
-            this.toolStripButton10.Click += new System.EventHandler(this.toolStripButton10_Click);
+            this.ANSTotalPlanes.AutoSize = true;
+            this.ANSTotalPlanes.Location = new System.Drawing.Point(25, 100);
+            this.ANSTotalPlanes.Name = "ANSTotalPlanes";
+            this.ANSTotalPlanes.Size = new System.Drawing.Size(74, 16);
+            this.ANSTotalPlanes.TabIndex = 20;
+            this.ANSTotalPlanes.Text = "Nothing yet";
+            // 
+            // DataGridFiltrado
+            // 
+            this.DataGridFiltrado.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DataGridFiltrado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGridFiltrado.Location = new System.Drawing.Point(240, 50);
+            this.DataGridFiltrado.Name = "DataGridFiltrado";
+            this.DataGridFiltrado.RowHeadersWidth = 51;
+            this.DataGridFiltrado.RowTemplate.Height = 24;
+            this.DataGridFiltrado.Size = new System.Drawing.Size(1230, 653);
+            this.DataGridFiltrado.TabIndex = 22;
+            this.DataGridFiltrado.Visible = false;
+            // 
+            // BTNCountRight
+            // 
+            this.BTNCountRight.Location = new System.Drawing.Point(33, 263);
+            this.BTNCountRight.Name = "BTNCountRight";
+            this.BTNCountRight.Size = new System.Drawing.Size(75, 23);
+            this.BTNCountRight.TabIndex = 23;
+            this.BTNCountRight.Text = "Count Right";
+            this.BTNCountRight.UseVisualStyleBackColor = true;
+            this.BTNCountRight.Click += new System.EventHandler(this.BTNCountRight_Click);
+            // 
+            // BTNCountLeft
+            // 
+            this.BTNCountLeft.Location = new System.Drawing.Point(33, 388);
+            this.BTNCountLeft.Name = "BTNCountLeft";
+            this.BTNCountLeft.Size = new System.Drawing.Size(75, 23);
+            this.BTNCountLeft.TabIndex = 24;
+            this.BTNCountLeft.Text = "Count Left";
+            this.BTNCountLeft.UseVisualStyleBackColor = true;
+            this.BTNCountLeft.Click += new System.EventHandler(this.BTNCountLeft_Click);
+            // 
+            // LBLNumRight
+            // 
+            this.LBLNumRight.AutoSize = true;
+            this.LBLNumRight.Location = new System.Drawing.Point(30, 300);
+            this.LBLNumRight.Name = "LBLNumRight";
+            this.LBLNumRight.Size = new System.Drawing.Size(140, 16);
+            this.LBLNumRight.TabIndex = 25;
+            this.LBLNumRight.Text = "Please click the button";
+            // 
+            // LBLNumLeft
+            // 
+            this.LBLNumLeft.AutoSize = true;
+            this.LBLNumLeft.Location = new System.Drawing.Point(30, 425);
+            this.LBLNumLeft.Name = "LBLNumLeft";
+            this.LBLNumLeft.Size = new System.Drawing.Size(140, 16);
+            this.LBLNumLeft.TabIndex = 26;
+            this.LBLNumLeft.Text = "Please click the button";
             // 
             // Projecte3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1482, 763);
+            this.Controls.Add(this.LBLNumLeft);
+            this.Controls.Add(this.LBLNumRight);
+            this.Controls.Add(this.BTNCountLeft);
+            this.Controls.Add(this.BTNCountRight);
             this.Controls.Add(this.DataGridFiltrado);
-            this.Controls.Add(this.ANSIncidentPlanes);
             this.Controls.Add(this.ANSTotalPlanes);
-            this.Controls.Add(this.ANSTotalLoA);
-            this.Controls.Add(this.ANSTotalEstela);
-            this.Controls.Add(this.ANSTotalRadar);
-            this.Controls.Add(this.ANSTotalEstelaComparations);
-            this.Controls.Add(this.ANSTotalComparision);
-            this.Controls.Add(this.TotalLoATxt);
-            this.Controls.Add(this.TotalEstelaTxt);
-            this.Controls.Add(this.TotalRadarTxt);
-            this.Controls.Add(this.TotalEstelaComparationsTxt);
-            this.Controls.Add(this.TotalComparationsTxt);
-            this.Controls.Add(this.IncidentPlanesTxt);
             this.Controls.Add(this.TotalPlanesTxt);
             this.Controls.Add(this.Project3ToolStrip);
             this.Controls.Add(this.dataGridProject3);
@@ -479,19 +393,7 @@
         private System.Windows.Forms.ToolStripButton toolStripButton4;
         private System.Windows.Forms.ToolStripButton DistanceCSVBtn;
         private System.Windows.Forms.Label TotalPlanesTxt;
-        private System.Windows.Forms.Label IncidentPlanesTxt;
-        private System.Windows.Forms.Label TotalComparationsTxt;
-        private System.Windows.Forms.Label TotalEstelaComparationsTxt;
-        private System.Windows.Forms.Label TotalRadarTxt;
-        private System.Windows.Forms.Label TotalEstelaTxt;
-        private System.Windows.Forms.Label TotalLoATxt;
-        private System.Windows.Forms.Label ANSTotalComparision;
-        private System.Windows.Forms.Label ANSTotalEstelaComparations;
-        private System.Windows.Forms.Label ANSTotalRadar;
-        private System.Windows.Forms.Label ANSTotalEstela;
-        private System.Windows.Forms.Label ANSTotalLoA;
         private System.Windows.Forms.Label ANSTotalPlanes;
-        private System.Windows.Forms.Label ANSIncidentPlanes;
         private System.Windows.Forms.ToolStripButton toolStripButton5;
         private System.Windows.Forms.ToolStripButton GenStatisticsBtn;
         private System.Windows.Forms.ToolStripButton toolStripButton6;
@@ -503,5 +405,9 @@
         private System.Windows.Forms.ToolStripButton Return_Btn;
         private System.Windows.Forms.ToolStripButton toolStripButton9;
         private System.Windows.Forms.ToolStripButton toolStripButton10;
+        private System.Windows.Forms.Button BTNCountRight;
+        private System.Windows.Forms.Button BTNCountLeft;
+        private System.Windows.Forms.Label LBLNumRight;
+        private System.Windows.Forms.Label LBLNumLeft;
     }
 }
