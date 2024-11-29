@@ -151,29 +151,33 @@ namespace FormsAsterix
         }
         public void Classifier(string filePath, ref Dictionary<string, string> dict)
         {
-            ExcelPackage.LicenseContext = ExcelPackage.LicenseContext;
-            using (ExcelPackage package = new ExcelPackage(new FileInfo(filePath)))
+            try
             {
-                ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
-
-                int rowCount = worksheet.Dimension.Rows;
-                int columnCount = worksheet.Dimension.Columns;
-
-                for (int col = 1; col <= columnCount; col++)
+                ExcelPackage.LicenseContext = ExcelPackage.LicenseContext;
+                using (ExcelPackage package = new ExcelPackage(new FileInfo(filePath)))
                 {
-                    var First_Cell_Value = "";
-                    for (int row = 1; row <= rowCount; row++)
+                    ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
+
+                    int rowCount = worksheet.Dimension.Rows;
+                    int columnCount = worksheet.Dimension.Columns;
+
+                    for (int col = 1; col <= columnCount; col++)
                     {
-                        var cellValue = worksheet.Cells[row, col].Value?.ToString() ?? "";
-                        if (row != 1 && cellValue != "" && !dict.ContainsKey(cellValue))
+                        var First_Cell_Value = "";
+                        for (int row = 1; row <= rowCount; row++)
                         {
-                            dict.Add(cellValue, First_Cell_Value);
+                            var cellValue = worksheet.Cells[row, col].Value?.ToString() ?? "";
+                            if (row != 1 && cellValue != "" && !dict.ContainsKey(cellValue))
+                            {
+                                dict.Add(cellValue, First_Cell_Value);
+                            }
+                            else if (row == 1 && cellValue != "") { First_Cell_Value = cellValue; }
+                            else { continue; }
                         }
-                        else if (row == 1 && cellValue != "") { First_Cell_Value = cellValue; }
-                        else { continue; }
                     }
                 }
-            }
+            } catch { };
+            
         }
         public string SelectExcel()
         {
@@ -190,10 +194,10 @@ namespace FormsAsterix
         {
             bool aux = false;
             string filePath = SelectExcel();
-            if (filePath != "")
+            if (filePath != "" && filePath != null)
             {
                 string lastFile = Path.GetFileName(filePath);
-                MessageBox.Show(lastFile);
+               // MessageBox.Show(lastFile);
                 if (lastFile == auxFile)
                 {
                     Classifier(filePath, ref dict);
@@ -202,7 +206,7 @@ namespace FormsAsterix
                 }
                 else
                 {
-                    MessageBox.Show("Error loading the message");
+                    MessageBox.Show("Ooops! An error ocurred, please select the file again");
                 }
             }
             return aux;

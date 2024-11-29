@@ -120,10 +120,6 @@ namespace FormsAsterix
             }
         }
 
-
-
-
-
         public void ReadBinaryFile(string filePath)
         {
             try
@@ -773,7 +769,6 @@ namespace FormsAsterix
 
         }
 
-
         // To open a new ".ast" file without closing the simulation
         private void NewDataBut_Click(object sender, EventArgs e)
         {
@@ -865,7 +860,6 @@ namespace FormsAsterix
             formulari.Show();
         }
 
-
         // This method is designed to initialize the GMapControl with a set of configurations to ensure the map behaves as expected during the app's lifecycle
         int zoom = 7;
         private void gMapControl1_Load(object sender, EventArgs e)
@@ -894,7 +888,6 @@ namespace FormsAsterix
         // Functions to define the clock for the simulation
         int num_loop = 0;
 
-
         private void timer1_Tick(object sender, EventArgs e)
         {
             // Increment the initial time each time the timer is triggered
@@ -910,7 +903,6 @@ namespace FormsAsterix
             gMapControl1.Refresh();
 
         }
-
 
         private void Tick(ref long timeTick, ref int num_loop)
         {
@@ -1413,7 +1405,6 @@ namespace FormsAsterix
             }
         }
 
-
         private void CSV_File_Click(object sender, EventArgs e)
         {
             // Create a new SaveFileDialog instance to allow the user to select a file path
@@ -1854,9 +1845,6 @@ namespace FormsAsterix
             return stereographic_system;
         }
 
-
-
-
         public void DistanciaHoritzontal(List<double> longitudList_DH, List<double> latitudList_DH, List<double> AltitudeList_DH, List<String> AircraftIDList_sub, string A1, string A2)
         {
             double lat1 = 0, long1 = 0, height1 = 0;
@@ -1952,58 +1940,66 @@ namespace FormsAsterix
         {
             List<(string ID, string AircraftID, double sec, string, string, string, string, string)> data = new List<(string, string, double, string, string, string, string, string)>();
 
-            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
-            using (ExcelPackage package = new ExcelPackage(new System.IO.FileInfo(filePath)))
+            try
             {
-                // Assume data is in the first worksheet
-                ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
-
-                int countRow = worksheet.Dimension.Rows;
-                int countColumn = worksheet.Dimension.Columns;
-                int countBlanck = 0;
-
-                for (int rows = 2; rows <= countRow; rows++)
+                ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+                using (ExcelPackage package = new ExcelPackage(new System.IO.FileInfo(filePath)))
                 {
-                    // ID
-                    var column1 = worksheet.Cells[rows, 1].Value?.ToString() ?? "";
-                    // Indicative
-                    var column2 = worksheet.Cells[rows, 2].Value?.ToString() ?? "";
+                    // Assume data is in the first worksheet
+                    ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
 
-                    if (column1 != "" && column2 != "")
+                    int countRow = worksheet.Dimension.Rows;
+                    int countColumn = worksheet.Dimension.Columns;
+                    int countBlanck = 0;
+
+                    for (int rows = 2; rows <= countRow; rows++)
                     {
-                        var column7 = worksheet.Cells[rows, 7].Value?.ToString() ?? "";
-                        var column8 = worksheet.Cells[rows, 8].Value?.ToString() ?? "";
+                        // ID
+                        var column1 = worksheet.Cells[rows, 1].Value?.ToString() ?? "";
+                        // Indicative
+                        var column2 = worksheet.Cells[rows, 2].Value?.ToString() ?? "";
 
-                        var TakeoffProcess = " ";
-
-                        if (column7.Length > 2)
+                        if (column1 != "" && column2 != "")
                         {
-                            var TakeoffRWY = column8.Split('-');
-                            var aux = column7.Substring(0, column7.Length - 2);
-                            if (TakeoffRWY[1] == "24L") { TakeoffProcess = aux + "-Q"; }
-                            else if (TakeoffRWY[1] == "06R") { TakeoffProcess = aux + "-R"; }
-                            else { continue; }
+                            var column7 = worksheet.Cells[rows, 7].Value?.ToString() ?? "";
+                            var column8 = worksheet.Cells[rows, 8].Value?.ToString() ?? "";
+
+                            var TakeoffProcess = " ";
+
+                            if (column7.Length > 2)
+                            {
+                                var TakeoffRWY = column8.Split('-');
+                                var aux = column7.Substring(0, column7.Length - 2);
+                                if (TakeoffRWY[1] == "24L") { TakeoffProcess = aux + "-Q"; }
+                                else if (TakeoffRWY[1] == "06R") { TakeoffProcess = aux + "-R"; }
+                                else { continue; }
+                            }
+                            // Time
+                            var column3 = worksheet.Cells[rows, 3].Value?.ToString() ?? "";
+                            DateTime dateTime = DateTime.FromOADate(Convert.ToDouble(column3));
+                            double sec = dateTime.Hour * 3600 + dateTime.Minute * 60 + dateTime.Second + dateTime.Millisecond;
+
+                            var column4 = worksheet.Cells[rows, 4].Value?.ToString() ?? "";
+                            var column5 = worksheet.Cells[rows, 5].Value?.ToString() ?? "";
+                            var column6 = worksheet.Cells[rows, 6].Value?.ToString() ?? "";
+
+
+                            data.Add((column1, column2, sec, column4, column5, column6, TakeoffProcess, column8));
                         }
-                        // Time
-                        var column3 = worksheet.Cells[rows, 3].Value?.ToString() ?? "";
-                        DateTime dateTime = DateTime.FromOADate(Convert.ToDouble(column3));
-                        double sec = dateTime.Hour * 3600 + dateTime.Minute * 60 + dateTime.Second + dateTime.Millisecond;
-
-                        var column4 = worksheet.Cells[rows, 4].Value?.ToString() ?? "";
-                        var column5 = worksheet.Cells[rows, 5].Value?.ToString() ?? "";
-                        var column6 = worksheet.Cells[rows, 6].Value?.ToString() ?? "";
-
-
-                        data.Add((column1, column2, sec, column4, column5, column6, TakeoffProcess, column8));
-                    }
-                    else
-                    {
-                        countBlanck++;
-                        if (countBlanck == 5) { break; }
+                        else
+                        {
+                            countBlanck++;
+                            if (countBlanck == 5) { break; }
+                        }
                     }
                 }
+                return data;
             }
-            return data;
+            catch
+            {       
+                return null;
+            }
+            
         }
         public double ConvertToSeconds(string time)
         {
@@ -2021,158 +2017,158 @@ namespace FormsAsterix
         }
         private void Project3Btn_Click(object sender, EventArgs e)
         {
-            string filePath = OpenExcel();
-            if (filePath != null && filePath != "") 
-            {
-                rowData = ReadExcel(filePath);
-                if (rowData != null && rowData.Count !=0) 
-                { 
-
-                }
-                else
-                {
-                    MessageBox.Show("Error reading the excel");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Error opening the file");
-            }
-
             click++;
             if (click == 1)
             {
-                rowData = ReadExcel(filePath);
-                
-
-                if (rowData.Count != 0)
+                string filePath = OpenExcel();
+                if (filePath != null && filePath != "")
                 {
-                    ListPlanes = new List<PlaneFilter>();
-                    double initTime = ConvertToSeconds(asterixGrids[0].Time);
-                    if (initTime < 0)
+                    rowData = ReadExcel(filePath);
+                    if (rowData != null && rowData.Count != 0)
                     {
-                        initTime = 0;
-                    }
-                    for (int i = 0; i < asterixGrids.Count; i++)
-                    {
-                        bool find = false;
-                        int j = 0;
-                        // Buscar el AircraftID correspondiente en rowData
-                        while (j < rowData.Count)
+                        ListPlanes = new List<PlaneFilter>();
+                        double initTime = ConvertToSeconds(asterixGrids[0].Time);
+                        if (initTime < 0)
                         {
-                            if (rowData[j].AircraftID.Trim().Equals(asterixGrids[i].Aircraft_Indentification.Trim()) || Convert.ToString(rowData[j].AircraftID) == Convert.ToString(asterixGrids[i].Aircraft_Indentification))
-                            {
-                                if (initTime <= rowData[j].secs)
-                                {
-                                    double a = rowData[j].secs;
-                                    find = true;
-                                    break; // Detener la búsqueda en el primer match
-                                }
-                            }
-                            j++;
+                            initTime = 0;
                         }
-                        // Si se encontró un match, procesar el AircraftData
-                        if (find)
+                        for (int i = 0; i < asterixGrids.Count; i++)
                         {
-                            var AircraftData = rowData[j];
-                            if (AircraftData != default)
+                            bool find = false;
+                            int j = 0;
+                            // Buscar el AircraftID correspondiente en rowData
+                            while (j < rowData.Count)
                             {
-                                string test = asterixGrids[i].Aircraft_Indentification;
-                                // Validación de tiempo
-                                if (AircraftData.secs <= ConvertToSeconds(asterixGrids[i].Time))
+                                if (rowData[j].AircraftID.Trim().Equals(asterixGrids[i].Aircraft_Indentification.Trim()) || Convert.ToString(rowData[j].AircraftID) == Convert.ToString(asterixGrids[i].Aircraft_Indentification))
                                 {
-                                    // Validación de coordenadas
-                                    if ((40.9 > Convert.ToDouble(asterixGrids[i].Latitude) || Convert.ToDouble(asterixGrids[i].Latitude) > 41.7) && (1.5 > Convert.ToDouble(asterixGrids[i].Longitude) || Convert.ToDouble(asterixGrids[i].Longitude) > 2.6))
+                                    if (initTime <= rowData[j].secs)
                                     {
-                                        continue; // Skip invalid coordinates
-                                    }
-                                    else if (Convert.ToDouble(asterixGrids[i].Height) > 20000 || asterixGrids[i].Flight_Level == "NAN") //|| asterixGrids[i].GHO == true
-                                    {
-                                        continue; // Skip invalid heights or NAN flight levels
-                                    }
-                                    else
-                                    {
-                                        UVCoordinates WGS84Coordinates = new LibAsterix.UVCoordinates();
-                                        CoordinatesUVH steorographicSys = WGS84Coordinates.GetUV(Convert.ToDouble(asterixGrids[i].Latitude) * GeoUtils.DEGS2RADS, Convert.ToDouble(asterixGrids[i].Latitude) * GeoUtils.DEGS2RADS, Convert.ToDouble(asterixGrids[i].Height));
-                                        double rollangle = -999;
-                                        if (asterixGrids[i].Rolltxt != "N/A" && asterixGrids[i].Rolltxt != null && asterixGrids[i].Rolltxt != "")
-                                        {
-                                            rollangle = Convert.ToDouble(asterixGrids[i].Rolltxt);
-                                        }
-                                        double heading = -999;
-                                        if (asterixGrids[i].Heading != "N/A" && asterixGrids[i].Heading != null && asterixGrids[i].Heading != "")
-                                        {
-                                            heading = Convert.ToDouble(asterixGrids[i].Heading);
-                                        }
-                                        double ta = -999;
-                                        if (asterixGrids[i].TrackAngletxt != "N/A" && asterixGrids[i].TrackAngletxt != null && asterixGrids[i].TrackAngletxt != "")
-                                        {
-                                            ta = Convert.ToDouble(asterixGrids[i].TrackAngletxt);
-                                        }
-                                        double maghead = -999;
-                                        if (asterixGrids[i].MagHeadtxt != "N/A" && asterixGrids[i].MagHeadtxt != null && asterixGrids[i].MagHeadtxt != "")
-                                        {
-                                            maghead = Convert.ToDouble(asterixGrids[i].MagHeadtxt);
-                                        }
-                                        double ias = -999;
-                                        if (asterixGrids[i].IndAirtxt != "N/A" && asterixGrids[i].IndAirtxt != null && asterixGrids[i].IndAirtxt != "")
-                                        {
-                                            ias = Convert.ToDouble(asterixGrids[i].IndAirtxt);
-                                        }
-                                        double ias_double = -999;
-                                        if (asterixGrids[i].IndAirtxt != "N/A" && asterixGrids[i].IndAirtxt != null && asterixGrids[i].IndAirtxt != "")
-                                        {
-                                            ias = Convert.ToDouble(asterixGrids[i].IndAirtxt);
-                                        }
-
-                                        PlaneFilter planeFilter = new PlaneFilter
-                                        {
-                                            num = asterixGrids[i].Num,
-                                            EstelaType = AircraftData.EstelaType,
-                                            TakeoffProcess = AircraftData.TakeoffProcess,
-                                            TakeoffRWY = AircraftData.TakeoffRWY,
-                                            U = steorographicSys.U * GeoUtils.METERS2NM,
-                                            V = steorographicSys.V * GeoUtils.METERS2NM,
-                                            ID = Convert.ToInt32(AircraftData.ID),
-                                            AircraftType = AircraftData.TypePlane,
-                                            AircraftID = asterixGrids[i].Aircraft_Indentification,
-                                            AircraftAddress = asterixGrids[i].Aircraft_Address,
-                                            TrackNum = asterixGrids[i].Track_Number,
-                                            time_sec = ConvertToSeconds(asterixGrids[i].Time),
-                                            Lat = Convert.ToDouble(asterixGrids[i].Latitude),
-                                            Lon = Convert.ToDouble(asterixGrids[i].Longitude),
-                                            Altitude = Convert.ToDouble(asterixGrids[i].Height),
-                                            BDS50 = asterixGrids[i].BDS_5_0,
-                                            BDS60 = asterixGrids[i].BDS_6_0,
-                                            RollAngle = rollangle,
-                                            TrueTrackAngle = ta,
-                                            GroundSpeed = asterixGrids[i].GroundSpeedtxt,
-                                            MagneticHeading = maghead,
-                                            IndicatedAirspeed = ias_double,
-                                            Mach = asterixGrids[i].MACHtxt,
-                                            BarometricAltitudeRate = asterixGrids[i].BarAlttxt,
-                                            InertialVerticalVelocity = asterixGrids[i].InerVerttxt,
-                                            Heading = heading
-                                        };
-                                        ListPlanes.Add(planeFilter);
+                                        double a = rowData[j].secs;
+                                        find = true;
+                                        break; // Detener la búsqueda en el primer match
                                     }
                                 }
-                                //ListPlanes = ListPlanes.OrderBy(data => data.time_sec).ToList();
+                                j++;
                             }
+                            // Si se encontró un match, procesar el AircraftData
+                            if (find)
+                            {
+                                var AircraftData = rowData[j];
+                                if (AircraftData != default)
+                                {
+                                    string test = asterixGrids[i].Aircraft_Indentification;
+                                    // Validación de tiempo
+                                    if (AircraftData.secs <= ConvertToSeconds(asterixGrids[i].Time))
+                                    {
+                                        // Validación de coordenadas
+                                        if ((40.9 > Convert.ToDouble(asterixGrids[i].Latitude) || Convert.ToDouble(asterixGrids[i].Latitude) > 41.7) && (1.5 > Convert.ToDouble(asterixGrids[i].Longitude) || Convert.ToDouble(asterixGrids[i].Longitude) > 2.6))
+                                        {
+                                            continue; // Skip invalid coordinates
+                                        }
+                                        else if (Convert.ToDouble(asterixGrids[i].Height) > 20000 || asterixGrids[i].Flight_Level == "NAN") //|| asterixGrids[i].GHO == true
+                                        {
+                                            continue; // Skip invalid heights or NAN flight levels
+                                        }
+                                        else
+                                        {
+                                            UVCoordinates WGS84Coordinates = new LibAsterix.UVCoordinates();
+                                            CoordinatesUVH steorographicSys = WGS84Coordinates.GetUV(Convert.ToDouble(asterixGrids[i].Latitude) * GeoUtils.DEGS2RADS, Convert.ToDouble(asterixGrids[i].Latitude) * GeoUtils.DEGS2RADS, Convert.ToDouble(asterixGrids[i].Height));
+                                            double rollangle = -999;
+                                            if (asterixGrids[i].Rolltxt != "N/A" && asterixGrids[i].Rolltxt != null && asterixGrids[i].Rolltxt != "")
+                                            {
+                                                rollangle = Convert.ToDouble(asterixGrids[i].Rolltxt);
+                                            }
+                                            double heading = -999;
+                                            if (asterixGrids[i].Heading != "N/A" && asterixGrids[i].Heading != null && asterixGrids[i].Heading != "")
+                                            {
+                                                heading = Convert.ToDouble(asterixGrids[i].Heading);
+                                            }
+                                            double ta = -999;
+                                            if (asterixGrids[i].TrackAngletxt != "N/A" && asterixGrids[i].TrackAngletxt != null && asterixGrids[i].TrackAngletxt != "")
+                                            {
+                                                ta = Convert.ToDouble(asterixGrids[i].TrackAngletxt);
+                                            }
+                                            double maghead = -999;
+                                            if (asterixGrids[i].MagHeadtxt != "N/A" && asterixGrids[i].MagHeadtxt != null && asterixGrids[i].MagHeadtxt != "")
+                                            {
+                                                maghead = Convert.ToDouble(asterixGrids[i].MagHeadtxt);
+                                            }
+                                            double ias = -999;
+                                            if (asterixGrids[i].IndAirtxt != "N/A" && asterixGrids[i].IndAirtxt != null && asterixGrids[i].IndAirtxt != "")
+                                            {
+                                                ias = Convert.ToDouble(asterixGrids[i].IndAirtxt);
+                                            }
+                                            double ias_double = -999;
+                                            if (asterixGrids[i].IndAirtxt != "N/A" && asterixGrids[i].IndAirtxt != null && asterixGrids[i].IndAirtxt != "")
+                                            {
+                                                ias = Convert.ToDouble(asterixGrids[i].IndAirtxt);
+                                            }
+
+                                            PlaneFilter planeFilter = new PlaneFilter
+                                            {
+                                                num = asterixGrids[i].Num,
+                                                EstelaType = AircraftData.EstelaType,
+                                                TakeoffProcess = AircraftData.TakeoffProcess,
+                                                TakeoffRWY = AircraftData.TakeoffRWY,
+                                                U = steorographicSys.U * GeoUtils.METERS2NM,
+                                                V = steorographicSys.V * GeoUtils.METERS2NM,
+                                                ID = Convert.ToInt32(AircraftData.ID),
+                                                AircraftType = AircraftData.TypePlane,
+                                                AircraftID = asterixGrids[i].Aircraft_Indentification,
+                                                AircraftAddress = asterixGrids[i].Aircraft_Address,
+                                                TrackNum = asterixGrids[i].Track_Number,
+                                                time_sec = ConvertToSeconds(asterixGrids[i].Time),
+                                                Lat = Convert.ToDouble(asterixGrids[i].Latitude),
+                                                Lon = Convert.ToDouble(asterixGrids[i].Longitude),
+                                                Altitude = Convert.ToDouble(asterixGrids[i].Height),
+                                                BDS50 = asterixGrids[i].BDS_5_0,
+                                                BDS60 = asterixGrids[i].BDS_6_0,
+                                                RollAngle = rollangle,
+                                                TrueTrackAngle = ta,
+                                                GroundSpeed = asterixGrids[i].GroundSpeedtxt,
+                                                MagneticHeading = maghead,
+                                                IndicatedAirspeed = ias_double,
+                                                Mach = asterixGrids[i].MACHtxt,
+                                                BarometricAltitudeRate = asterixGrids[i].BarAlttxt,
+                                                InertialVerticalVelocity = asterixGrids[i].InerVerttxt,
+                                                Heading = heading
+                                            };
+                                            ListPlanes.Add(planeFilter);
+                                        }
+                                    }
+                                    //ListPlanes = ListPlanes.OrderBy(data => data.time_sec).ToList();
+                                }
+                            }
+
                         }
 
+                        Projecte3 projecte3 = new Projecte3(ListPlanes);
+                        MessageBox.Show(Convert.ToString(ListPlanes.Count));
+                        projecte3.Show();
                     }
-
-                    Projecte3 projecte3 = new Projecte3(ListPlanes);
-                    MessageBox.Show(Convert.ToString(ListPlanes.Count));
-                    projecte3.Show();
+                    else
+                    {
+                        MessageBox.Show("Ooops! An error ocurred, please select the file again");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Ooops! An error ocurred, please select the file again");
                 }
             }
             else
             {
-                //ListPlanes = ListPlanes.OrderBy(data => data.time_sec).ToList();
-                Projecte3 projecte3 = new Projecte3(ListPlanes);
-                projecte3.Show();
+                if (ListPlanes != null)
+                {
+                    Projecte3 projecte3 = new Projecte3(ListPlanes);
+                    projecte3.Show();
+                }
+                else
+                {
+                    click = 0;
+                    MessageBox.Show("Ooops! An error ocurred, please select the file again");
+                }
+
             }
         }
     
