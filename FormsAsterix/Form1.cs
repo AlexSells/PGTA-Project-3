@@ -2101,7 +2101,7 @@ namespace FormsAsterix
                                             double ias_double = -999;
                                             if (asterixGrids[i].IndAirtxt != "N/A" && asterixGrids[i].IndAirtxt != null && asterixGrids[i].IndAirtxt != "")
                                             {
-                                                ias = Convert.ToDouble(asterixGrids[i].IndAirtxt);
+                                                ias_double = Convert.ToDouble(asterixGrids[i].IndAirtxt);
                                             }
 
                                             PlaneFilter planeFilter = new PlaneFilter

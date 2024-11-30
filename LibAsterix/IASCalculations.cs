@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MultiCAT6.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -40,8 +41,8 @@ namespace LibAsterix
             // Condiciones según la pista:
             // Retorna true --> se cumple la condicion
             // Retorna false --> no se cumple la c
-            if (runway == "24L" && altitude >= 3000) return true;
-            if (runway == "06R" && altitude >= 4000) return true;
+            if (runway == "24L" && altitude >= 3000 * GeoUtils.METERS2FEET) return true;
+            if (runway == "06R" && altitude >= 4000 * GeoUtils.METERS2FEET) return true;
             return false;
         }
         // Método para calcular la velocidad IAS y validar si es válida para el despegue
@@ -50,21 +51,38 @@ namespace LibAsterix
             // Velocidad máxima IAS permitida para el cruze de DEP es 205 kt
             return ias <= 205;
         }
-        public static double CheckIAS4Altitude(PlaneFilter InitPF, PlaneFilter FinalPF, double altitude)
+        public static PlaneFilter CheckIAS4Altitude(PlaneFilter InitPF, PlaneFilter FinalPF, double altitude)
         {
-            double[] alt = { 0, 0, 0 };
-            int aux = 0;
+            PlaneFilter aux = new PlaneFilter();
+            if (InitPF.Altitude== altitude)
+            {
+                return InitPF;
+            }
+            else
+            {
+                aux = InitPF;
+            }
             for (int i = 1; i < 4; i++)
             {
-                alt[i - 1] = CalculateAltitude(InitPF.Altitude, InitPF.IndicatedAirspeed, InitPF.TrueTrackAngle, 1);
-                if (alt[i - 1] >= altitude)
+                double newAlt = CalculateAltitude(InitPF.Altitude, InitPF.IndicatedAirspeed, InitPF.TrueTrackAngle, i);
+                if (newAlt == altitude)
                 {
-                    aux = i;
-                    break;
+                    aux.Altitude = newAlt;
+                    aux.IndicatedAirspeed = CalculateIAS(InitPF.IndicatedAirspeed, FinalPF.IndicatedAirspeed, i);
+                    aux.time_sec = InitPF.time_sec + i;
+                    return aux;
+                }
+                else
+                {
+                    if (Math.Abs(altitude - newAlt) < Math.Abs(altitude - aux.Altitude))
+                    {
+                        aux.Altitude = newAlt;
+                        aux.IndicatedAirspeed = CalculateIAS(InitPF.IndicatedAirspeed, FinalPF.IndicatedAirspeed, i);
+                        aux.time_sec = InitPF.time_sec + i;
+                    }
                 }
             }
-            double ias = CalculateIAS(InitPF.IndicatedAirspeed, FinalPF.IndicatedAirspeed, aux);
-            return ias;
+            return aux;
         }
     }
 }

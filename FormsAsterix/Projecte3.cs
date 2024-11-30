@@ -27,7 +27,9 @@ namespace FormsAsterix
         {
             InitializeComponent();
             ListFilteredPlanes = FilteredList;
+
             ListFilteredPlanes = ListFilteredPlanes.OrderBy(item => item.ID).ToList();
+            
         }
         /*### LIST ############################################################################################################*/
         List<PlaneFilter> ListFilteredPlanes;
@@ -463,7 +465,6 @@ namespace FormsAsterix
         }
         public void ReplaceString2(int column, string string2change, string replace, int selGrid)
         {
-            
             if (selGrid == 0)
             {
                 if (dataGridProject3.Rows.Count != 0)
@@ -520,7 +521,6 @@ namespace FormsAsterix
                     }
                 }
             }
-            
         }
 
         // Método para convertir una columna en tipo string
@@ -595,7 +595,6 @@ namespace FormsAsterix
             dataGridProject3.RowHeadersDefaultCellStyle.BackColor = Color.LightCyan;
             dataGridProject3.DataSource = ListFilteredPlanes;
             ReplaceString2(7,"-999", "NAN", 0);
-
         }
 
         bool filterEnabled = false;
@@ -1713,68 +1712,87 @@ namespace FormsAsterix
                 }
             }
         }
-
         // Función para verificar si un punto está dentro del círculo
         static bool IsWithinCircle(double centerLat, double centerLon, double radius, double pointLat, double pointLon)
         {
             double distance = CalculateDistance(centerLat, centerLon, pointLat, pointLon);
             return distance <= radius;
         }
-
         private class KML_DATA2
         {
             public List<Vector> Positions { get; set; }
             public string Description { get; set; }
         }
+        private void IASInfo_Click(object sender, EventArgs e)
+        {
+            FindIASatDetAltitude();
+            IASInformation IASInfo = new IASInformation(IASList);
+            IASInfo.Show();
+        }
 
         // IAS implementation
-        class IASData
-        {
-            public string AircraftId { get; set; }
-            public double Time { get; set; }
-            public double Altitude { get; set; }   
-            public double IASBefore {  get; set; }
-            public double IASAfter { get; set; }
-            public double TrueTrackAngle { get; set; }
-        }
-        List<IASData> IASList;
 
-        public void AddIasData(PlaneFilter planeBefore, double IASAfter)
+        List<IASData> IASList = new List<IASData>();
+
+        public void AddIasData(PlaneFilter planeBefore, PlaneFilter planeAfter, double altitude)
         {
             IASData aux = new IASData();
             
-            aux.AircraftId = planeBefore.AircraftID;
-            aux.Time = planeBefore.time_sec;
-            aux.Altitude = planeBefore.Altitude;
-            aux.IASBefore = planeBefore.IndicatedAirspeed;
-            aux.IASAfter = IASAfter;
-            aux.TrueTrackAngle = planeBefore.TrueTrackAngle;
-            
-            IASList.Add(aux);
+            PlaneFilter plane = IASCalculations.CheckIAS4Altitude(planeBefore,planeAfter, altitude);
+            aux.AircraftId = plane.AircraftID;
+            aux.Time = plane.time_sec;
+            aux.Altitude = plane.Altitude;
+            aux.IAS = plane.IndicatedAirspeed;
+
+            if (aux != null)
+            {
+                IASList.Add(aux);
+            }
+
         }
         
         public void FindIASatDetAltitude()
         {
             ListFilteredPlanes = ListFilteredPlanes.OrderBy(item => item.AircraftID).ToList();
-            int j = 0;
+            bool find850 = false, find1500 = false, find3500 = false;
+            string aux = null;
             for (int i = 0; i < ListFilteredPlanes.Count; i++)
             {
-                // ALtitude 850 ft
-                if (GeoUtils.METERS2FEET * 850 - ListFilteredPlanes[i].Altitude < 0)
+                if (ListFilteredPlanes[i].IndicatedAirspeed != -999)
                 {
-                    AddIasData(ListFilteredPlanes[i - 1], ListFilteredPlanes[i].IndicatedAirspeed);
+                    // Guardamos el nombre de los vuelos para los que tenemos todos sus puntos
+                    if (find850 == true && find1500 == true && find3500 == true) { 
+                        aux = ListFilteredPlanes[i].AircraftID; 
+                        find850 = false;
+                        find1500 = false;
+                        find3500 = false;
+                    }
+                    // Solo buscamos si no tenemos las 3 alturas analizadas
+                    if (aux != ListFilteredPlanes[i].AircraftID)
+                    {
+                        // ALtitude 850 ft
+                        if (GeoUtils.FEET2METERS * 850 - ListFilteredPlanes[i].Altitude < 0 && find850==false)
+                        {
+                            AddIasData(ListFilteredPlanes[i - 1], ListFilteredPlanes[i], 850 * GeoUtils.FEET2METERS);
+                            find850 = true;
+                        }
+                        // ALtitude 1500 ft
+                        else if (GeoUtils.FEET2METERS * 1500 - ListFilteredPlanes[i].Altitude < 0 && find1500 == false)
+                        {
+                            AddIasData(ListFilteredPlanes[i - 1], ListFilteredPlanes[i], 1500 * GeoUtils.FEET2METERS);
+                            find1500 = true;
+                        }
+                        // ALtitude 3500 ft
+                        else if (GeoUtils.FEET2METERS * 3500 - ListFilteredPlanes[i].Altitude < 0 && find3500 == false)
+                        {
+                            AddIasData(ListFilteredPlanes[i - 1], ListFilteredPlanes[i], 3500 * GeoUtils.FEET2METERS);
+                            find3500 = true;
+                        }
+                    }
                 }
-                // ALtitude 1500 ft
-                else if (GeoUtils.METERS2FEET * 1500 - ListFilteredPlanes[i].Altitude < 0)
-                {
-                    AddIasData(ListFilteredPlanes[i - 1], ListFilteredPlanes[i].IndicatedAirspeed);
-                }
-                // ALtitude 3500 ft
-                else if (GeoUtils.METERS2FEET * 3500 - ListFilteredPlanes[i].Altitude < 0)
-                {
-                    AddIasData(ListFilteredPlanes[i - 1], ListFilteredPlanes[i].IndicatedAirspeed);
-                }
+                
             }
+            ListFilteredPlanes = ListFilteredPlanes.OrderBy(item => item.time_sec).ToList();
         }
     }
 }

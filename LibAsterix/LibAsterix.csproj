@@ -113,6 +113,7 @@
     <Compile Include="Geodesic_Coord.cs" />
     <Compile Include="GeoUtils.cs" />
     <Compile Include="IASCalculations.cs" />
+    <Compile Include="IASData.cs" />
     <Compile Include="PlaneFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UVCoordinates.cs" />

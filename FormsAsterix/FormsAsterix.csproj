@@ -132,6 +132,12 @@
     <Compile Include="GeneralStatistics.Designer.cs">
       <DependentUpon>GeneralStatistics.cs</DependentUpon>
     </Compile>
+    <Compile Include="IASInformation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IASInformation.Designer.cs">
+      <DependentUpon>IASInformation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Projecte3.cs">
       <SubType>Form</SubType>
@@ -169,6 +175,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GeneralStatistics.resx">
       <DependentUpon>GeneralStatistics.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IASInformation.resx">
+      <DependentUpon>IASInformation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Projecte3.resx">
       <DependentUpon>Projecte3.cs</DependentUpon>
