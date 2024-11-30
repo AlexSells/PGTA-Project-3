@@ -107,8 +107,8 @@ namespace LibAsterix
             return RADIUS_EARTH_METERS * c; // resultat en metres
         }
     
-        // Método para calcular el momento en que el avión cruza el umbral
-        public static List<IASData> CalculateThresholdCrossings( List<PlaneFilter> planes, string runway, double distanceThreshold)
+        // Método para calcular el momento en que el avión cruza el umbral ThresORDder indica si estamos calculador thresold (true) or der (false)
+        public static List<IASData> CalculateThresholdCrossings( List<PlaneFilter> planes, string runway, double distanceThreshold, bool ThresORder)
         {
             planes = planes.OrderBy(item => item.AircraftID).ToList();
             List<IASData> thresholdCrossings = new List<IASData>();
@@ -154,7 +154,7 @@ namespace LibAsterix
 
                         if (aux != plane.AircraftID)
                         {
-                            if (thresholdFound == false)
+                            if (thresholdFound == false && ThresORder == true)
                             {
                                 // Calcular la distancia entre el avión y el umbral
                                 double distance = HaversineDistance(plane.Lat, plane.Lon, thresholdLat, thresholdLon);
@@ -176,7 +176,7 @@ namespace LibAsterix
                                     thresholdFound = true;
                                 }
                             }
-                            if (DERFound == false)
+                            if (DERFound == false && ThresORder == false)
                             {
                                 // Calcular la distancia entre el avión y el umbral
                                 double distanceDER = HaversineDistance(plane.Lat, plane.Lon, DERLat, DERLon);

@@ -1726,9 +1726,12 @@ namespace FormsAsterix
         private void IASInfo_Click(object sender, EventArgs e)
         {
             FindIASatDetAltitude();
-            ThresholdListRight = IASCalculations.CalculateThresholdCrossings(ListFilteredPlanes, "LEBL-06R", 500);
-            ThresholdListLeft = IASCalculations.CalculateThresholdCrossings(ListFilteredPlanes, "LEBL-24L", 500);
-            IASInformation IASInfo = new IASInformation(IASList, ThresholdListRight, ThresholdListLeft);
+            ThresholdListRight = IASCalculations.CalculateThresholdCrossings(ListFilteredPlanes, "LEBL-06R", 500,true);
+            ThresholdListLeft = IASCalculations.CalculateThresholdCrossings(ListFilteredPlanes, "LEBL-24L", 500, true);
+            DERListRight = IASCalculations.CalculateThresholdCrossings(ListFilteredPlanes, "LEBL-06R", 500, false);
+            DERListLeft = IASCalculations.CalculateThresholdCrossings(ListFilteredPlanes, "LEBL-24L", 500, false);
+
+            IASInformation IASInfo = new IASInformation(IASList, ThresholdListRight, ThresholdListLeft, DERListRight, DERListLeft);
             IASInfo.Show();
         }
 
@@ -1737,6 +1740,8 @@ namespace FormsAsterix
         List<IASData> IASList = new List<IASData>();
         List<IASData> ThresholdListRight = new List<IASData>();
         List<IASData> ThresholdListLeft = new List<IASData>();
+        List<IASData> DERListRight = new List<IASData>();
+        List<IASData> DERListLeft = new List<IASData>();
 
         public void AddIasData(PlaneFilter planeBefore, PlaneFilter planeAfter, double altitude)
         {

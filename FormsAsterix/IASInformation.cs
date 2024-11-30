@@ -10,20 +10,25 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using LibAsterix;
 using MultiCAT6.Utils;
+using OfficeOpenXml.Drawing.Slicer.Style;
 
 namespace FormsAsterix
 {
     public partial class IASInformation : Form
     {
         List<IASData> IASList;
-        List<IASData> ListRight;
-        List<IASData> ListLeft;
-        public IASInformation(List<IASData> IASListFromP3, List<IASData> ThresholListRight, List<IASData> ThresholListLeft)
+        List<IASData> ListThresholdRight;
+        List<IASData> ListThresholdLeft;
+        List<IASData> ListDERRight;
+        List<IASData> ListDERLeft;
+        public IASInformation(List<IASData> IASListFromP3, List<IASData> ThresholListRight, List<IASData> ThresholListLeft, List<IASData> DERListRight, List<IASData> DERListLeft)
         {
             InitializeComponent();
             this.IASList = IASListFromP3;
-            ListRight = ThresholListRight;
-            ListLeft = ThresholListLeft;    
+            ListThresholdRight = ThresholListRight;
+            ListThresholdLeft = ThresholListLeft;
+            ListDERRight = DERListRight;
+            ListDERLeft = DERListLeft;
         }
 
         private void Back2P3_Click(object sender, EventArgs e)
@@ -85,85 +90,7 @@ namespace FormsAsterix
                 }
             }
         }
-        public void ClassifiyThresholdRight(List<IASData> ThresholdList)
-        {
-            for (int i = 0; i <= ThresholdList.Count-1; i++)
-            {
-                if (ThresholdList.Count <= 2)
-                {
-                    ThresholdRight.Add(ThresholdList[i]);
-                    if (i + 1 < 2)
-                    {
-                        if (ThresholdList[i].AircraftId == ThresholdList[i + 1].AircraftId)
-                        {
-                            try
-                            {
-                                DERRight.Add(ThresholdList[i + 1]);
-                            }
-                            catch { continue; }
-                        }
-                    }
-                }
-                else
-                {
-                    if (i+1 > ThresholdList.Count - 1)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        if (ThresholdList[i].Time < ThresholdList[i + 1].Time && ThresholdList[i].AircraftId == ThresholdList[i + 1].AircraftId)
-                        {
-                            ThresholdRight.Add(ThresholdList[i]);
-                            DERRight.Add(ThresholdList[i + 1]);
-                            i++;
-                        }
-                    }
-                    
-                }
-                
-            }
-        }
-        public void ClassifiyThresholdLeft(List<IASData> ThresholdList)
-        {
-            
-            for (int i = 0; i < ThresholdList.Count - 1; i++)
-            {
-                if (ThresholdList.Count == 2)
-                {
-                    ThresholdLeft.Add(ThresholdList[i]);
-                    if (i+1 < 2)
-                    {
-                        if (ThresholdList[i].AircraftId == ThresholdList[i + 1].AircraftId)
-                        {
-                            try
-                            {
-                                DERLeft.Add(ThresholdList[i + 1]);
-                            }
-                            catch { continue; }
-                        }
-                    }
-                }
-                else
-                {
-                    if (i+1 >= ThresholdList.Count - 1)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        if (ThresholdList[i].Time < ThresholdList[i + 1].Time && ThresholdList[i].AircraftId == ThresholdList[i + 1].AircraftId)
-                        {
-                            ThresholdLeft.Add(ThresholdList[i]);
-                            DERLeft.Add(ThresholdList[i + 1]);
-                            i++;
-                        }
-                    }
-                    
-                }
-                
-            }
-        }
+      
         public void SetButtons(int i)
         {
             if (i > 0)
@@ -267,8 +194,6 @@ namespace FormsAsterix
         private void IASInformation_Load(object sender, EventArgs e)
         {
             ClassifiyIASList(IASList);
-            ClassifiyThresholdRight(ListRight);
-            ClassifiyThresholdLeft(ListLeft);
             IASdatagrid.DataSource = IASList850;
             AjustarDataGrid();
             SetButtons(1);
@@ -294,25 +219,25 @@ namespace FormsAsterix
 
         private void BtnThres24L_Click(object sender, EventArgs e)
         {
-            IASdatagrid.DataSource = ThresholdLeft;
+            IASdatagrid.DataSource = ListThresholdLeft;
             SetButtons(-1);
         }
 
         private void BtnThres06R_Click(object sender, EventArgs e)
         {
-            IASdatagrid.DataSource = ThresholdRight;
+            IASdatagrid.DataSource = ListThresholdRight;
             SetButtons(-2);
         }
 
         private void BtnDER24L_Click(object sender, EventArgs e)
         {
-            IASdatagrid.DataSource = DERLeft;
+            IASdatagrid.DataSource = ListDERLeft;
             SetButtons(-3);
         }
 
         private void BtnDER06R_Click(object sender, EventArgs e)
         {
-            IASdatagrid.DataSource = DERRight;
+            IASdatagrid.DataSource = ListDERRight;
             SetButtons(-4);
         }
     }
