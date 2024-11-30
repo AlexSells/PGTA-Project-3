@@ -16,10 +16,14 @@ namespace FormsAsterix
     public partial class IASInformation : Form
     {
         List<IASData> IASList;
-        public IASInformation(List<IASData> IASListFromP3)
+        List<IASData> ListRight;
+        List<IASData> ListLeft;
+        public IASInformation(List<IASData> IASListFromP3, List<IASData> ThresholListRight, List<IASData> ThresholListLeft)
         {
             InitializeComponent();
             this.IASList = IASListFromP3;
+            ListRight = ThresholListRight;
+            ListLeft = ThresholListLeft;    
         }
 
         private void Back2P3_Click(object sender, EventArgs e)
@@ -30,6 +34,10 @@ namespace FormsAsterix
         List<IASData> IASList850 = new List<IASData>();
         List<IASData> IASList1500 = new List<IASData>();
         List<IASData> IASList3500 = new List<IASData>();
+        List<IASData> ThresholdRight = new List<IASData>();
+        List<IASData> ThresholdLeft = new List<IASData>();
+        List<IASData> DERRight = new List<IASData>();
+        List<IASData> DERLeft = new List<IASData>();
         public void AjustarDataGrid()
         {
             // Calcular el ancho total de todas las columnas
@@ -77,38 +85,153 @@ namespace FormsAsterix
                 }
             }
         }
+        public void ClassifiyThresholdRight(List<IASData> ThresholdList)
+        {
+            for (int i = 0; i <= ThresholdList.Count-1; i++)
+            {
+                if (ThresholdList.Count <= 2)
+                {
+                    string a = ThresholdList[i].AircraftId;
+                    ThresholdRight.Add(ThresholdList[i]);
+                }
+                else
+                {
+                    if (ThresholdList[i].Time < ThresholdList[i + 1].Time && ThresholdList[i].AircraftId == ThresholdList[i + 1].AircraftId)
+                    {
+                        ThresholdRight.Add(ThresholdList[i]);
+                        DERRight.Add(ThresholdList[i + 1]);
+                        i++;
+                    }
+                }
+                
+            }
+        }
+        public void ClassifiyThresholdLeft(List<IASData> ThresholdList)
+        {
+            
+            for (int i = 0; i <= ThresholdList.Count - 1; i++)
+            {
+                if (ThresholdList.Count <= 2)
+                {
+                    ThresholdLeft.Add(ThresholdList[i]);
+                }
+                else
+                {
+                    if (ThresholdList[i].Time < ThresholdList[i + 1].Time && ThresholdList[i].AircraftId == ThresholdList[i + 1].AircraftId)
+                    {
+                        ThresholdLeft.Add(ThresholdList[i]);
+                        DERLeft.Add(ThresholdList[i + 1]);
+                        i++;
+                    }
+                }
+                
+            }
+        }
         public void SetButtons(int i)
         {
-            if (i == 1) 
+            if (i > 0)
             {
-                Btn850.Visible = false;
-                Btn850.Enabled = false;
+                BtnThres24L.Visible = true;
+                BtnThres24L.Enabled = true;
+                BtnThres06R.Visible = true;
+                BtnThres06R.Enabled = true;
+
+                BtnDER24L.Visible = true;
+                BtnDER24L.Enabled = true;
+                BtnDER06R.Visible = true;
+                BtnDER06R.Enabled = true;
+                if (i == 1)
+                {
+                    Btn850.Visible = false;
+                    Btn850.Enabled = false;
+                    Btn1500.Visible = true;
+                    Btn1500.Enabled = true;
+                    Btn3500.Visible = true;
+                    Btn3500.Enabled = true;
+                }
+                else if (i == 2)
+                {
+                    Btn850.Visible = true;
+                    Btn850.Enabled = true;
+                    Btn1500.Visible = false;
+                    Btn1500.Enabled = false;
+                    Btn3500.Visible = true;
+                    Btn3500.Enabled = true;
+                }
+                else if (i == 3)
+                {
+                    Btn850.Visible = true;
+                    Btn850.Enabled = true;
+                    Btn1500.Visible = true;
+                    Btn1500.Enabled = true;
+                    Btn3500.Visible = false;
+                    Btn3500.Enabled = false;
+                }
+            }
+            else
+            {
+                Btn850.Visible = true;
+                Btn850.Enabled = true;
                 Btn1500.Visible = true;
                 Btn1500.Enabled = true;
                 Btn3500.Visible = true;
                 Btn3500.Enabled = true;
+                if (i == -1)
+                {
+                    BtnThres24L.Visible = false;
+                    BtnThres24L.Enabled = false;
+                    BtnThres06R.Visible = true;
+                    BtnThres06R.Enabled = true;
+
+                    BtnDER24L.Visible = true;
+                    BtnDER24L.Enabled = true;
+                    BtnDER06R.Visible = true;
+                    BtnDER06R.Enabled = true;
+                }
+                else if (i == -2)
+                {
+                    BtnThres24L.Visible = true;
+                    BtnThres24L.Enabled = true;
+                    BtnThres06R.Visible = false;
+                    BtnThres06R.Enabled = false;
+
+                    BtnDER24L.Visible = true;
+                    BtnDER24L.Enabled = true;
+                    BtnDER06R.Visible = true;
+                    BtnDER06R.Enabled = true;
+                }
+                else if (i == -3) 
+                {
+                    BtnThres24L.Visible = true;
+                    BtnThres24L.Enabled = true;
+                    BtnThres06R.Visible = true;
+                    BtnThres06R.Enabled = true;
+
+                    BtnDER24L.Visible = false;
+                    BtnDER24L.Enabled = false;
+                    BtnDER06R.Visible = true;
+                    BtnDER06R.Enabled = true;
+                }
+                else if (i == -4)
+                {
+                    BtnThres24L.Visible = true;
+                    BtnThres24L.Enabled = true;
+                    BtnThres06R.Visible = true;
+                    BtnThres06R.Enabled = true;
+
+                    BtnDER24L.Visible = true;
+                    BtnDER24L.Enabled = true;
+                    BtnDER06R.Visible = false;
+                    BtnDER06R.Enabled = false;
+                }
             }
-            else if (i == 2) {
-                Btn850.Visible = true;
-                Btn850.Enabled = true;
-                Btn1500.Visible = false;
-                Btn1500.Enabled = false;
-                Btn3500.Visible = true;
-                Btn3500.Enabled = true;
-            }
-            else if (i == 3)
-            {
-                Btn850.Visible = true;
-                Btn850.Enabled = true;
-                Btn1500.Visible = true;
-                Btn1500.Enabled = true;
-                Btn3500.Visible = false;
-                Btn3500.Enabled = false;
-            }
+            
         }
         private void IASInformation_Load(object sender, EventArgs e)
         {
             ClassifiyIASList(IASList);
+            ClassifiyThresholdRight(ListRight);
+            ClassifiyThresholdLeft(ListLeft);
             IASdatagrid.DataSource = IASList850;
             AjustarDataGrid();
             SetButtons(1);
@@ -130,6 +253,30 @@ namespace FormsAsterix
         {
             IASdatagrid.DataSource = IASList3500;
             SetButtons(3);
+        }
+
+        private void BtnThres24L_Click(object sender, EventArgs e)
+        {
+            IASdatagrid.DataSource = ThresholdLeft;
+            SetButtons(-1);
+        }
+
+        private void BtnThres06R_Click(object sender, EventArgs e)
+        {
+            IASdatagrid.DataSource = ThresholdRight;
+            SetButtons(-2);
+        }
+
+        private void BtnDER24L_Click(object sender, EventArgs e)
+        {
+            IASdatagrid.DataSource = DERLeft;
+            SetButtons(-3);
+        }
+
+        private void BtnDER06R_Click(object sender, EventArgs e)
+        {
+            IASdatagrid.DataSource = DERRight;
+            SetButtons(-4);
         }
     }
 }

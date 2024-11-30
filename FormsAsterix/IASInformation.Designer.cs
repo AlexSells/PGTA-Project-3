@@ -35,6 +35,10 @@
             this.Btn850 = new System.Windows.Forms.Button();
             this.Btn1500 = new System.Windows.Forms.Button();
             this.Btn3500 = new System.Windows.Forms.Button();
+            this.BtnThres24L = new System.Windows.Forms.Button();
+            this.BtnThres06R = new System.Windows.Forms.Button();
+            this.BtnDER24L = new System.Windows.Forms.Button();
+            this.BtnDER06R = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.IASdatagrid)).BeginInit();
             this.SuspendLayout();
@@ -46,7 +50,7 @@
             this.Back2P3});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(800, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(588, 27);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -63,16 +67,16 @@
             // IASdatagrid
             // 
             this.IASdatagrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.IASdatagrid.Location = new System.Drawing.Point(147, 100);
+            this.IASdatagrid.Location = new System.Drawing.Point(147, 50);
             this.IASdatagrid.Name = "IASdatagrid";
             this.IASdatagrid.RowHeadersWidth = 51;
             this.IASdatagrid.RowTemplate.Height = 24;
-            this.IASdatagrid.Size = new System.Drawing.Size(419, 250);
+            this.IASdatagrid.Size = new System.Drawing.Size(419, 350);
             this.IASdatagrid.TabIndex = 1;
             // 
             // Btn850
             // 
-            this.Btn850.Location = new System.Drawing.Point(12, 100);
+            this.Btn850.Location = new System.Drawing.Point(12, 50);
             this.Btn850.Name = "Btn850";
             this.Btn850.Size = new System.Drawing.Size(100, 50);
             this.Btn850.TabIndex = 2;
@@ -82,7 +86,7 @@
             // 
             // Btn1500
             // 
-            this.Btn1500.Location = new System.Drawing.Point(12, 200);
+            this.Btn1500.Location = new System.Drawing.Point(12, 100);
             this.Btn1500.Name = "Btn1500";
             this.Btn1500.Size = new System.Drawing.Size(100, 50);
             this.Btn1500.TabIndex = 3;
@@ -92,7 +96,7 @@
             // 
             // Btn3500
             // 
-            this.Btn3500.Location = new System.Drawing.Point(12, 300);
+            this.Btn3500.Location = new System.Drawing.Point(12, 150);
             this.Btn3500.Name = "Btn3500";
             this.Btn3500.Size = new System.Drawing.Size(100, 50);
             this.Btn3500.TabIndex = 4;
@@ -100,11 +104,55 @@
             this.Btn3500.UseVisualStyleBackColor = true;
             this.Btn3500.Click += new System.EventHandler(this.Btn3500_Click);
             // 
+            // BtnThres24L
+            // 
+            this.BtnThres24L.Location = new System.Drawing.Point(12, 200);
+            this.BtnThres24L.Name = "BtnThres24L";
+            this.BtnThres24L.Size = new System.Drawing.Size(100, 50);
+            this.BtnThres24L.TabIndex = 5;
+            this.BtnThres24L.Text = "Thresholds 24L";
+            this.BtnThres24L.UseVisualStyleBackColor = true;
+            this.BtnThres24L.Click += new System.EventHandler(this.BtnThres24L_Click);
+            // 
+            // BtnThres06R
+            // 
+            this.BtnThres06R.Location = new System.Drawing.Point(12, 250);
+            this.BtnThres06R.Name = "BtnThres06R";
+            this.BtnThres06R.Size = new System.Drawing.Size(100, 50);
+            this.BtnThres06R.TabIndex = 6;
+            this.BtnThres06R.Text = "Thresholds 06R";
+            this.BtnThres06R.UseVisualStyleBackColor = true;
+            this.BtnThres06R.Click += new System.EventHandler(this.BtnThres06R_Click);
+            // 
+            // BtnDER24L
+            // 
+            this.BtnDER24L.Location = new System.Drawing.Point(12, 300);
+            this.BtnDER24L.Name = "BtnDER24L";
+            this.BtnDER24L.Size = new System.Drawing.Size(100, 50);
+            this.BtnDER24L.TabIndex = 7;
+            this.BtnDER24L.Text = "DER 24L";
+            this.BtnDER24L.UseVisualStyleBackColor = true;
+            this.BtnDER24L.Click += new System.EventHandler(this.BtnDER24L_Click);
+            // 
+            // BtnDER06R
+            // 
+            this.BtnDER06R.Location = new System.Drawing.Point(12, 350);
+            this.BtnDER06R.Name = "BtnDER06R";
+            this.BtnDER06R.Size = new System.Drawing.Size(100, 50);
+            this.BtnDER06R.TabIndex = 8;
+            this.BtnDER06R.Text = "DER 06R";
+            this.BtnDER06R.UseVisualStyleBackColor = true;
+            this.BtnDER06R.Click += new System.EventHandler(this.BtnDER06R_Click);
+            // 
             // IASInformation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(588, 417);
+            this.Controls.Add(this.BtnDER06R);
+            this.Controls.Add(this.BtnDER24L);
+            this.Controls.Add(this.BtnThres06R);
+            this.Controls.Add(this.BtnThres24L);
             this.Controls.Add(this.Btn3500);
             this.Controls.Add(this.Btn1500);
             this.Controls.Add(this.Btn850);
@@ -129,5 +177,9 @@
         private System.Windows.Forms.Button Btn850;
         private System.Windows.Forms.Button Btn1500;
         private System.Windows.Forms.Button Btn3500;
+        private System.Windows.Forms.Button BtnThres24L;
+        private System.Windows.Forms.Button BtnThres06R;
+        private System.Windows.Forms.Button BtnDER24L;
+        private System.Windows.Forms.Button BtnDER06R;
     }
 }

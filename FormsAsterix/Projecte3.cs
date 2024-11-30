@@ -1726,13 +1726,17 @@ namespace FormsAsterix
         private void IASInfo_Click(object sender, EventArgs e)
         {
             FindIASatDetAltitude();
-            IASInformation IASInfo = new IASInformation(IASList);
+            ThresholdListRight = IASCalculations.CalculateThresholdCrossings(ListFilteredPlanes, "LEBL-06R", 500);
+            ThresholdListLeft = IASCalculations.CalculateThresholdCrossings(ListFilteredPlanes, "LEBL-24L", 500);
+            IASInformation IASInfo = new IASInformation(IASList, ThresholdListRight, ThresholdListLeft);
             IASInfo.Show();
         }
 
         // IAS implementation
 
         List<IASData> IASList = new List<IASData>();
+        List<IASData> ThresholdListRight = new List<IASData>();
+        List<IASData> ThresholdListLeft = new List<IASData>();
 
         public void AddIasData(PlaneFilter planeBefore, PlaneFilter planeAfter, double altitude)
         {
