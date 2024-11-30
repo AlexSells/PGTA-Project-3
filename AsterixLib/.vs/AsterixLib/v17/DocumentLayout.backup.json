@@ -3,13 +3,13 @@
   "WorkspaceRootPath": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\Projecte 3 versi\u00F3 1\\PGTA Project 3\\PGTA-Project-3\\AsterixLib\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{BFE7019D-614D-4C09-9F07-7ADD6C4282CE}|..\\LibAsterix\\LibAsterix.csproj|c:\\users\\alex\\desktop\\universitat\\5a\\pgta\\p2\\github\\projecte 3 versi\u00F3 1\\pgta project 3\\pgta-project-3\\libasterix\\iascalculations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\alex\\desktop\\universitat\\5a\\pgta\\p2\\github\\projecte 3 versi\u00F3 1\\pgta project 3\\pgta-project-3\\formsasterix\\iasinformation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\alex\\desktop\\universitat\\5a\\pgta\\p2\\github\\projecte 3 versi\u00F3 1\\pgta project 3\\pgta-project-3\\formsasterix\\projecte3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\alex\\desktop\\universitat\\5a\\pgta\\p2\\github\\projecte 3 versi\u00F3 1\\pgta project 3\\pgta-project-3\\formsasterix\\iasinformation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{BFE7019D-614D-4C09-9F07-7ADD6C4282CE}|..\\LibAsterix\\LibAsterix.csproj|c:\\users\\alex\\desktop\\universitat\\5a\\pgta\\p2\\github\\projecte 3 versi\u00F3 1\\pgta project 3\\pgta-project-3\\libasterix\\iascalculations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\alex\\desktop\\universitat\\5a\\pgta\\p2\\github\\projecte 3 versi\u00F3 1\\pgta project 3\\pgta-project-3\\formsasterix\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
@@ -31,7 +31,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 233,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -51,8 +51,7 @@
               "RelativeToolTip": "..\\LibAsterix\\UVCoordinates.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAuwBMAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-30T17:36:55.04Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-30T17:36:55.04Z"
             },
             {
               "$type": "Document",
@@ -68,13 +67,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "IASInformation.cs",
               "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\Projecte 3 versi\u00F3 1\\PGTA Project 3\\PGTA-Project-3\\FormsAsterix\\IASInformation.cs",
               "RelativeDocumentMoniker": "..\\FormsAsterix\\IASInformation.cs",
               "ToolTip": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\Projecte 3 versi\u00F3 1\\PGTA Project 3\\PGTA-Project-3\\FormsAsterix\\IASInformation.cs",
               "RelativeToolTip": "..\\FormsAsterix\\IASInformation.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAAswF0AAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAACQAAAAAAAAAAAAYwDkAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-30T12:03:22.845Z",
               "EditorCaption": ""
@@ -99,7 +98,7 @@
               "RelativeDocumentMoniker": "..\\FormsAsterix\\Projecte3.cs",
               "ToolTip": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\Projecte 3 versi\u00F3 1\\PGTA Project 3\\PGTA-Project-3\\FormsAsterix\\Projecte3.cs",
               "RelativeToolTip": "..\\FormsAsterix\\Projecte3.cs",
-              "ViewState": "AgIAALQGAAAAAAAAAAApwMEGAABvAAAAAAAAAA==",
+              "ViewState": "AgIAALQGAAAAAAAAAAAjwMQGAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-29T17:52:12.455Z",
               "EditorCaption": ""
@@ -114,18 +113,17 @@
               "RelativeToolTip": "..\\FormsAsterix\\Form1.cs",
               "ViewState": "AgIAAFkHAAAAAAAAAAAAAHQHAACBAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-29T17:48:47.057Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-29T17:48:47.057Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "IASCalculations.cs",
               "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\Projecte 3 versi\u00F3 1\\PGTA Project 3\\PGTA-Project-3\\LibAsterix\\IASCalculations.cs",
               "RelativeDocumentMoniker": "..\\LibAsterix\\IASCalculations.cs",
               "ToolTip": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\Projecte 3 versi\u00F3 1\\PGTA Project 3\\PGTA-Project-3\\LibAsterix\\IASCalculations.cs",
               "RelativeToolTip": "..\\LibAsterix\\IASCalculations.cs",
-              "ViewState": "AgIAAKIAAAAAAAAAAAAkwLgAAABJAAAAAAAAAA==",
+              "ViewState": "AgIAAIcAAAAAAAAAAAAEwJ8AAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-30T12:28:58.136Z",
               "EditorCaption": ""

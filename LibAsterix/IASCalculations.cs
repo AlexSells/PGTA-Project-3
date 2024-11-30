@@ -182,7 +182,7 @@ namespace LibAsterix
                                 double distanceDER = HaversineDistance(plane.Lat, plane.Lon, DERLat, DERLon);
 
                                 // Si la distancia es menor al umbral (por ejemplo, 100 metros), consideramos que cruzó el umbral
-                                if (distanceDER <= distanceThreshold+1000)
+                                if (distanceDER <= distanceThreshold)
                                 {
                                     // Crear un nuevo objeto IASData para guardar los datos del cruce
                                     IASData data = new IASData

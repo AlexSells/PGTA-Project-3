@@ -55,7 +55,7 @@ namespace FormsAsterix
             }
 
             // Ajustar el tamaño del DataGridView según el contenido (añadir un pequeño margen)
-            IASdatagrid.Size = new Size(totalWidth + 20, totalHeight + 20); // El +20 es para el margen
+            //IASdatagrid.Size = new Size(totalWidth + 20, totalHeight + 20); // El +20 es para el margen
 
             // Si quieres que el DataGridView se ajuste a la pantalla, puedes establecer un tamaño máximo:
             IASdatagrid.ScrollBars = ScrollBars.Both; // Activar barras de desplazamiento si es necesario
@@ -91,17 +91,35 @@ namespace FormsAsterix
             {
                 if (ThresholdList.Count <= 2)
                 {
-                    string a = ThresholdList[i].AircraftId;
                     ThresholdRight.Add(ThresholdList[i]);
+                    if (i + 1 < 2)
+                    {
+                        if (ThresholdList[i].AircraftId == ThresholdList[i + 1].AircraftId)
+                        {
+                            try
+                            {
+                                DERRight.Add(ThresholdList[i + 1]);
+                            }
+                            catch { continue; }
+                        }
+                    }
                 }
                 else
                 {
-                    if (ThresholdList[i].Time < ThresholdList[i + 1].Time && ThresholdList[i].AircraftId == ThresholdList[i + 1].AircraftId)
+                    if (i+1 > ThresholdList.Count - 1)
                     {
-                        ThresholdRight.Add(ThresholdList[i]);
-                        DERRight.Add(ThresholdList[i + 1]);
-                        i++;
+                        break;
                     }
+                    else
+                    {
+                        if (ThresholdList[i].Time < ThresholdList[i + 1].Time && ThresholdList[i].AircraftId == ThresholdList[i + 1].AircraftId)
+                        {
+                            ThresholdRight.Add(ThresholdList[i]);
+                            DERRight.Add(ThresholdList[i + 1]);
+                            i++;
+                        }
+                    }
+                    
                 }
                 
             }
@@ -109,20 +127,39 @@ namespace FormsAsterix
         public void ClassifiyThresholdLeft(List<IASData> ThresholdList)
         {
             
-            for (int i = 0; i <= ThresholdList.Count - 1; i++)
+            for (int i = 0; i < ThresholdList.Count - 1; i++)
             {
-                if (ThresholdList.Count <= 2)
+                if (ThresholdList.Count == 2)
                 {
                     ThresholdLeft.Add(ThresholdList[i]);
+                    if (i+1 < 2)
+                    {
+                        if (ThresholdList[i].AircraftId == ThresholdList[i + 1].AircraftId)
+                        {
+                            try
+                            {
+                                DERLeft.Add(ThresholdList[i + 1]);
+                            }
+                            catch { continue; }
+                        }
+                    }
                 }
                 else
                 {
-                    if (ThresholdList[i].Time < ThresholdList[i + 1].Time && ThresholdList[i].AircraftId == ThresholdList[i + 1].AircraftId)
+                    if (i+1 >= ThresholdList.Count - 1)
                     {
-                        ThresholdLeft.Add(ThresholdList[i]);
-                        DERLeft.Add(ThresholdList[i + 1]);
-                        i++;
+                        break;
                     }
+                    else
+                    {
+                        if (ThresholdList[i].Time < ThresholdList[i + 1].Time && ThresholdList[i].AircraftId == ThresholdList[i + 1].AircraftId)
+                        {
+                            ThresholdLeft.Add(ThresholdList[i]);
+                            DERLeft.Add(ThresholdList[i + 1]);
+                            i++;
+                        }
+                    }
+                    
                 }
                 
             }
