@@ -1,6 +1,7 @@
 ﻿using LibAsterix;
 using MultiCAT6.Utils;
 using OfficeOpenXml;
+using OfficeOpenXml.ConditionalFormatting.Contracts;
 using SharpKml.Base;
 using SharpKml.Dom;
 using SharpKml.Engine;
@@ -12,6 +13,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -1723,6 +1725,199 @@ namespace FormsAsterix
             public List<Vector> Positions { get; set; }
             public string Description { get; set; }
         }
+
+        static void GetKML3(List<PlaneFilter> list)
+        {
+            // COORDENADES: Centre del cercle (DVOR)
+            double DVOR_Lat = 41.307111;
+            double DVOR_Lon = 2.107806;
+            // COORDENADES: Extrem radi (COSTA)
+            double Coast_Lat = 41.268167;
+            double Coast_Lon = 2.033333;
+
+            // Calcul el radi del cercle (distancia entre DVOR i la costa)
+            double radius = CalculateDistance(DVOR_Lat, DVOR_Lon, Coast_Lat, Coast_Lon);
+
+            // Dialeg per guardar l'arxiu
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Filter = "Archivo KML|*.kml",
+                Title = "Guardar archivo KML"
+            };
+
+            // Cas l'usuari cancela al generar un arxiu
+            if (saveFileDialog.ShowDialog() != DialogResult.OK) { return; }
+            
+            // L'usuari tira endavant amb la operació
+            string filePath = saveFileDialog.FileName;
+
+            // Desa els avions que estiguin d'intre del area
+            var posicionsDeRepeticio = new Dictionary<string, KML_DATA2>();
+
+            foreach(var plane in list)
+            {
+                // Només treballarem amb els avions que suerten de la pista LEBL-06R
+                if (plane.TakeoffRWY == "LEBL-24L")
+                {
+                    // Verifiquem si estan dintre del cercle
+                    if (IsWithinCircle(DVOR_Lat, DVOR_Lon, radius, plane.Lat, plane.Lon) == true)
+                    {
+                        if (posicionsDeRepeticio.ContainsKey(plane.AircraftID) == false)
+                        {
+                            posicionsDeRepeticio[plane.AircraftID] = new KML_DATA2
+                            {
+                                Positions = new List<Vector>(),
+                                Description = $"Aircraft Address: {plane.AircraftID};" +
+                                $"Aircraft Identification: {plane.AircraftID};" +
+                                $"Track Number: {plane.TrackNum}"
+                            };
+                        }
+                        posicionsDeRepeticio[plane.AircraftID].Positions.Add(new Vector(plane.Lat, plane.Lon, plane.Altitude));
+                    }
+                }
+            }
+            // Creem el document KML
+            var document = new Document();
+            var kml = new Kml();
+            int styleCount = 0;
+
+            // Crea un estilo único para el círculo
+            var style = new Style
+            {
+                Id = "CircleStyle", // ID único para el estilo
+                Line = new LineStyle
+                {
+                    Color = new Color32(255, 255, 0, 255), // Amarillo
+                    Width = 5 // Línea más gruesa
+                },
+                Polygon = new PolygonStyle
+                {
+                    Color = new Color32(128, 255, 255, 50) // Amarillo semitransparente
+                }
+            };
+
+            // Agregar estilo al documento
+            document.AddStyle(style);
+
+            // Crear un placemark para el círculo
+            var placemark_circle = CreateCirclePlacemark(DVOR_Lat, DVOR_Lon, radius*1000); // Coordenadas de ejemplo y radio 1000 metros
+            placemark_circle.StyleUrl = new Uri("#CircleStyle", UriKind.Relative);
+
+            // Afegir el placemark del cercle al document
+            document.AddFeature(placemark_circle);
+
+            foreach (var kvp in posicionsDeRepeticio)
+            {
+                var placemark = new SharpKml.Dom.Placemark()
+                {
+                    Name = kvp.Key,
+                    Description = new Description { Text = kvp.Value.Description },
+                    Geometry = CreateLineString(kvp.Value.Positions),
+                    StyleUrl = new Uri($"Style{styleCount}",UriKind.Relative)
+                };
+
+                // Definim el estil de l'aeronau
+                var styles = new Style
+                {
+                    Id = $"Style{styleCount}",
+                    Line = new LineStyle
+                    {
+                        Color = new Color32(255, 0, 0, 255),
+                        Width = 1
+                    }
+                };
+
+                // Guardem la configuració
+                document.AddStyle(styles);
+                document.AddFeature(placemark);
+
+                styleCount++;
+            
+            }
+            // Guardem el arxiu KML
+            kml.Feature = document;
+            var kmlFile = KmlFile.Create(kml, false);
+
+            try
+            {
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    kmlFile.Save(fileStream);
+                }
+
+                MessageBox.Show("Archivo KML guardado exitosamente.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al guardar el archivo: {ex.Message}");
+            }
+        }
+        // Metode per crear una LineString a partir de la llista de posicions
+        static LineString CreateLineString(List<Vector> positions)
+        {
+            var lineString = new LineString
+            {
+                Coordinates = new CoordinateCollection(),
+                AltitudeMode = AltitudeMode.Absolute // Por defecte
+            };
+
+            foreach (var pos in positions)
+            {
+                lineString.Coordinates.Add(pos);
+
+                // Cambiar el mode d'altitud si està per debaix de 1828.8 metres
+                if (pos.Altitude <= 1828.8)
+                    lineString.AltitudeMode = AltitudeMode.RelativeToGround;
+            }
+
+            return lineString;
+        }
+
+        // Métode para crear un círcule como Placemark en KML
+        static Placemark CreateCirclePlacemark(double centerLat, double centerLon, double radius)
+        {
+            var placemark = new Placemark { Name = "Área del SID - Restricción" };
+
+            var style = new Style
+            {
+                Id = "CircleStyle", // ID de l'estil
+                Line = new LineStyle { Color = new Color32(255, 255, 0, 255), Width = 5 },
+                Polygon = new PolygonStyle { Color = new Color32(128, 255, 255, 50) } // GROC per semitransparent moure el primer parametre
+            };
+
+            var circle = new Polygon();
+            var ring = new LinearRing
+            {
+                Coordinates = new CoordinateCollection() // ¡Inicialización necesaria!
+            };
+
+            // numero de punt que tindra el cercle
+            const int numPoints = 360;
+
+            for (int i = 0; i < numPoints; i++)
+            {
+                double angle = 2 * Math.PI * i / numPoints;
+                double lat = centerLat + (radius / 111320) * Math.Cos(angle); // Aproximació per latitud
+                double lon = centerLon + (radius / 111320) * Math.Sin(angle) / Math.Cos(centerLat * Math.PI / 180); // Longitud ajustada
+                ring.Coordinates.Add(new Vector(lat, lon, 0)); // Afegim l'anell
+            }
+            // Asignem l'anell al cercle
+            circle.OuterBoundary = new OuterBoundary { LinearRing = ring };
+
+            // Asociem la geometria i lestil de Placemark
+            placemark.Geometry = circle;
+
+            // Vincular estil personalizat al cercle (no va)
+            placemark.StyleUrl = new Uri("#CircleStyle", UriKind.Relative);
+
+
+            // Imprimir la geometría del placemark para asegurarnos de que se asignó correctamente
+            Debug.WriteLine($"Placemark Geometry: {placemark.Geometry}");
+
+            return placemark;
+        }
+
+        /*### FINAL JÚLIA #######################################################################################################################################################################################################################################3*/
         private void IASInfo_Click(object sender, EventArgs e)
         {
             FindIASatDetAltitude();

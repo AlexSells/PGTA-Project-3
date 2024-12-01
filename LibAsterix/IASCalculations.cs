@@ -38,22 +38,10 @@ namespace LibAsterix
             Y = Y + ias_y;
             return Y;
         }
-        // Método para verificar si el cruce de los waypoints es válido
-        public static bool CheckWaypointAltitude(double altitude, string runway)
-        {
-            // Condiciones según la pista:
-            // Retorna true --> se cumple la condicion
-            // Retorna false --> no se cumple la c
-            if (runway == "24L" && altitude >= 3000 * GeoUtils.METERS2FEET) return true;
-            if (runway == "06R" && altitude >= 4000 * GeoUtils.METERS2FEET) return true;
-            return false;
-        }
-        // Método para calcular la velocidad IAS y validar si es válida para el despegue
-        public static bool CheckIASValid(double ias)
-        {
-            // Velocidad máxima IAS permitida para el cruze de DEP es 205 kt
-            return ias <= 205;
-        }
+
+
+        
+        
         public static PlaneFilter CheckIAS4Altitude(PlaneFilter InitPF, PlaneFilter FinalPF, double altitude)
         {
             PlaneFilter aux = new PlaneFilter();
