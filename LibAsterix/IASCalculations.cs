@@ -1,6 +1,8 @@
-﻿using MultiCAT6.Utils;
+﻿using Accord.Math;
+using MultiCAT6.Utils;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.WebSockets;
 using System.Text;
@@ -84,13 +86,19 @@ namespace LibAsterix
         // Función para calcular la distancia entre dos puntos usando la fórmula de Haversine
         private static double HaversineDistance(double lat1, double lon1, double lat2, double lon2)
         {
-            double dLat = (lat2 - lat1)*GeoUtils.DEGS2RADS;
-            double dLon = (lon2 - lon1) * GeoUtils.DEGS2RADS;
+            double lat1rad = lat1*GeoUtils.DEGS2RADS;
+            double lat2rad = lat2* GeoUtils.DEGS2RADS;
+            double lon1rad = lon1 * GeoUtils.DEGS2RADS;
+            double lon2rad = lon2 * GeoUtils.DEGS2RADS;
+            double dLat = lat2rad - lat1rad;
+            double dLon = lon2rad - lon1rad;
 
             // Formula Harversine
-            double a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +  Math.Cos(lat1*GeoUtils.DEGS2RADS) * Math.Cos(lat2 * GeoUtils.DEGS2RADS) * Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
+            double a = (Math.Pow(Math.Sin(dLat / 2), 2)) +  (Math.Cos(lat1rad)) * (Math.Cos(lat2rad)) * (Math.Pow(Math.Sin(dLon / 2),2));
+            Debug.WriteLine("a: " + a);
 
             double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+            Debug.WriteLine("c: " + c);
 
             return RADIUS_EARTH_METERS * c; // resultat en metres
         }
@@ -110,10 +118,10 @@ namespace LibAsterix
             string aux2 = planes[0].AircraftID;
 
             // INIT POSITION REFERENCES
-            double thresholdLat = 0;
-            double thresholdLon = 0;
-            double DERLat = 0;
-            double DERLon = 0;
+            double thresholdLat = 0.0;
+            double thresholdLon = 0.0;
+            double DERLat = 0.0;
+            double DERLon = 0.0;
             if (runway == "LEBL-24L") 
             {
                 thresholdLat = 41.2922194444;
@@ -127,7 +135,7 @@ namespace LibAsterix
                 DERLat = 41.2922194444;
                 DERLon = 2.1032805556;
             }
-            if (thresholdLat != 0 && thresholdLon != 0 && DERLat != 0 && DERLon != 0) 
+            if (thresholdLat != 0.0 && thresholdLon != 0.0 && DERLat != 0.0 && DERLon != 0.0) 
             {
                 foreach (var plane in planes)
                 {
@@ -142,10 +150,13 @@ namespace LibAsterix
 
                         if (aux != plane.AircraftID)
                         {
+                            
                             if (thresholdFound == false && ThresORder == true)
                             {
                                 // Calcular la distancia entre el avión y el umbral
+                                
                                 double distance = HaversineDistance(plane.Lat, plane.Lon, thresholdLat, thresholdLon);
+                                
 
                                 // Si la distancia es menor al umbral (por ejemplo, 100 metros), consideramos que cruzó el umbral
                                 if (distance <= distanceThreshold)
@@ -163,12 +174,13 @@ namespace LibAsterix
                                     thresholdCrossings.Add(data);
                                     thresholdFound = true;
                                 }
+                                
                             }
                             if (DERFound == false && ThresORder == false)
                             {
                                 // Calcular la distancia entre el avión y el umbral
                                 double distanceDER = HaversineDistance(plane.Lat, plane.Lon, DERLat, DERLon);
-
+                                
                                 // Si la distancia es menor al umbral (por ejemplo, 100 metros), consideramos que cruzó el umbral
                                 if (distanceDER <= distanceThreshold)
                                 {

@@ -290,18 +290,21 @@ namespace FormsAsterix
         {
             bool aux = StartClassification("Tabla_Clasificacion_aeronaves.xlsx", ref ClasPlanes);
             GetListDistanceCSV(aux);
+            MessageBox.Show("Fichero cargado correctamente");
         }
 
         private void LoadSID06RBtn_Click(object sender, EventArgs e)
         {
             bool aux = StartClassification("Tabla_misma_SID_06R.xlsx", ref ClasSID);
             GetListDistanceCSV(aux);
+            MessageBox.Show("Fichero cargado correctamente");
         }
 
         private void LoadSID24LBtn_Click(object sender, EventArgs e)
         {
             bool aux = StartClassification("Tabla_misma_SID_24L.xlsx", ref ClasSID);
             GetListDistanceCSV(aux);
+            MessageBox.Show("Fichero cargado correctamente");
         }
 
         // main variables
@@ -1921,10 +1924,10 @@ namespace FormsAsterix
         private void IASInfo_Click(object sender, EventArgs e)
         {
             FindIASatDetAltitude();
-            ThresholdListRight = IASCalculations.CalculateThresholdCrossings(ListFilteredPlanes, "LEBL-06R", 500,true);
-            ThresholdListLeft = IASCalculations.CalculateThresholdCrossings(ListFilteredPlanes, "LEBL-24L", 500, true);
-            DERListRight = IASCalculations.CalculateThresholdCrossings(ListFilteredPlanes, "LEBL-06R", 500, false);
-            DERListLeft = IASCalculations.CalculateThresholdCrossings(ListFilteredPlanes, "LEBL-24L", 500, false);
+            ThresholdListRight = IASCalculations.CalculateThresholdCrossings(ListFilteredPlanes, "LEBL-06R", 500.0,true);
+            ThresholdListLeft = IASCalculations.CalculateThresholdCrossings(ListFilteredPlanes, "LEBL-24L", 500.0, true);
+            DERListRight = IASCalculations.CalculateThresholdCrossings(ListFilteredPlanes, "LEBL-06R", 500.0, false);
+            DERListLeft = IASCalculations.CalculateThresholdCrossings(ListFilteredPlanes, "LEBL-24L", 500.0, false);
 
             IASInformation IASInfo = new IASInformation(IASList, ThresholdListRight, ThresholdListLeft, DERListRight, DERListLeft);
             IASInfo.Show();

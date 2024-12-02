@@ -2065,7 +2065,7 @@ namespace FormsAsterix
                                         {
                                             continue; // Skip invalid coordinates
                                         }
-                                        else if (Convert.ToDouble(asterixGrids[i].Height) > 20000 || asterixGrids[i].Flight_Level == "NAN") //|| asterixGrids[i].GHO == true
+                                        else if (Convert.ToDouble(asterixGrids[i].Height) > 1830 || asterixGrids[i].Flight_Level == "NAN") //|| asterixGrids[i].GHO == true
                                         {
                                             continue; // Skip invalid heights or NAN flight levels
                                         }
@@ -2143,7 +2143,7 @@ namespace FormsAsterix
                         }
 
                         Projecte3 projecte3 = new Projecte3(ListPlanes);
-                        MessageBox.Show(Convert.ToString(ListPlanes.Count));
+                        //MessageBox.Show(Convert.ToString(ListPlanes.Count));
                         projecte3.Show();
                     }
                     else
