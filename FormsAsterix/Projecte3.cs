@@ -330,6 +330,13 @@ namespace FormsAsterix
             GenStats.Show();
         }
 
+        private class PlaneDetections
+        {
+            public string AircraftID { get; set; }
+            public bool RadarDetected { get; set; }
+            public bool EstelaDetected { get; set; }
+            public bool LoADetected { get; set; }
+        }
         private void DistanceCSVBtn_Click(object sender, EventArgs e)
         {
             //GenStatisticsBtn.Enabled = true;
@@ -338,8 +345,6 @@ namespace FormsAsterix
             saveFileDialog.Filter = "File CSV| *.csv";
             saveFileDialog.Title = "Save CSV file";
             saveFileDialog.InitialDirectory = @"C:\"; //Punto de inicio
-
-            //ListDistanceCSV = FindDistances();
 
             // Muestra que el archiva se ha guardado correctamente
             DialogResult result = saveFileDialog.ShowDialog();
@@ -368,12 +373,28 @@ namespace FormsAsterix
 
                 string auxString = auxList[0].PlaneFront;
 
+
+                // NOU 2: Classe detect
+                PlaneDetections pd = new PlaneDetections();
+                pd.AircraftID = auxList[0].PlaneFront;
+                pd.RadarDetected = false;
+                pd.EstelaDetected = false;
+                pd.LoADetected = false;
+
                 for (int i = 0; i < auxList.Count; i++)
                 {
                     var aux = auxList[i];
                     bool MinRadar = true;
                     bool MinEstela = true;
                     bool MinLoA = true;
+
+                    if (pd.AircraftID != aux.PlaneFront)
+                    {
+                        pd.AircraftID = aux.PlaneFront;
+                        pd.RadarDetected = false ;
+                        pd.EstelaDetected = false ;
+                        pd.LoADetected = false ;
+                    }
 
                     // Contamos el numero de aviones analizados
                     numPlanesTotal++;
@@ -384,13 +405,16 @@ namespace FormsAsterix
                     {
                         MinRadar = false;
                         numPlanesRadar++;
-                        if (i + 1 < auxList.Count)
+
+
+
+                        if (pd.AircraftID == aux.PlaneFront && pd.RadarDetected == false)
                         {
-                            if (aux.PlaneFront != auxList[i + 1].PlaneFront && aux.PlaneFront != auxList[i + 1].PlaneAfter && auxList[i + 1].ID - aux.ID == 1)
-                            {
-                                TotalRadarIncidents++;
-                            }
+                            pd.RadarDetected = true;
+                            TotalRadarIncidents++;
                         }
+
+
                     }
 
                     // Comprovamos si se comple la distancia minima de LoA
@@ -401,13 +425,21 @@ namespace FormsAsterix
                             MinLoA = false;
                             numPlanesLOA++;
 
+                            if ((pd.AircraftID == aux.PlaneFront && pd.LoADetected == false)) // 
+                            {
+                                pd.LoADetected = true;
+                                TotalLoAIncidents++;
+                            }
+
+                            /*
                             if (i + 1 < auxList.Count)
                             {
-                                if (aux.PlaneFront != auxList[i + 1].PlaneFront && aux.PlaneFront != auxList[i + 1].PlaneAfter && auxList[i + 1].ID - aux.ID > 0)
+                                if ( auxList[i + 1].ID - aux.ID == 1 ) //aux.PlaneFront != auxList[i + 1].PlaneFront && aux.PlaneFront != auxList[i + 1].PlaneAfter &&
                                 {
                                     TotalLoAIncidents++;
                                 }
                             }
+                            */
                         }
                     }
 
@@ -422,6 +454,14 @@ namespace FormsAsterix
                         {
                             MinEstela = false;
                             numPlanesEstela++;
+
+                            if (pd.AircraftID == aux.PlaneFront && pd.EstelaDetected == false)
+                            {
+                                pd.EstelaDetected = true;
+                                TotalEstelaIncidents++;
+                            }
+
+                            /*
                             if (i + 1 < auxList.Count)
                             {
                                 if (aux.PlaneFront != auxList[i + 1].PlaneFront && aux.PlaneFront != auxList[i + 1].PlaneAfter && auxList[i + 1].ID - aux.ID == 1)
@@ -429,6 +469,7 @@ namespace FormsAsterix
                                     TotalEstelaIncidents++;
                                 }
                             }
+                            */
                         }
 
                         if ((i + 1) < ListDistanceCSV.Count && auxFront != ListDistanceCSV[i + 1].PlaneFront) //&& auxFront != ListDistanceCSV[i + 1].PlaneFront
