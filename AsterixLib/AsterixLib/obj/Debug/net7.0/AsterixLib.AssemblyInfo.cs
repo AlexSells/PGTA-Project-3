@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AsterixLib")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+795995f9ab7c51e8dad69fe38ece110261c37196")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+862c3791dcc67211572ac681c4ecd24fddbd7e4f")]
 [assembly: System.Reflection.AssemblyProductAttribute("AsterixLib")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AsterixLib")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
