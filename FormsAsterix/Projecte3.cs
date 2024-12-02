@@ -35,10 +35,10 @@ namespace FormsAsterix
         }
         /*### LIST ############################################################################################################*/
         List<PlaneFilter> ListFilteredPlanes;
-        private List<(string PlaneFront, string AircraftTypeFront, string EstelaFront, string ClassFront, string SIDfront, double time_front, string PlaneAfter, string AircraftTypeBack, string EstelaAfter, string ClassAfter, string SIDback, double time_back, bool SameSID, double U, double V, double DistanceDiff, double secondsDiff)> ListDistanceCSV;
-        private List<(string PlaneFront, string AircraftTypeFront, string EstelaFront, string ClassFront, string SIDfront, double time_front, string PlaneAfter, string AircraftTypeBack, string EstelaAfter, string ClassAfter, string SIDback, double time_back, bool SameSID, double U, double V, double DistanceDiff, double secondsDiff)> FindDistances()
+        private List<(int ID, string PlaneFront, string AircraftTypeFront, string EstelaFront, string ClassFront, string SIDfront, double time_front, string PlaneAfter, string AircraftTypeBack, string EstelaAfter, string ClassAfter, string SIDback, double time_back, bool SameSID, double U, double V, double DistanceDiff, double secondsDiff)> ListDistanceCSV;
+        private List<(int ID, string PlaneFront, string AircraftTypeFront, string EstelaFront, string ClassFront, string SIDfront, double time_front, string PlaneAfter, string AircraftTypeBack, string EstelaAfter, string ClassAfter, string SIDback, double time_back, bool SameSID, double U, double V, double DistanceDiff, double secondsDiff)> FindDistances()
         {
-            List<(string PlaneFront, string AircraftTypeFront, string EstelaFront, string ClassFront, string SIDfront, double time_front, string PlaneAfter, string AircraftTypeBack, string EstelaAfter, string ClassAfter, string SIDback, double time_back, bool SameSID, double U, double V, double DistanceDiff, double secondsDiff)> distances = new List<(string PlaneFront, string AircraftTypeFront, string EstelaFront, string ClassFront, string SIDfront, double time_front, string PlaneAfter, string AircraftTypeBack, string EstelaAfter, string ClassAfter, string SIDback, double time_back, bool SameSID, double U, double V, double DistanceDiff, double secondsDiff)>();
+            List<(int ID, string PlaneFront, string AircraftTypeFront, string EstelaFront, string ClassFront, string SIDfront, double time_front, string PlaneAfter, string AircraftTypeBack, string EstelaAfter, string ClassAfter, string SIDback, double time_back, bool SameSID, double U, double V, double DistanceDiff, double secondsDiff)> distances = new List<(int ID, string PlaneFront, string AircraftTypeFront, string EstelaFront, string ClassFront, string SIDfront, double time_front, string PlaneAfter, string AircraftTypeBack, string EstelaAfter, string ClassAfter, string SIDback, double time_back, bool SameSID, double U, double V, double DistanceDiff, double secondsDiff)>();
             totalPlanes = 1;
             ListFilteredPlanes = ListFilteredPlanes.OrderBy(item => item.ID).ToList();
             int auxID = ListFilteredPlanes[0].ID; // ID con la que trabajamos
@@ -109,7 +109,7 @@ namespace FormsAsterix
                         bool boolSID = SameSIDFront == SameSIDBack ? true : false;
                         auxSegimiento = j+1;
 
-                        distances.Add((ListFilteredPlanes[i].AircraftID, ListFilteredPlanes[i].AircraftType, ListFilteredPlanes[i].EstelaType, ClassFront, SameSIDFront, ListFilteredPlanes[i].time_sec, ListFilteredPlanes[j].AircraftID, ListFilteredPlanes[i].AircraftType, ListFilteredPlanes[j].EstelaType, ClassBack, SameSIDBack, ListFilteredPlanes[j].time_sec, boolSID, delta_U, delta_V, distanceDiff, auxSeconds));
+                        distances.Add((ListFilteredPlanes[i].ID,ListFilteredPlanes[i].AircraftID, ListFilteredPlanes[i].AircraftType, ListFilteredPlanes[i].EstelaType, ClassFront, SameSIDFront, ListFilteredPlanes[i].time_sec, ListFilteredPlanes[j].AircraftID, ListFilteredPlanes[i].AircraftType, ListFilteredPlanes[j].EstelaType, ClassBack, SameSIDBack, ListFilteredPlanes[j].time_sec, boolSID, delta_U, delta_V, distanceDiff, auxSeconds));
                         break;
                     }
                     else if (ListFilteredPlanes[j].ID - ListFilteredPlanes[i].ID > 1) { break; }
@@ -346,95 +346,175 @@ namespace FormsAsterix
 
             if (result == DialogResult.OK)
             {
+
+                List<(int ID, string PlaneFront, string AircraftTypeFront, string EstelaFront, string ClassFront, string SIDfront, double time_front, string PlaneAfter, string AircraftTypeBack, string EstelaAfter, string ClassAfter, string SIDback, double time_back, bool SameSID, double U, double V, double DistanceDiff, double secondsDiff)> auxList = new List<(int ID, string PlaneFront, string AircraftTypeFront, string EstelaFront, string ClassFront, string SIDfront, double time_front, string PlaneAfter, string AircraftTypeBack, string EstelaAfter, string ClassAfter, string SIDback, double time_back, bool SameSID, double U, double V, double DistanceDiff, double secondsDiff)>();
+                auxList = ListDistanceCSV.OrderBy(item => item.ID).ToList();
+
+
                 List<(string planeFront, string planeBack, int totalRadar, int totalEstela, int totalLOA)> InfringementCSV = new List<(string planeFront, string planeBack, int totalRadar, int totalEstela, int totalLOA)>();
                 string filePath = saveFileDialog.FileName;
                 StringBuilder sbCSV = new StringBuilder();
 
-                //Variables auxiliares
-                string auxDatos;
-                bool auxDetection = true;
-                string auxPlaneFront = ListDistanceCSV[0].PlaneFront;
-                string auxPlaneBack = ListDistanceCSV[0].PlaneAfter;
-
-
                 // Preparamos las cabeceras donde el delimitador de columna sera el signo =
                 sbCSV.AppendLine("Plane 1= Type_plane 1=Estela 1=Clasification 1=SID 1=Time_1=Plane 2= Type_plane 2=Estela 2=Clasification 2=SID 2=Time_2=Interval time (s)=Delta_U (NM)=Delta_V (NM)=Distance_between (NM)=Minima_radar=Minima_Estela=Minima_LoA=Total of both= Total estela= Radar= Estela = LoA ");
 
-                for (int i = 1; i < ListDistanceCSV.Count; i++)
-                {
 
-                    var aux = ListDistanceCSV[i];
+                // NOU: AUXILIARS
+                int auxID = auxList[0].ID;
+                string auxData;
+                string auxFront = auxList[0].PlaneFront;
+                string auxBack = auxList[0].PlaneAfter;
+                bool auxDetec = true;
+
+                string auxString = auxList[0].PlaneFront;
+
+                for (int i = 0; i < auxList.Count; i++)
+                {
+                    var aux = auxList[i];
                     bool MinRadar = true;
                     bool MinEstela = true;
                     bool MinLoA = true;
 
                     // Contamos el numero de aviones analizados
-                    numPlanesTotal++; 
+                    numPlanesTotal++;
                     TotalMessageComparation++;
+
                     // Comprovamos si se comple la distancia minima de radar en NM (Nautical Miles)
-                    MinRadar = CheckRadarMinima(aux.DistanceDiff);
+                    if (aux.DistanceDiff <= 3.0 * GeoUtils.NM2METERS)
+                    {
+                        MinRadar = false;
+                        numPlanesRadar++;
+                        if (i + 1 < auxList.Count)
+                        {
+                            if (aux.PlaneFront != auxList[i + 1].PlaneFront && aux.PlaneFront != auxList[i + 1].PlaneAfter && auxList[i + 1].ID - aux.ID == 1)
+                            {
+                                TotalRadarIncidents++;
+                            }
+                        }
+                    }
+
                     // Comprovamos si se comple la distancia minima de LoA
-                    MinLoA=CheckLoAminima(aux.DistanceDiff,aux.ClassFront, aux.ClassAfter, aux.SameSID);    
+                    if (LoA.ContainsKey((aux.ClassFront, aux.ClassAfter, aux.SameSID)))
+                    {
+                        if (aux.DistanceDiff * GeoUtils.METERS2NM <= LoA[(aux.ClassFront, aux.ClassAfter, aux.SameSID)])
+                        {
+                            MinLoA = false;
+                            numPlanesLOA++;
+
+                            if (i + 1 < auxList.Count)
+                            {
+                                if (aux.PlaneFront != auxList[i + 1].PlaneFront && aux.PlaneFront != auxList[i + 1].PlaneAfter && auxList[i + 1].ID - aux.ID > 0)
+                                {
+                                    TotalLoAIncidents++;
+                                }
+                            }
+                        }
+                    }
+
                     // Comprovamos si se comple la distancia minima de estela
                     if (Estelas.ContainsKey((aux.EstelaFront, aux.EstelaAfter)))
                     {
                         countEstela++;
                         TotalEstaleComparationMessages++;
-                        MinEstela = CheckEstelaMinima(aux.DistanceDiff, aux.EstelaFront, aux.EstelaAfter);
 
-                        if ((i + 1) < ListDistanceCSV.Count && auxPlaneFront != ListDistanceCSV[i + 1].PlaneFront)
+                        // Comprovamos si se comple la distancia minima de LoA
+                        if (aux.DistanceDiff <= Estelas[(aux.EstelaFront, aux.EstelaAfter)])
                         {
-                            auxDatos = $"={Convert.ToString(numPlanesTotal)}={Convert.ToString(countEstela)}={Convert.ToString(numPlanesRadar)}={Convert.ToString(numPlanesEstela)}={Convert.ToString(numPlanesLOA)}";
+                            MinEstela = false;
+                            numPlanesEstela++;
+                            if (i + 1 < auxList.Count)
+                            {
+                                if (aux.PlaneFront != auxList[i + 1].PlaneFront && aux.PlaneFront != auxList[i + 1].PlaneAfter && auxList[i + 1].ID - aux.ID == 1)
+                                {
+                                    TotalEstelaIncidents++;
+                                }
+                            }
+                        }
+
+                        if ((i + 1) < ListDistanceCSV.Count && auxFront != ListDistanceCSV[i + 1].PlaneFront) //&& auxFront != ListDistanceCSV[i + 1].PlaneFront
+                        {
+                            auxData = $"={Convert.ToString(numPlanesTotal)}={Convert.ToString(countEstela)}={Convert.ToString(numPlanesRadar)}={Convert.ToString(numPlanesEstela)}={Convert.ToString(numPlanesLOA)}";
                             if ((numPlanesRadar != 0 || numPlanesEstela != 0 || numPlanesLOA != 0))
                             {
-                                auxDetection = IncidenceDetector(auxDetection, ListDistanceCSV[i].PlaneFront, auxPlaneBack);
-                                auxPlaneBack = ListDistanceCSV[i].PlaneAfter;
+                                //auxDetec = IncidenceDetector(auxDetec, ListDistanceCSV[i].PlaneFront, auxBack);
+                                //auxBack = ListDistanceCSV[i].PlaneAfter;
+
+                                if (!auxDetec)
+                                {
+                                    if (auxBack == ListDistanceCSV[i].PlaneFront)
+                                    {
+                                        TotalIncidencePlanes++;
+                                    }
+                                    else
+                                    {
+                                        TotalIncidencePlanes = TotalIncidencePlanes + 2;
+                                    }
+                                    auxBack = ListDistanceCSV[i].PlaneAfter;
+                                }
+                                else
+                                {
+                                    auxDetec = false;
+                                    auxBack = ListDistanceCSV[i].PlaneAfter;
+                                    TotalIncidencePlanes = TotalIncidencePlanes + 2;
+                                }
                             }
-                            auxPlaneFront = ListDistanceCSV[i + 1].PlaneFront;
+                            auxFront = ListDistanceCSV[i + 1].PlaneFront;
                             ClearNumAux();
                         }
-                        else { auxDatos = ""; }
+                        else { auxData = ""; }
                         if (aux.PlaneFront != null) //aux.PlaneAfter)
                         {
-                            string data = $"{aux.PlaneFront}={aux.AircraftTypeFront}={aux.EstelaFront}={aux.ClassFront}={aux.SIDfront}={Convert.ToString(aux.time_front)}={aux.PlaneAfter}={aux.AircraftTypeBack}={aux.EstelaAfter}={aux.ClassAfter}={aux.SIDback}={Convert.ToString(aux.time_back)}={Convert.ToString(aux.secondsDiff)}={Convert.ToString(aux.U)}={Convert.ToString(aux.V)}={Convert.ToString(aux.DistanceDiff)}={TotalRadarIncidents}={TotalEstaleComparationMessages}={MinRadar}= N/A ={MinLoA}" + auxDatos;
+                            string data = $"{aux.PlaneFront}={aux.AircraftTypeFront}={aux.EstelaFront}={aux.ClassFront}={aux.SIDfront}={Convert.ToString(aux.time_front)}={aux.PlaneAfter}={aux.AircraftTypeBack}={aux.EstelaAfter}={aux.ClassAfter}={aux.SIDback}={Convert.ToString(aux.time_back)}={Convert.ToString(aux.secondsDiff)}={Convert.ToString(aux.U)}={Convert.ToString(aux.V)}={Convert.ToString(aux.DistanceDiff)}={TotalRadarIncidents}={TotalEstaleComparationMessages}={MinRadar}= N/A ={MinLoA}" + auxData;
                             sbCSV.AppendLine(data);
                         }
                     }
                     else
                     {
-                        if ((i + 1) < ListDistanceCSV.Count && auxPlaneFront != ListDistanceCSV[i + 1].PlaneFront)
+                        if ((i + 1) < ListDistanceCSV.Count && auxFront != ListDistanceCSV[i + 1].PlaneFront) //&& auxFront != ListDistanceCSV[i + 1].PlaneFront
                         {
-                            auxDatos = $"={Convert.ToString(numPlanesTotal)}={Convert.ToString(countEstela)}={Convert.ToString(numPlanesRadar)}={Convert.ToString(numPlanesEstela)}={Convert.ToString(numPlanesLOA)}";
+                            auxData = $"={Convert.ToString(numPlanesTotal)}={Convert.ToString(countEstela)}={Convert.ToString(numPlanesRadar)}={Convert.ToString(numPlanesEstela)}={Convert.ToString(numPlanesLOA)}";
                             if ((numPlanesRadar != 0 || numPlanesEstela != 0 || numPlanesLOA != 0))
                             {
-                                /*if (!auxDetection)
+                                //auxDetec = IncidenceDetector(auxDetec, ListDistanceCSV[i].PlaneFront, auxBack);
+                                //auxBack = ListDistanceCSV[i].PlaneAfter;
+
+                                if (!auxDetec)
                                 {
-                                    if (auxPlaneBack == ListDistanceCSV[i].PlaneFront) { TotalIncidencePlanes++; }
-                                    else { TotalIncidencePlanes = TotalIncidencePlanes + 2; }
-                                    auxPlaneBack = ListDistanceCSV[i].PlaneAfter;
+                                    if (auxBack == ListDistanceCSV[i].PlaneFront)
+                                    {
+                                        TotalIncidencePlanes++;
+                                    }
+                                    else
+                                    {
+                                        TotalIncidencePlanes = TotalIncidencePlanes + 2;
+                                    }
+                                    auxBack = ListDistanceCSV[i].PlaneAfter;
                                 }
                                 else
                                 {
-                                    auxDetection = false;
-                                    auxPlaneBack = ListDistanceCSV[i].PlaneAfter;
+                                    auxDetec = false;
+                                    auxBack = ListDistanceCSV[i].PlaneAfter;
                                     TotalIncidencePlanes = TotalIncidencePlanes + 2;
-                                }*/
-                                auxDetection = IncidenceDetector(auxDetection, ListDistanceCSV[i].PlaneFront, auxPlaneBack);
-                                auxPlaneBack = ListDistanceCSV[i].PlaneAfter;
+                                }
                             }
-                            auxPlaneFront = ListDistanceCSV[i + 1].PlaneFront;
+                            auxFront = ListDistanceCSV[i + 1].PlaneFront;
                             ClearNumAux();
 
                         }
-                        else { auxDatos = ""; }
+                        else { auxData = ""; }
+
                         //sbCSV.AppendLine("Plane 1= Type_plane 1=Estela 1=Clasification 1=SID 1=Time_1=Plane 2= Type_plane 2=Estela 2=Clasification 2=SID 2=Time_2=Interval time (s)=Delta_U (NM)=Delta_V (NM)=Distance_between (NM)=Minima_radar=Minima_Estela=Minima_LoA=Total of both= Total estela= Radar= Estela = LoA ");
-                        if (aux.PlaneFront != null) {//aux.PlaneAfter){
-                            string data = $"{aux.PlaneFront}={aux.AircraftTypeFront}={aux.EstelaFront}={aux.ClassFront}={aux.SIDfront}={Convert.ToString(aux.time_front)}={aux.PlaneAfter}={aux.AircraftTypeBack}={aux.EstelaAfter}={aux.ClassAfter}={aux.SIDback}={Convert.ToString(aux.time_back)}={Convert.ToString(aux.secondsDiff)}={Convert.ToString(aux.U)}={Convert.ToString(aux.V)}={Convert.ToString(aux.DistanceDiff)}={TotalRadarIncidents}={TotalEstaleComparationMessages}={MinRadar}= N/A ={MinLoA}" + auxDatos;
+                        if (aux.PlaneFront != null)
+                        {//aux.PlaneAfter){
+                            string data = $"{aux.PlaneFront}={aux.AircraftTypeFront}={aux.EstelaFront}={aux.ClassFront}={aux.SIDfront}={Convert.ToString(aux.time_front)}={aux.PlaneAfter}={aux.AircraftTypeBack}={aux.EstelaAfter}={aux.ClassAfter}={aux.SIDback}={Convert.ToString(aux.time_back)}={Convert.ToString(aux.secondsDiff)}={Convert.ToString(aux.U)}={Convert.ToString(aux.V)}={Convert.ToString(aux.DistanceDiff)}={TotalRadarIncidents}={TotalEstaleComparationMessages}={MinRadar}= N/A ={MinLoA}" + auxData;
                             sbCSV.AppendLine(data);
                         }
+
+
                     }
                 }
-                
+
+
 
                 File.WriteAllText(filePath, sbCSV.ToString());
                 MessageBox.Show("CSV file generated");

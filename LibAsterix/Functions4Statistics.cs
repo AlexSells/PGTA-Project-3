@@ -10,7 +10,7 @@ namespace LibAsterix
     public class Functions4Statistics
     {
         /*##### DISTANCE DIFFERENCE FUNCTIONS ##############################################*/
-        public static double CalculateAverageDistanceDiff(List<(string PlaneFront, string AircraftTypeFront, string EstelaFront, string ClassFront, string SIDfront, double time_front, string PlaneAfter, string AircraftTypeBack, string EstelaAfter, string ClassAfter, string SIDback, double time_back, bool SameSID, double U, double V, double DistanceDiff, double secondsDiff)> List)
+        public static double CalculateAverageDistanceDiff(List<(int ID, string PlaneFront, string AircraftTypeFront, string EstelaFront, string ClassFront, string SIDfront, double time_front, string PlaneAfter, string AircraftTypeBack, string EstelaAfter, string ClassAfter, string SIDback, double time_back, bool SameSID, double U, double V, double DistanceDiff, double secondsDiff)> List)
         {
             if (List == null || List.Count == 0)
                 throw new ArgumentException("La lista no puede estar vacía.");
@@ -18,7 +18,7 @@ namespace LibAsterix
             // Calcular el promedio (media) de los valores de DistanceDiff
             return List.Average(item => item.DistanceDiff);
         }
-        public static double CalculateVarianceDistanceDiff(List<(string PlaneFront, string AircraftTypeFront, string EstelaFront, string ClassFront, string SIDfront, double time_front, string PlaneAfter, string AircraftTypeBack, string EstelaAfter, string ClassAfter, string SIDback, double time_back, bool SameSID, double U, double V, double DistanceDiff, double secondsDiff)> List)
+        public static double CalculateVarianceDistanceDiff(List<(int ID, string PlaneFront, string AircraftTypeFront, string EstelaFront, string ClassFront, string SIDfront, double time_front, string PlaneAfter, string AircraftTypeBack, string EstelaAfter, string ClassAfter, string SIDback, double time_back, bool SameSID, double U, double V, double DistanceDiff, double secondsDiff)> List)
         {
             // Calcular el promedio (media) de los valores de DistanceDiff
             double aux = CalculateAverageDistanceDiff(List);
@@ -28,14 +28,14 @@ namespace LibAsterix
 
             return variance;
         }
-        public static double CalculateStandardDeviatioDistanceDiff(List<(string PlaneFront, string AircraftTypeFront, string EstelaFront, string ClassFront, string SIDfront, double time_front, string PlaneAfter, string AircraftTypeBack, string EstelaAfter, string ClassAfter, string SIDback, double time_back, bool SameSID, double U, double V, double DistanceDiff, double secondsDiff)> List)
+        public static double CalculateStandardDeviatioDistanceDiff(List<(int ID, string PlaneFront, string AircraftTypeFront, string EstelaFront, string ClassFront, string SIDfront, double time_front, string PlaneAfter, string AircraftTypeBack, string EstelaAfter, string ClassAfter, string SIDback, double time_back, bool SameSID, double U, double V, double DistanceDiff, double secondsDiff)> List)
         {
             // Calcular la varianza
             double aux = CalculateVarianceDistanceDiff(List);
             // Raíz cuadrada de la varianza
             return Math.Sqrt(aux); 
         }
-        public static double CalculatePercentile95DistanceDiff(List<(string PlaneFront, string AircraftTypeFront, string EstelaFront, string ClassFront, string SIDfront, double time_front, string PlaneAfter, string AircraftTypeBack, string EstelaAfter, string ClassAfter, string SIDback, double time_back, bool SameSID, double U, double V, double DistanceDiff, double secondsDiff)> List)
+        public static double CalculatePercentile95DistanceDiff(List<(int ID, string PlaneFront, string AircraftTypeFront, string EstelaFront, string ClassFront, string SIDfront, double time_front, string PlaneAfter, string AircraftTypeBack, string EstelaAfter, string ClassAfter, string SIDback, double time_back, bool SameSID, double U, double V, double DistanceDiff, double secondsDiff)> List)
         {
             if (List == null || List.Count == 0)
                 throw new ArgumentException("La lista no puede estar vacía.");
@@ -49,7 +49,7 @@ namespace LibAsterix
             // Retornar el valor en ese índice
             return List[index].DistanceDiff;
         }
-        public static double FindMinDistanceDiff(List<(string PlaneFront, string AircraftTypeFront, string EstelaFront, string ClassFront, string SIDfront, double time_front, string PlaneAfter, string AircraftTypeBack, string EstelaAfter, string ClassAfter, string SIDback, double time_back, bool SameSID, double U, double V, double DistanceDiff, double secondsDiff)> List)
+        public static double FindMinDistanceDiff(List<(int ID, string PlaneFront, string AircraftTypeFront, string EstelaFront, string ClassFront, string SIDfront, double time_front, string PlaneAfter, string AircraftTypeBack, string EstelaAfter, string ClassAfter, string SIDback, double time_back, bool SameSID, double U, double V, double DistanceDiff, double secondsDiff)> List)
         {
             if (List == null || List.Count == 0)
                 throw new ArgumentException("La lista no puede estar vacía.");
@@ -59,7 +59,7 @@ namespace LibAsterix
 
             return aux;
         }
-        public static double FindMaxDistanceDiff(List<(string PlaneFront, string AircraftTypeFront, string EstelaFront, string ClassFront, string SIDfront, double time_front, string PlaneAfter, string AircraftTypeBack, string EstelaAfter, string ClassAfter, string SIDback, double time_back, bool SameSID, double U, double V, double DistanceDiff, double secondsDiff)> List)
+        public static double FindMaxDistanceDiff(List<(int ID, string PlaneFront, string AircraftTypeFront, string EstelaFront, string ClassFront, string SIDfront, double time_front, string PlaneAfter, string AircraftTypeBack, string EstelaAfter, string ClassAfter, string SIDback, double time_back, bool SameSID, double U, double V, double DistanceDiff, double secondsDiff)> List)
         {
             if (List == null || List.Count == 0)
                 throw new ArgumentException("La lista no puede estar vacía.");
