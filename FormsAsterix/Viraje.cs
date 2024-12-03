@@ -40,7 +40,7 @@ namespace FormsAsterix
         {
             // List of column headers to display
             List<string> lista = new List<string> {
-            "Aircraft ID","Latitude", "Longitude","Altitude", "Radial", "Check SID"};
+            "Aircraft ID","Latitude", "Longitude","Altitude", "Radial","Initial Mag. Heading ","Viraje Mag. Heading","Viraje RA","Check SID"};
 
             // Set some design parameters
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -62,24 +62,31 @@ namespace FormsAsterix
             }
 
             // Mostrar la información
-            int maxRows = Math.Max(turnStartPoints_DG.Count / 5, sidCompilantList_DG.Count); // Número de filas necesarias
+            int maxRows = Math.Max(turnStartPoints_DG.Count / 8, sidCompilantList_DG.Count); // Número de filas necesarias
             for (int i = 0; i < maxRows; i++)
             {
                 int rowIndex = dataGridView1.Rows.Add(); // Agregar una nueva fila
 
                 // Rellenar datos de turnStartPoints_DG (columnas 0 a 4)
-                for (int j = 0; j < 5; j++)
+                for (int j = 0; j < 8; j++)
                 {
-                    if (i * 5 + j < turnStartPoints_DG.Count) // Validar índice
+                    if (i * 8 + j < turnStartPoints_DG.Count) // Validar índice
                     {
-                        dataGridView1.Rows[rowIndex].Cells[j].Value = turnStartPoints_DG[i * 5 + j];
+                        if (turnStartPoints_DG[i * 8 + j] != "-999")
+                        {
+                            dataGridView1.Rows[rowIndex].Cells[j].Value = turnStartPoints_DG[i * 8 + j];
+                        }
+                        else
+                        {
+                            dataGridView1.Rows[rowIndex].Cells[j].Value = "N/A";
+                        }
                     }
                 }
 
                 // Rellenar datos de sidCompilantList_DG (columna 5)
                 if (i < sidCompilantList_DG.Count) // Validar índice
                 {
-                    dataGridView1.Rows[rowIndex].Cells[5].Value = sidCompilantList_DG[i];
+                    dataGridView1.Rows[rowIndex].Cells[8].Value = sidCompilantList_DG[i];
                 }
             }
         }

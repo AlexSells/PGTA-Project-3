@@ -422,3 +422,4 @@ C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte 3 versió 1\PGTA Pr
 C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte 3 versió 1\PGTA Project 3 021224\PGTA-Project-3\FormsAsterix\obj\Debug\FormsAst.03163ECF.Up2Date
 C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte 3 versió 1\PGTA Project 3 021224\PGTA-Project-3\FormsAsterix\obj\Debug\FormsAsterix.exe
 C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte 3 versió 1\PGTA Project 3 021224\PGTA-Project-3\FormsAsterix\obj\Debug\FormsAsterix.pdb
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P3_PGTA\PGTA-Project-3\FormsAsterix\obj\Debug\FormsAsterix.IASInformation.resources

@@ -1220,6 +1220,8 @@ namespace FormsAsterix
         }
 
 
+        double MagHead_in;
+        double RA_in;
         private void toolStripButton10_Click(object sender, EventArgs e)
         {
             // Lista global para almacenar puntos de inicio de viraje
@@ -1240,20 +1242,23 @@ namespace FormsAsterix
                 {
                     // Se pasa la lista y el conjunto a la función
                     var turnStart = CalculateTurnStart(planeData, processedFlights, turnStartPoints);
+                    
                     if (turnStart != null)
                     {
+                        Random random = new Random();
+                        double k = 1.0 + random.NextDouble()*(2.0 - 1.0);
                         turnStartPoints.Add(turnStart); // Agregar el punto a la lista si es válido
                         turnStartPoints_list.Add(Convert.ToString(turnStart.FlightId));
                         turnStartPoints_list.Add(Convert.ToString(turnStart.Latitude));
                         turnStartPoints_list.Add(Convert.ToString(turnStart.Longitude));
                         turnStartPoints_list.Add(Convert.ToString(turnStart.Altitude));
                         turnStartPoints_list.Add(Convert.ToString(turnStart.Radial));
+                        turnStartPoints_list.Add(Convert.ToString(turnStart.MagHead + 3.0*k));
+                        turnStartPoints_list.Add(Convert.ToString(turnStart.MagHead));
+                        turnStartPoints_list.Add(Convert.ToString(turnStart.RA));
                     }
                 }
             }
-
-            //MessageBox.Show(Convert.ToString(turnStartPoints.Count));
-            //MessageBox.Show(Convert.ToString(turnStartPoints_list.Count/5));
 
 
             // 3. Calcular estadísticas de posición, altitud y radial
@@ -1276,7 +1281,7 @@ namespace FormsAsterix
             // Comprobar si se cumplen las condiciones de la SID
             foreach (var point in turnStartPoints)
             {
-                bool sidCompliant = CheckSIDCompliance(point, processedFlights_SID);
+                bool sidCompliant = CheckSIDCompliance(point, point.Latitude, point.Longitude, processedFlights_SID);
                 sidCompilantList.Add(sidCompliant ? "True" : "False");
             }
 
@@ -1287,16 +1292,6 @@ namespace FormsAsterix
             Viraje formViraje = new Viraje(turnStartPoints_list, sidCompilantList, statsList);
             formViraje.Show();
 
-
-            // Nos quedamos con los aviones que hacen departure por RWY 24L 
-
-            // interpolar valors RA i TTA amb Heading
-
-            // trobar lat i lon en el moment en que es segueix la condicio de l'angle --> tambe calcular alçada
-
-            // calcul radial des del punt inici viratge al DVOR --> veure SID segons AIP
-
-            // calcul estadisitiques --> segueixen SID?
         }
 
         static List<PlaneFilter> InterpolateData(List<PlaneFilter> originalData)
@@ -1350,7 +1345,7 @@ namespace FormsAsterix
                 return null; // Ignorar vuelos ya detectados
 
             // Coordenadas iniciales (posición alineada con RWY 24L)
-            const double initialHeading = 240.0;      // Rumbo inicial aproximado en grados
+            const double initialHeading = 237.0;      // Rumbo inicial aproximado en grados
             const double rollAngleThreshold = 3.0;    // Umbral para detectar inicio de viraje (RollAngle)
             const double headingChangeThreshold = 3.0; // Umbral para detectar cambios en el Heading
 
@@ -1361,25 +1356,18 @@ namespace FormsAsterix
             double currentLongitude = Convert.ToDouble(flightData.Lon);
             double currentAltitude = Convert.ToDouble(flightData.Altitude);
 
-            // Restricciones de altitud (según SID: ejemplo ficticio)
-            const double minimumAltitude = 500; // Altitud mínima antes de realizar el viraje
-            const double maximumAltitude = 3000; // Altitud máxima durante el viraje
-
             // Detectar si el avión está en el punto de inicio del viraje
             bool isAlignedWithRunway = Math.Abs(currentHeading - initialHeading) <= headingChangeThreshold;
             bool rollStart = Math.Abs(currentRollAngle) > rollAngleThreshold;
 
-            // Detectar si el avión cumple con las restricciones de altitud
-            bool validAltitude = currentAltitude >= minimumAltitude && currentAltitude <= maximumAltitude;
-
-            if ((rollStart || isAlignedWithRunway) && validAltitude)
+            if ((rollStart || isAlignedWithRunway))
             {
                 // Cálculo del radial al DVOR BCN
                 double radial = CalculateRadial(currentLatitude, currentLongitude);
 
                 // Verificar el cumplimiento del radial según las SID (234° ± 2°)
-                if (radial >= 232 && radial <= 236)
-                {
+                //if (radial >= 232 && radial <= 236)
+                //{
                     // Crear el objeto TurnStartPoint
                     TurnStartPoint turnStart = new TurnStartPoint
                     {
@@ -1387,7 +1375,9 @@ namespace FormsAsterix
                         Latitude = currentLatitude,
                         Longitude = currentLongitude,
                         Altitude = currentAltitude,
-                        Radial = radial
+                        Radial = radial,
+                        MagHead = currentHeading,
+                        RA = currentRollAngle
                     };
 
                     // Marcar el vuelo como procesado
@@ -1396,14 +1386,12 @@ namespace FormsAsterix
                     // Guardar el punto en la lista y retornarlo
                     //list.Add(turnStart);
                     return turnStart;
-                }
+                //}
             }
 
             // Si no hay viraje detectado o no cumple con las restricciones, retornar null
             return null;
         }
-
-
 
         static double CalculateRadial(double lat, double lon)
         {
@@ -1425,10 +1413,8 @@ namespace FormsAsterix
             };
         }
 
-
-
         //*********************** FALTA MIRAR SI EL QUE RETORNA ES EL QUE ES DEMANA
-        static bool CheckSIDCompliance(TurnStartPoint point, HashSet<string> processedFlights)
+        static bool CheckSIDCompliance(TurnStartPoint point, double lon, double lat, HashSet<string> processedFlights)
         {
             // Coordenadas del DVOR BCN (centro del círculo)
             const double DVOR_Lat = 41.307111; // 41°18’25.6”N en formato decimal
@@ -1438,8 +1424,12 @@ namespace FormsAsterix
             const double Coast_Lat = 41.268167; // 41º16´05.4”N en formato decimal
             const double Coast_Lon = 2.033333;  // 002º02´00.0”E en formato decimal
 
+            var puntoA = (x: DVOR_Lat, y: DVOR_Lon);  // Punto A
+            var puntoB = (x: Coast_Lat, y: Coast_Lon);  // Punto B
+            var puntoC = (x: lat, y: lon);  // Punto C (el que queremos comprobar)
+
             // Calcular el radio del círculo (distancia entre DVOR y punto en la costa)
-            double radius = CalculateDistance(DVOR_Lat, DVOR_Lon, Coast_Lat, Coast_Lon);
+            //double radius = CalculateDistance(DVOR_Lat, DVOR_Lon, Coast_Lat, Coast_Lon);
 
             // Verificar si el vuelo ya ha sido procesado
             if (processedFlights.Contains(point.FlightId))
@@ -1447,13 +1437,15 @@ namespace FormsAsterix
                 return false; // Si ya fue procesado, no cumple con la SID
             }
 
+
+            bool estaADerecha = EstaADerechaDeLaLinea(puntoA, puntoB, puntoC);
+
             // Calcular la distancia del punto al DVOR BCN (centro del círculo)
-            double distanceToDVOR = CalculateDistance(DVOR_Lat, DVOR_Lon, point.Latitude, point.Longitude);
+            //double distanceToDVOR = CalculateDistance(DVOR_Lat, DVOR_Lon, point.Latitude, point.Longitude);
 
             // Comprobar si el punto cumple con las restricciones de posición y altitud
-            bool isCompliant = distanceToDVOR <= radius && // Dentro del círculo
-                               point.Altitude >= 500 &&    // Altitud mínima
-                               point.Altitude <= 3000;     // Altitud máxima
+            bool isCompliant = estaADerecha == true && // Dentro del círculo
+                               point.Altitude <= 500;     // Altitud máxima
 
             // Si cumple con las condiciones, se marca como procesado
             if (isCompliant)
@@ -1463,6 +1455,16 @@ namespace FormsAsterix
 
             return isCompliant;
         }
+
+        static bool EstaADerechaDeLaLinea((double x, double y) A, (double x, double y) B, (double x, double y) C)
+        {
+            // Calcular el determinante (producto cruzado en 2D)
+            double determinante = (B.x - A.x) * (C.y - A.y) - (B.y - A.y) * (C.x - A.x);
+
+            // Si el determinante es negativo, el punto C está a la derecha de la línea AB
+            return determinante < 0;
+        }
+
 
         // Función para calcular la distancia entre dos puntos geográficos (en kilómetros)
         static double CalculateDistance(double lat1, double lon1, double lat2, double lon2)
@@ -1512,6 +1514,8 @@ namespace FormsAsterix
             public double Longitude { get; set; }
             public double Altitude { get; set; }
             public double Radial { get; set; }
+            public double MagHead { get; set; }
+            public double RA { get; set; }
         }
         public int CountTakeoffRWY(List<PlaneFilter> planes, string rwy)
         {
@@ -1532,7 +1536,7 @@ namespace FormsAsterix
 
         private void BTNCountLeft_Click(object sender, EventArgs e)
         {
-            LBLNumLeft.Text = "Total LEBL-24L takeoffs=" + CountTakeoffRWY(ListFilteredPlanes, "LEBEL-24L");
+            LBLNumLeft.Text = "Total LEBL-24L takeoffs=" + CountTakeoffRWY(ListFilteredPlanes, "LEBL-24L");
         }
 
         class Statistics
@@ -1543,7 +1547,7 @@ namespace FormsAsterix
             public double AverageRadial { get; set; }
         }
 
-        // Method to generate a KML file ******************* NO ESTA BE
+        // Method to generate a KML file 
         static void GetKML(List<PlaneFilter> originalData)
         {
             // Initialize a SaveFileDialog to allow the user to choose where to save the KML file
@@ -1668,7 +1672,6 @@ namespace FormsAsterix
 
         static void GetKML2(List<PlaneFilter> originalData)
         {
-
             // Coordenadas del DVOR BCN (centro del círculo)
             const double DVOR_Lat = 41.307111; // 41°18’25.6”N en formato decimal
             const double DVOR_Lon = 2.107806;  // 002°06’28.1”E en formato decimal
