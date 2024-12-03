@@ -1519,11 +1519,14 @@ namespace FormsAsterix
         }
         public int CountTakeoffRWY(List<PlaneFilter> planes, string rwy)
         {
+            planes = planes.OrderBy(item => item.ID).ToList();
             int count = 0;
+            int id = 0;
             for (int i = 0; i < planes.Count; i++)
-            { 
-                if (planes[i].TakeoffRWY == rwy)
+            {
+                if (planes[i].TakeoffRWY == rwy && id != planes[i].ID)
                 {
+                    id = planes[i].ID;
                     count++;
                 }
             }

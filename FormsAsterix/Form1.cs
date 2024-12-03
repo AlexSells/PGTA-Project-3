@@ -38,6 +38,7 @@ using System.ComponentModel;
 using Amazon.DeviceFarm.Model;
 using OfficeOpenXml;
 using Amazon.CloudTrail.Model.Internal.MarshallTransformations;
+using System.Numerics;
 
 
 namespace FormsAsterix
@@ -2058,14 +2059,14 @@ namespace FormsAsterix
                                 {
                                     string test = asterixGrids[i].Aircraft_Indentification;
                                     // Validación de tiempo
-                                    if (AircraftData.secs <= ConvertToSeconds(asterixGrids[i].Time))
+                                    if (AircraftData.secs != ConvertToSeconds(asterixGrids[i].Time))
                                     {
                                         // Validación de coordenadas
                                         if ((40.9 > Convert.ToDouble(asterixGrids[i].Latitude) || Convert.ToDouble(asterixGrids[i].Latitude) > 41.7) && (1.5 > Convert.ToDouble(asterixGrids[i].Longitude) || Convert.ToDouble(asterixGrids[i].Longitude) > 2.6))
                                         {
                                             continue; // Skip invalid coordinates
                                         }
-                                        else if (Convert.ToDouble(asterixGrids[i].Height) > 1830 || asterixGrids[i].Flight_Level == "NAN") //|| asterixGrids[i].GHO == true
+                                        else if (Convert.ToDouble(asterixGrids[i].Height) > 1830 )//|| asterixGrids[i].Flight_Level == "NAN") //|| asterixGrids[i].GHO == true
                                         {
                                             continue; // Skip invalid heights or NAN flight levels
                                         }
@@ -2104,6 +2105,11 @@ namespace FormsAsterix
                                             if (asterixGrids[i].IndAirtxt != "N/A" && asterixGrids[i].IndAirtxt != null && asterixGrids[i].IndAirtxt != "")
                                             {
                                                 ias_double = Convert.ToDouble(asterixGrids[i].IndAirtxt);
+                                            }
+                                            double fl = 0;
+                                            if (asterixGrids[i].Flight_Level != "N/A")
+                                            {
+                                                fl = Convert.ToDouble(asterixGrids[i].Height);
                                             }
 
                                             PlaneFilter planeFilter = new PlaneFilter
