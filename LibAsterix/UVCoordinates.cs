@@ -15,9 +15,9 @@ namespace LibAsterix
 
         internal const double Lon_deg_tang = 1.413301 * GeoUtils.DEGS2RADS;
 
-        internal CoordinatesWGS84 system_center_tang = new CoordinatesWGS84(Lat_deg_tang, Lon_deg_tang, height_radar_tang);
+        internal static CoordinatesWGS84 system_center_tang = new CoordinatesWGS84(Lat_deg_tang, Lon_deg_tang, height_radar_tang);
 
-        public CoordinatesUVH GetUV(double latitude, double longitude, double height)
+        public static CoordinatesUVH GetUV(double latitude, double longitude, double height)
         {
             CoordinatesWGS84 Plane_lat_lon = new CoordinatesWGS84(latitude, longitude, height);
 

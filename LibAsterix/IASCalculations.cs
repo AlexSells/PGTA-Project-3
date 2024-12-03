@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net.WebSockets;
 using System.Text;
 using System.Threading.Tasks;
+using LibAsterix;
 
 namespace LibAsterix
 {
@@ -84,7 +85,7 @@ namespace LibAsterix
         public const double RADIUS_EARTH_METERS = 6371000;
 
         // Función para calcular la distancia entre dos puntos usando la fórmula de Haversine
-        private static double HaversineDistance(double lat1, double lon1, double lat2, double lon2)
+        public static double HaversineDistance(double lat1, double lon1, double lat2, double lon2)
         {
             double lat1rad = lat1*GeoUtils.DEGS2RADS;
             double lat2rad = lat2* GeoUtils.DEGS2RADS;
@@ -102,9 +103,57 @@ namespace LibAsterix
 
             return RADIUS_EARTH_METERS * c; // resultat en metres
         }
-    
+
+        internal const double height_radar_tang = 3438.954;
+
+        internal const double Lat_deg_tang = 41.065656 * GeoUtils.DEGS2RADS;
+
+        internal const double Lon_deg_tang = 1.413301 * GeoUtils.DEGS2RADS;
+
+        internal CoordinatesWGS84 system_center_tang = new CoordinatesWGS84(Lat_deg_tang, Lon_deg_tang, height_radar_tang);
+
+        public CoordinatesUVH GetUV(double latitude, double longitude, double height)
+        {
+            CoordinatesWGS84 Plane_lat_lon = new CoordinatesWGS84(latitude, longitude, height);
+
+            GeoUtils geoUtils = new GeoUtils(); 
+
+            geoUtils.setCenterProjection(system_center_tang);
+
+            CoordinatesXYZ geocentric_coordinates = geoUtils.change_geodesic2geocentric(Plane_lat_lon);
+
+            CoordinatesXYZ cartesian_system = geoUtils.change_geocentric2system_cartesian(geocentric_coordinates);
+
+            CoordinatesUVH stereographic_system = geoUtils.change_system_cartesian2stereographic(cartesian_system);
+
+            return stereographic_system;
+        }
+
+        public double DistanciaHoritzontal(double longitud_plane, double latitud_plane, double longitud_DEP, double latitud_DEP)
+        {
+            double lat1 = 0, long1 = 0;
+            double lat2 = 0, long2 = 0;
+
+            CoordinatesUVH coord1 = null, coord2 = null;
+
+            lat1 = latitud_plane * GeoUtils.DEGS2RADS;
+            long1 = longitud_plane * GeoUtils.DEGS2RADS;
+
+            lat2 = latitud_DEP * GeoUtils.DEGS2RADS;
+            long2 = longitud_DEP * GeoUtils.DEGS2RADS;
+
+            coord1 = GetUV(lat1, long2, 0.0);
+            coord2 = GetUV(lat2, long2, 0.0);
+
+            // Calculate the Euclidean distance between the two aircraft's UV coordinates (U and V)
+            double distancia = Math.Round(Math.Sqrt(Math.Pow(coord2.U - coord1.U, 2) + Math.Pow(coord2.V - coord1.V, 2)), 3);
+
+           return distancia;
+        }
+
+
         // Método para calcular el momento en que el avión cruza el umbral ThresORDder indica si estamos calculador thresold (true) or der (false)
-        public static List<IASData> CalculateThresholdCrossings( List<PlaneFilter> planes, string runway, double distanceThreshold, bool ThresORder)
+        public List<IASData> CalculateThresholdCrossings( List<PlaneFilter> planes, string runway, double distanceThreshold, bool ThresORder)
         {
             planes = planes.OrderBy(item => item.AircraftID).ToList();
             List<IASData> thresholdCrossings = new List<IASData>();
@@ -137,6 +186,7 @@ namespace LibAsterix
             }
             if (thresholdLat != 0.0 && thresholdLon != 0.0 && DERLat != 0.0 && DERLon != 0.0) 
             {
+                int i = 0;
                 foreach (var plane in planes)
                 {
                     if (plane.TakeoffRWY == runway)
@@ -156,7 +206,12 @@ namespace LibAsterix
                                 // Calcular la distancia entre el avión y el umbral
                                 
                                 double distance = HaversineDistance(plane.Lat, plane.Lon, thresholdLat, thresholdLon);
-                                
+
+                                double distUV = DistanciaHoritzontal(plane.Lon, plane.Lat, thresholdLon, thresholdLat); 
+                                if (distance > distUV)
+                                {
+                                    distance = distUV;
+                                }
 
                                 // Si la distancia es menor al umbral (por ejemplo, 100 metros), consideramos que cruzó el umbral
                                 if (distance <= distanceThreshold)
@@ -180,7 +235,11 @@ namespace LibAsterix
                             {
                                 // Calcular la distancia entre el avión y el umbral
                                 double distanceDER = HaversineDistance(plane.Lat, plane.Lon, DERLat, DERLon);
-                                
+                                double distUV = DistanciaHoritzontal(plane.Lon, plane.Lat, thresholdLon, thresholdLat);
+                                if (distanceDER > distUV)
+                                {
+                                    distanceDER = distUV;
+                                }
                                 // Si la distancia es menor al umbral (por ejemplo, 100 metros), consideramos que cruzó el umbral
                                 if (distanceDER <= distanceThreshold)
                                 {
@@ -206,7 +265,7 @@ namespace LibAsterix
                             }
                         }
                     }
-                    
+                    i++;
                 }
             }
             return thresholdCrossings;

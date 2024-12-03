@@ -2072,7 +2072,9 @@ namespace FormsAsterix
                                         else
                                         {
                                             UVCoordinates WGS84Coordinates = new LibAsterix.UVCoordinates();
-                                            CoordinatesUVH steorographicSys = WGS84Coordinates.GetUV(Convert.ToDouble(asterixGrids[i].Latitude) * GeoUtils.DEGS2RADS, Convert.ToDouble(asterixGrids[i].Latitude) * GeoUtils.DEGS2RADS, Convert.ToDouble(asterixGrids[i].Height));
+
+                                            // CHECHK 
+                                            CoordinatesUVH steorographicSys = UVCoordinates.GetUV(Convert.ToDouble(asterixGrids[i].Latitude) * GeoUtils.DEGS2RADS, Convert.ToDouble(asterixGrids[i].Latitude) * GeoUtils.DEGS2RADS, Convert.ToDouble(asterixGrids[i].Height));
                                             double rollangle = -999;
                                             if (asterixGrids[i].Rolltxt != "N/A" && asterixGrids[i].Rolltxt != null && asterixGrids[i].Rolltxt != "")
                                             {
