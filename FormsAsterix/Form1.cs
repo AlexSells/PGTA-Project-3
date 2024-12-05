@@ -39,6 +39,7 @@ using Amazon.DeviceFarm.Model;
 using OfficeOpenXml;
 using Amazon.CloudTrail.Model.Internal.MarshallTransformations;
 using System.Numerics;
+using Amazon.AutoScaling.Model;
 
 
 namespace FormsAsterix
@@ -1916,7 +1917,7 @@ namespace FormsAsterix
             }
         }
         /*### PROJECT 3 ########################################################################################################################################*/
-        // Class to hold AsterixData
+        // Class AsterixData
         public class AsterixData
         {
             public double Time { get; set; }
@@ -1926,6 +1927,7 @@ namespace FormsAsterix
             public double Lon { get; set; }
             public double HDG { get; set; }
         }
+        //Funcion para abrir archivos csv
         public void OpenCSV()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
@@ -1939,10 +1941,11 @@ namespace FormsAsterix
                 string filePath = openFileDialog.FileName;
                 //try
                 //{
-                    // Load and process the CSV file
+                    // Caraga y procesa el archivo csv
                     List<AsterixData>  csvData = LoadCSV(filePath);
 
-                    // Replace the values in asterixGrid
+                    // Corrige a partir del csv caragdo los valores de latitud 
+                    // y longitud.
                     UpdateAsterixGrid(csvData);
 
 
@@ -1955,18 +1958,21 @@ namespace FormsAsterix
                 
             }
         }
+
+        // genera una lista con los extreidos de los archivos csv
         private List<AsterixData> LoadCSV(string filePath)
         {
             var csvData = new List<AsterixData>();
 
             using (var reader = new StreamReader(filePath))
             {
-                // Read header line
+                // leemos las cabezeras del archivo
                 var headerLine = reader.ReadLine();
                 if (headerLine == null)
                     throw new Exception("The CSV file is empty.");
 
-                // Split the header to identify columns
+                // establecemos la cabezera correspondiente para cada variable
+                // deseamos guardar
                 var headers = headerLine.Split(';');
                 int timeIndex = Array.IndexOf(headers, "TIME(s)");
                 int tiIndex = Array.IndexOf(headers, "TI");
@@ -1975,15 +1981,20 @@ namespace FormsAsterix
                 int lonIndex = Array.IndexOf(headers, "LON");
                 int hdgIndex = Array.IndexOf(headers, "HDG");
 
+                // comprovamos si los valores son validos. Si son invalidos carga un 
+                // mensaje de error
                 if (timeIndex == -1 || tiIndex == -1 || hIndex == -1 || latIndex == -1 || lonIndex == -1 || hdgIndex == -1)
                     throw new Exception("Required columns are missing in the CSV file.");
 
-                // Read and process each line of the CSV
+                // Lee y proecesa cada una de las lineas del archivo
                 string line;
                 while ((line = reader.ReadLine()) != null)
                 {
+                    // cada linea se spera con puntos y comans
                     var values = line.Split(';');
 
+                    // generamos un objeto de la clase asterixData con los valores
+                    // deseados
                     csvData.Add(new AsterixData
                     {
                         Time = double.Parse(values[timeIndex]),
@@ -2015,15 +2026,19 @@ namespace FormsAsterix
                 }
             }
         }
-
+        // Funcion para abrir ficheros .xlsx
         public string OpenExcel()
         {
             string filename=null;
+
+            // Abrimos una ventana para buscar el fichero .xlsx que deseamos abrir
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Title = "Select the desired file";
             openFileDialog.InitialDirectory = @"C:\";
             openFileDialog.Filter = "Excel Files (*.xlsx)|*.xlsx|All Files (*.*)|*.*";
             openFileDialog.ShowDialog();
+
+            // si el fileName es valido retornamos el el filepath del archivo
             if (openFileDialog.FileName != "")
             {
                 if (Path.GetFileName(openFileDialog.FileName) == "2305_02_dep_lebl.xlsx")
@@ -2035,9 +2050,16 @@ namespace FormsAsterix
         }
         
         internal int click = 0;
+        // String que contendra la informacion extraida del 23_05_dep_lebl.xlsx
         List<(string ID, string AircraftID, double secs, string Rute, string TypePlane, string EstelaType, string TakeoffProcess, string TakeoffRWY)> rowData;
+
+        // Lista de PlaneFilyter que se llenara con infrmacion extraida del proyecto 2 y complementdad con la infrmacion recogida en rowData
         List<PlaneFilter> ListPlanes;
+
+        // Lista auxiliar
         private List<(double time, double lat, double lon, double altitude, string AircraftAddress, string AircraftID, string TrackNum, string Mode_3A_Reply, string SAC, string SIC, double rho, bool ground, double WGS_altitude)> sim_data;
+
+        // Esta funcion lee el execle introdució en el filePath y extrae la informacion
         private List<(string ID, string AircraftID, double sec, string, string, string, string, string)> ReadExcel(string filePath)
         {
             List<(string ID, string AircraftID, double sec, string, string, string, string, string)> data = new List<(string, string, double, string, string, string, string, string)>();
@@ -2047,7 +2069,7 @@ namespace FormsAsterix
                 ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
                 using (ExcelPackage package = new ExcelPackage(new System.IO.FileInfo(filePath)))
                 {
-                    // Assume data is in the first worksheet
+                    // Asuminimos que la informacion deseada esta en el worksheet analizado
                     ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
 
                     int countRow = worksheet.Dimension.Rows;
@@ -2056,18 +2078,23 @@ namespace FormsAsterix
 
                     for (int rows = 2; rows <= countRow; rows++)
                     {
-                        // ID
+                        // Extremos el ID, no es un valor valido dejamos un espacio en blanco
                         var column1 = worksheet.Cells[rows, 1].Value?.ToString() ?? "";
-                        // Indicative
+                        // Extraemos la identificacion del avion
                         var column2 = worksheet.Cells[rows, 2].Value?.ToString() ?? "";
 
+                        // Comprovamos que estamos leyendo una linea valida. Si ambas variables
+                        // estan vacias consideramos que la linea leida no es valida.
                         if (column1 != "" && column2 != "")
                         {
+                            //Obetenoms el proceso de despegue
                             var column7 = worksheet.Cells[rows, 7].Value?.ToString() ?? "";
+                            // Obtenemos la pista de despegue del avion
                             var column8 = worksheet.Cells[rows, 8].Value?.ToString() ?? "";
 
                             var TakeoffProcess = " ";
 
+                            // Generamos el nombre d ela runway de salida
                             if (column7.Length > 2)
                             {
                                 var TakeoffRWY = column8.Split('-');
@@ -2076,20 +2103,22 @@ namespace FormsAsterix
                                 else if (TakeoffRWY[1] == "06R") { TakeoffProcess = aux + "-R"; }
                                 else { continue; }
                             }
-                            // Time
+                            // Desciframos el tiempo
                             var column3 = worksheet.Cells[rows, 3].Value?.ToString() ?? "";
                             DateTime dateTime = DateTime.FromOADate(Convert.ToDouble(column3));
                             double sec = dateTime.Hour * 3600 + dateTime.Minute * 60 + dateTime.Second + dateTime.Millisecond;
 
-                            var column4 = worksheet.Cells[rows, 4].Value?.ToString() ?? "";
-                            var column5 = worksheet.Cells[rows, 5].Value?.ToString() ?? "";
-                            var column6 = worksheet.Cells[rows, 6].Value?.ToString() ?? "";
+                            // Aseguramos que las variables de ruta, tipo de avion y tipo de estela 
+                            var column4 = worksheet.Cells[rows, 4].Value?.ToString() ?? ""; // ruta
+                            var column5 = worksheet.Cells[rows, 5].Value?.ToString() ?? ""; // tipo de avion
+                            var column6 = worksheet.Cells[rows, 6].Value?.ToString() ?? ""; // tipo de estela
 
-
+                            // Añadimos los datos extraidos a la lista
                             data.Add((column1, column2, sec, column4, column5, column6, TakeoffProcess, column8));
                         }
                         else
                         {
+                            // si contamos 5 lineas no validas consideraremos que el fichero ha acabado o no puede leerse
                             countBlanck++;
                             if (countBlanck == 5) { break; }
                         }
@@ -2103,17 +2132,21 @@ namespace FormsAsterix
             }
             
         }
+        //Esta funcion transforma del formato XX:XX:XX a segundos
         public double ConvertToSeconds(string time)
         {
-            //MessageBox.Show(time);
-            // Split the time string by the colon
+       
+            // Seprara el string pel caracter de dos punts
             string auxString = time;
             string[] timeParts = time.Split(':');
-            
+
+            //Transformamos los strings obtenidos a segundos segun corresponde
             double hour_sec = Convert.ToDouble(timeParts[0])*3600;
             double aux = Convert.ToDouble(timeParts[1]);
             double min_sec = Convert.ToDouble(timeParts[1]) * 60;
             double sec = Convert.ToDouble(timeParts[2])/1000;
+
+            //Sumaamos  los datos de hora, minutos y segundos
             double totaltime = hour_sec + min_sec + sec;
             return hour_sec+min_sec+sec;
         }
@@ -2131,6 +2164,8 @@ namespace FormsAsterix
                     if (rowData != null && rowData.Count != 0)
                     {
                         ListPlanes = new List<PlaneFilter>();
+
+                        // establecemos el momento incial a parti del cual empezamos a leer los datos
                         double initTime = ConvertToSeconds(asterixGrids[0].Time);
                         if (initTime < 0)
                         {
@@ -2140,6 +2175,7 @@ namespace FormsAsterix
                         {
                             bool find = false;
                             int j = 0;
+
                             // Buscar el AircraftID correspondiente en rowData
                             while (j < rowData.Count)
                             {
@@ -2161,27 +2197,31 @@ namespace FormsAsterix
                                 if (AircraftData != default)
                                 {
                                     string test = asterixGrids[i].Aircraft_Indentification;
+
                                     // Validación de tiempo
                                     if (AircraftData.secs != ConvertToSeconds(asterixGrids[i].Time))
                                     {
                                         // Validación de coordenadas
                                         if ((40.9 > Convert.ToDouble(asterixGrids[i].Latitude) || Convert.ToDouble(asterixGrids[i].Latitude) > 41.7) && (1.5 > Convert.ToDouble(asterixGrids[i].Longitude) || Convert.ToDouble(asterixGrids[i].Longitude) > 2.6))
                                         {
-                                            continue; // Skip invalid coordinates
+                                            continue; //Saltamos las coordenadas invalidas
                                         }
                                         else if (Convert.ToDouble(asterixGrids[i].Height) > 1830 )//|| asterixGrids[i].Flight_Level == "NAN") //|| asterixGrids[i].GHO == true
                                         {
-                                            continue; // Skip invalid heights or NAN flight levels
+                                            continue; // ignoramos las alturas superiores a 6000 pies o 1828 metros
                                         }
                                         else
                                         {
                                             UVCoordinates WGS84Coordinates = new LibAsterix.UVCoordinates();
 
-                                            // CHECHK 
+                                            // calculamos las coordenadas esterograficas del vuelo analizado
                                             CoordinatesUVH steorographicSys = UVCoordinates.GetUV(Convert.ToDouble(asterixGrids[i].Latitude) * GeoUtils.DEGS2RADS, Convert.ToDouble(asterixGrids[i].Longitude) * GeoUtils.DEGS2RADS, Convert.ToDouble(asterixGrids[i].Height));
                                             double U = steorographicSys.U*GeoUtils.METERS2NM;
                                             double V = steorographicSys.V*GeoUtils.METERS2NM;
                                             
+                                            // Las funciones a continuacion transforman string a double para poder
+                                            // trabajar con ellas a lo largo del proyecto 3. Si tenemos un valor 
+                                            // invalido se assiganra el -999, un valor impossible. 
                                             double rollangle = -999;
                                             if (i -1 > 0)
                                             {
@@ -2213,7 +2253,6 @@ namespace FormsAsterix
                                             
                                             if (asterixGrids[i].Heading != "N/A" && asterixGrids[i].Heading != null && asterixGrids[i].Heading != "")
                                             {
-                                               
                                                 heading = Convert.ToDouble(asterixGrids[i].Heading);
                                             }
                                             double ta = -999;
@@ -2237,6 +2276,10 @@ namespace FormsAsterix
                                                 ias_double = Convert.ToDouble(asterixGrids[i].IndAirtxt);
                                             }
                                             double fl = 0;
+
+                                            // La altitud sera el unico valor al que no se le assiganra un valor de
+                                            // -999 debido que los NAN son assigandos a estar en ground por lo que
+                                            // se assiganara por defecto una altura de 0
                                             if (asterixGrids[i].Flight_Level != "N/A")
                                             {
                                                 if (Convert.ToDouble(asterixGrids[i].Height) > 0)
@@ -2247,7 +2290,7 @@ namespace FormsAsterix
                                                 }
                                                 
                                             }
-                                          
+                                            // Rellenamos ala classe PlaneFilter y lo añadimos a una lista
                                             PlaneFilter planeFilter = new PlaneFilter
                                             {
                                                 num = asterixGrids[i].Num,
@@ -2285,7 +2328,7 @@ namespace FormsAsterix
                             }
 
                         }
-
+                        // Abrimos el forms del proyecto 3 pasando la lista generada
                         Projecte3 projecte3 = new Projecte3(ListPlanes);
                         //MessageBox.Show(Convert.ToString(ListPlanes.Count));
                         projecte3.Show();
@@ -2304,6 +2347,8 @@ namespace FormsAsterix
             {
                 if (ListPlanes != null)
                 {
+                    // Este mensjae se activa si ya hemos cargado previamentela lista, con el 
+                    // fin de ahorrar coste computacional
                     Projecte3 projecte3 = new Projecte3(ListPlanes);
                     projecte3.Show();
                 }
