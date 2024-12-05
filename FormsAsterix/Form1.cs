@@ -1575,6 +1575,7 @@ namespace FormsAsterix
 
                 // Assign a unique number to the grid based on the counter (Num)
                 grid.Num = Convert.ToString(Num);
+                
 
                 // Loop through each DataItem (di) in the current list (elemento)
                 foreach (var di in elemento)
@@ -1915,6 +1916,106 @@ namespace FormsAsterix
             }
         }
         /*### PROJECT 3 ########################################################################################################################################*/
+        // Class to hold AsterixData
+        public class AsterixData
+        {
+            public double Time { get; set; }
+            public string TI { get; set; }
+            public double H { get; set; }
+            public double Lat { get; set; }
+            public double Lon { get; set; }
+            public double HDG { get; set; }
+        }
+        public void OpenCSV()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*",
+                Title = "Select a CSV File"
+            };
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = openFileDialog.FileName;
+                //try
+                //{
+                    // Load and process the CSV file
+                    List<AsterixData>  csvData = LoadCSV(filePath);
+
+                    // Replace the values in asterixGrid
+                    UpdateAsterixGrid(csvData);
+
+
+                    MessageBox.Show("CSV processed and asterixGrid updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+           //                 }
+             //   catch (Exception ex)
+               // {
+                 //   MessageBox.Show($"Error processing CSV file: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //}
+                
+            }
+        }
+        private List<AsterixData> LoadCSV(string filePath)
+        {
+            var csvData = new List<AsterixData>();
+
+            using (var reader = new StreamReader(filePath))
+            {
+                // Read header line
+                var headerLine = reader.ReadLine();
+                if (headerLine == null)
+                    throw new Exception("The CSV file is empty.");
+
+                // Split the header to identify columns
+                var headers = headerLine.Split(';');
+                int timeIndex = Array.IndexOf(headers, "TIME(s)");
+                int tiIndex = Array.IndexOf(headers, "TI");
+                int hIndex = Array.IndexOf(headers, "H");
+                int latIndex = Array.IndexOf(headers, "LAT");
+                int lonIndex = Array.IndexOf(headers, "LON");
+                int hdgIndex = Array.IndexOf(headers, "HDG");
+
+                if (timeIndex == -1 || tiIndex == -1 || hIndex == -1 || latIndex == -1 || lonIndex == -1 || hdgIndex == -1)
+                    throw new Exception("Required columns are missing in the CSV file.");
+
+                // Read and process each line of the CSV
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    var values = line.Split(';');
+
+                    csvData.Add(new AsterixData
+                    {
+                        Time = double.Parse(values[timeIndex]),
+                        TI = Convert.ToString(values[tiIndex]),
+                        H = double.Parse(values[hIndex]),
+                        Lat = double.Parse(values[latIndex]),
+                        Lon = double.Parse(values[lonIndex]),
+                        HDG = double.Parse(values[hdgIndex])
+                    });
+                }
+            }
+
+            return csvData;
+        }
+
+        private void UpdateAsterixGrid(List<AsterixData> csvData)
+        {
+            foreach (var csvRow in csvData)
+            {
+                // Find matching entry in asterixGrid based on Time and TI
+                var matchingEntry = asterixGrids.FirstOrDefault(a => Convert.ToDouble(a.Time) == csvRow.Time && a.Aircraft_Indentification == csvRow.TI);
+                if (matchingEntry != null)
+                {
+                    // Update the values
+                    matchingEntry.Height = Convert.ToString(csvRow.H);
+                    matchingEntry.Latitude = Convert.ToString(csvRow.Lat);
+                    matchingEntry.Longitude = Convert.ToString(csvRow.Lon);
+                    matchingEntry.Heading = Convert.ToString(csvRow.HDG);
+                }
+            }
+        }
+
         public string OpenExcel()
         {
             string filename=null;
@@ -2021,9 +2122,11 @@ namespace FormsAsterix
             click++;
             if (click == 1)
             {
+                //OpenCSV();
                 string filePath = OpenExcel();
                 if (filePath != null && filePath != "")
                 {
+
                     rowData = ReadExcel(filePath);
                     if (rowData != null && rowData.Count != 0)
                     {
@@ -2075,15 +2178,42 @@ namespace FormsAsterix
                                             UVCoordinates WGS84Coordinates = new LibAsterix.UVCoordinates();
 
                                             // CHECHK 
-                                            CoordinatesUVH steorographicSys = UVCoordinates.GetUV(Convert.ToDouble(asterixGrids[i].Latitude) * GeoUtils.DEGS2RADS, Convert.ToDouble(asterixGrids[i].Latitude) * GeoUtils.DEGS2RADS, Convert.ToDouble(asterixGrids[i].Height));
+                                            CoordinatesUVH steorographicSys = UVCoordinates.GetUV(Convert.ToDouble(asterixGrids[i].Latitude) * GeoUtils.DEGS2RADS, Convert.ToDouble(asterixGrids[i].Longitude) * GeoUtils.DEGS2RADS, Convert.ToDouble(asterixGrids[i].Height));
+                                            double U = steorographicSys.U*GeoUtils.METERS2NM;
+                                            double V = steorographicSys.V*GeoUtils.METERS2NM;
+                                            
                                             double rollangle = -999;
+                                            if (i -1 > 0)
+                                            {
+                                                if (asterixGrids[i].Rolltxt == "N/A" && asterixGrids[i].Rolltxt != null && asterixGrids[i].Rolltxt != "")
+                                                {
+                                                    if (asterixGrids[i - 1].Rolltxt != "N/A" && asterixGrids[i - 1].Rolltxt != null && asterixGrids[i - 1].Rolltxt != "")
+                                                    {
+
+                                                        rollangle = Convert.ToDouble(asterixGrids[i-1].Rolltxt);
+                                                    }
+                                                }
+                                            } 
                                             if (asterixGrids[i].Rolltxt != "N/A" && asterixGrids[i].Rolltxt != null && asterixGrids[i].Rolltxt != "")
                                             {
                                                 rollangle = Convert.ToDouble(asterixGrids[i].Rolltxt);
                                             }
                                             double heading = -999;
+                                            if (i - 1 > 0)
+                                            {
+                                                if (asterixGrids[i].Heading == "N/A" && asterixGrids[i].Heading != null && asterixGrids[i].Heading != "")
+                                                {
+                                                    if (asterixGrids[i-1].Heading != "N/A" && asterixGrids[i-1].Heading != null && asterixGrids[i-1].Heading != "")
+                                                    {
+
+                                                        heading = Convert.ToDouble(asterixGrids[i-1].Heading);
+                                                    }
+                                                }
+                                            }
+                                            
                                             if (asterixGrids[i].Heading != "N/A" && asterixGrids[i].Heading != null && asterixGrids[i].Heading != "")
                                             {
+                                               
                                                 heading = Convert.ToDouble(asterixGrids[i].Heading);
                                             }
                                             double ta = -999;
@@ -2109,17 +2239,23 @@ namespace FormsAsterix
                                             double fl = 0;
                                             if (asterixGrids[i].Flight_Level != "N/A")
                                             {
-                                                fl = Convert.ToDouble(asterixGrids[i].Height);
+                                                if (Convert.ToDouble(asterixGrids[i].Height) > 0)
+                                                {
+                                                    //fl = (Convert.ToDouble(asterixGrids[i].Flight_Level)*100)*GeoUtils.FEET2METERS;
+                                                    fl = Convert.ToDouble(asterixGrids[i].Height);
+                                                
+                                                }
+                                                
                                             }
-
+                                          
                                             PlaneFilter planeFilter = new PlaneFilter
                                             {
                                                 num = asterixGrids[i].Num,
                                                 EstelaType = AircraftData.EstelaType,
                                                 TakeoffProcess = AircraftData.TakeoffProcess,
                                                 TakeoffRWY = AircraftData.TakeoffRWY,
-                                                U = steorographicSys.U * GeoUtils.METERS2NM,
-                                                V = steorographicSys.V * GeoUtils.METERS2NM,
+                                                U = steorographicSys.U ,
+                                                V = steorographicSys.V,
                                                 ID = Convert.ToInt32(AircraftData.ID),
                                                 AircraftType = AircraftData.TypePlane,
                                                 AircraftID = asterixGrids[i].Aircraft_Indentification,
@@ -2128,7 +2264,7 @@ namespace FormsAsterix
                                                 time_sec = ConvertToSeconds(asterixGrids[i].Time),
                                                 Lat = Convert.ToDouble(asterixGrids[i].Latitude),
                                                 Lon = Convert.ToDouble(asterixGrids[i].Longitude),
-                                                Altitude = Convert.ToDouble(asterixGrids[i].Height),
+                                                Altitude = fl,
                                                 BDS50 = asterixGrids[i].BDS_5_0,
                                                 BDS60 = asterixGrids[i].BDS_6_0,
                                                 RollAngle = rollangle,

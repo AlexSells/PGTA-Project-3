@@ -9,11 +9,11 @@ namespace LibAsterix
 {
     public class UVCoordinates
     {
-        internal const double height_radar_tang = 3438.954;
+        internal const double height_radar_tang = 6368942.808;
 
-        internal const double Lat_deg_tang = 41.065656 * GeoUtils.DEGS2RADS;
+        internal const double Lat_deg_tang = 41.1157111111 * GeoUtils.DEGS2RADS;
 
-        internal const double Lon_deg_tang = 1.413301 * GeoUtils.DEGS2RADS;
+        internal const double Lon_deg_tang = 1.6925027778 * GeoUtils.DEGS2RADS;
 
         internal static CoordinatesWGS84 system_center_tang = new CoordinatesWGS84(Lat_deg_tang, Lon_deg_tang, height_radar_tang);
 
