@@ -10,6 +10,7 @@ namespace LibAsterix
     {
         /*### DOUBLES & INTEGRERS #####################*/
         public string num { get; set; }
+        
         public double time_sec { get; set; }
         public string AircraftID { get; set; }
         public double Lat { get; set; }
@@ -39,5 +40,6 @@ namespace LibAsterix
         public string TakeoffProcess { get; set; }
         public string TakeoffRWY { get; set; }
         public string AircraftType { get; set; }
+        public double init_takeoff { get; set; }
     }
 }

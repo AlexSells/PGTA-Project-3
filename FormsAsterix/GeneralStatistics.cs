@@ -13,9 +13,9 @@ namespace FormsAsterix
 {
     public partial class GeneralStatistics : Form
     {
-        List<(int ID, string PlaneFront, string AircraftTypeFront, string EstelaFront, string ClassFront, string SIDfront, double time_front, string PlaneAfter, string AircraftTypeBack, string EstelaAfter, string ClassAfter, string SIDback, double time_back, bool SameSID, double U, double V, double DistanceDiff, double secondsDiff)> StatsList;
+        List<DistanceList> StatsList;
         List<int> incidentData;
-        public GeneralStatistics(List<(int ID, string PlaneFront, string AircraftTypeFront, string EstelaFront, string ClassFront, string SIDfront, double time_front, string PlaneAfter, string AircraftTypeBack, string EstelaAfter, string ClassAfter, string SIDback, double time_back, bool SameSID, double U, double V, double DistanceDiff, double secondsDiff)> List, List<int> ListData)
+        public GeneralStatistics(List<DistanceList> List, List<int> ListData)
         {
             InitializeComponent();
             StatsList = List;
@@ -26,7 +26,7 @@ namespace FormsAsterix
         {
 
             List<string> lista = new List<string> {
-            "Average","Variance", "Standard Deviation","Percentil 95", "Minimum", "Maximum"};
+            "Average","Variance", "Standard Deviation","Percentil 95", "Percentil 99", "Minimum", "Maximum"};
 
             GenStatisticsGird.ColumnCount = 1;
 
@@ -46,8 +46,9 @@ namespace FormsAsterix
             GenStatisticsGird.Rows[1].Cells[0].Value = Functions4Statistics.CalculateVarianceDistanceDiff(StatsList);
             GenStatisticsGird.Rows[2].Cells[0].Value = Functions4Statistics.CalculateStandardDeviatioDistanceDiff(StatsList);
             GenStatisticsGird.Rows[3].Cells[0].Value = Functions4Statistics.CalculatePercentile95DistanceDiff(StatsList);
-            GenStatisticsGird.Rows[4].Cells[0].Value = Functions4Statistics.FindMinDistanceDiff(StatsList);
-            GenStatisticsGird.Rows[5].Cells[0].Value = Functions4Statistics.FindMaxDistanceDiff(StatsList);
+            GenStatisticsGird.Rows[4].Cells[0].Value = Functions4Statistics.CalculatePercentile99DistanceDiff(StatsList);
+            GenStatisticsGird.Rows[5].Cells[0].Value = Functions4Statistics.FindMinDistanceDiff(StatsList);
+            GenStatisticsGird.Rows[6].Cells[0].Value = Functions4Statistics.FindMaxDistanceDiff(StatsList);
 
 
             //Ajustamos el datagrid al contenido
@@ -84,7 +85,7 @@ namespace FormsAsterix
 
 
             // Añadimos los valores respecto a la lista introducida
-            for (int i = 0; i < GenStatisticsGird.RowCount; i++)
+            for (int i = 0; i < 6; i++)
             {
                 IncidentStatsGrid.Rows[i].Cells[0].Value = incidentData[i];
             }

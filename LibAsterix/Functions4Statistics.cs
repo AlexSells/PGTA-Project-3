@@ -10,15 +10,22 @@ namespace LibAsterix
     public class Functions4Statistics
     {
         /*##### DISTANCE DIFFERENCE FUNCTIONS ##############################################*/
-        public static double CalculateAverageDistanceDiff(List<(int ID, string PlaneFront, string AircraftTypeFront, string EstelaFront, string ClassFront, string SIDfront, double time_front, string PlaneAfter, string AircraftTypeBack, string EstelaAfter, string ClassAfter, string SIDback, double time_back, bool SameSID, double U, double V, double DistanceDiff, double secondsDiff)> List)
+        public static double CalculateAverageDistanceDiff(List<DistanceList> List)
         {
             if (List == null || List.Count == 0)
                 throw new ArgumentException("La lista no puede estar vacía.");
-
+            List<DistanceList> dl = new List<DistanceList>();
+            for (int i = 0; i < List.Count; i++)
+            {
+                if (List[i].time_front > List[i].init_time_front)
+                {
+                    dl.Add(List[i]);
+                }
+            }
             // Calcular el promedio (media) de los valores de DistanceDiff
-            return List.Average(item => item.DistanceDiff);
+            return dl.Average(item => item.DistanceDiff);
         }
-        public static double CalculateVarianceDistanceDiff(List<(int ID, string PlaneFront, string AircraftTypeFront, string EstelaFront, string ClassFront, string SIDfront, double time_front, string PlaneAfter, string AircraftTypeBack, string EstelaAfter, string ClassAfter, string SIDback, double time_back, bool SameSID, double U, double V, double DistanceDiff, double secondsDiff)> List)
+        public static double CalculateVarianceDistanceDiff(List<DistanceList> List)
         {
             // Calcular el promedio (media) de los valores de DistanceDiff
             double aux = CalculateAverageDistanceDiff(List);
@@ -28,14 +35,14 @@ namespace LibAsterix
 
             return variance;
         }
-        public static double CalculateStandardDeviatioDistanceDiff(List<(int ID, string PlaneFront, string AircraftTypeFront, string EstelaFront, string ClassFront, string SIDfront, double time_front, string PlaneAfter, string AircraftTypeBack, string EstelaAfter, string ClassAfter, string SIDback, double time_back, bool SameSID, double U, double V, double DistanceDiff, double secondsDiff)> List)
+        public static double CalculateStandardDeviatioDistanceDiff(List<DistanceList> List)
         {
             // Calcular la varianza
             double aux = CalculateVarianceDistanceDiff(List);
             // Raíz cuadrada de la varianza
             return Math.Sqrt(aux); 
         }
-        public static double CalculatePercentile95DistanceDiff(List<(int ID, string PlaneFront, string AircraftTypeFront, string EstelaFront, string ClassFront, string SIDfront, double time_front, string PlaneAfter, string AircraftTypeBack, string EstelaAfter, string ClassAfter, string SIDback, double time_back, bool SameSID, double U, double V, double DistanceDiff, double secondsDiff)> List)
+        public static double CalculatePercentile95DistanceDiff(List<DistanceList> List)
         {
             if (List == null || List.Count == 0)
                 throw new ArgumentException("La lista no puede estar vacía.");
@@ -49,7 +56,23 @@ namespace LibAsterix
             // Retornar el valor en ese índice
             return List[index].DistanceDiff;
         }
-        public static double FindMinDistanceDiff(List<(int ID, string PlaneFront, string AircraftTypeFront, string EstelaFront, string ClassFront, string SIDfront, double time_front, string PlaneAfter, string AircraftTypeBack, string EstelaAfter, string ClassAfter, string SIDback, double time_back, bool SameSID, double U, double V, double DistanceDiff, double secondsDiff)> List)
+
+        public static double CalculatePercentile99DistanceDiff(List<DistanceList> List)
+        {
+            if (List == null || List.Count == 0)
+                throw new ArgumentException("La lista no puede estar vacía.");
+
+            // Ordenar la lista por la propiedad DistanceDiff
+            List = List.OrderBy(item => item.DistanceDiff).ToList();
+
+            // Calcular el índice del percentil 95
+            int index = (int)Math.Ceiling(0.99 * List.Count) - 1;
+
+            // Retornar el valor en ese índice
+            return List[index].DistanceDiff;
+        }
+
+        public static double FindMinDistanceDiff(List<DistanceList> List)
         {
             if (List == null || List.Count == 0)
                 throw new ArgumentException("La lista no puede estar vacía.");
@@ -59,7 +82,7 @@ namespace LibAsterix
 
             return aux;
         }
-        public static double FindMaxDistanceDiff(List<(int ID, string PlaneFront, string AircraftTypeFront, string EstelaFront, string ClassFront, string SIDfront, double time_front, string PlaneAfter, string AircraftTypeBack, string EstelaAfter, string ClassAfter, string SIDback, double time_back, bool SameSID, double U, double V, double DistanceDiff, double secondsDiff)> List)
+        public static double FindMaxDistanceDiff(List<DistanceList> List)
         {
             if (List == null || List.Count == 0)
                 throw new ArgumentException("La lista no puede estar vacía.");

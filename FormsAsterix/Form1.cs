@@ -2294,10 +2294,11 @@ namespace FormsAsterix
                                             PlaneFilter planeFilter = new PlaneFilter
                                             {
                                                 num = asterixGrids[i].Num,
+                                                init_takeoff = AircraftData.secs,
                                                 EstelaType = AircraftData.EstelaType,
                                                 TakeoffProcess = AircraftData.TakeoffProcess,
                                                 TakeoffRWY = AircraftData.TakeoffRWY,
-                                                U = steorographicSys.U ,
+                                                U = steorographicSys.U,
                                                 V = steorographicSys.V,
                                                 ID = Convert.ToInt32(AircraftData.ID),
                                                 AircraftType = AircraftData.TypePlane,

@@ -39,6 +39,7 @@
             this.BtnThres06R = new System.Windows.Forms.Button();
             this.BtnDER24L = new System.Windows.Forms.Button();
             this.BtnDER06R = new System.Windows.Forms.Button();
+            this.BtnSonometro = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.IASdatagrid)).BeginInit();
             this.SuspendLayout();
@@ -71,7 +72,7 @@
             this.IASdatagrid.Name = "IASdatagrid";
             this.IASdatagrid.RowHeadersWidth = 51;
             this.IASdatagrid.RowTemplate.Height = 24;
-            this.IASdatagrid.Size = new System.Drawing.Size(419, 350);
+            this.IASdatagrid.Size = new System.Drawing.Size(419, 419);
             this.IASdatagrid.TabIndex = 1;
             // 
             // Btn850
@@ -144,11 +145,22 @@
             this.BtnDER06R.UseVisualStyleBackColor = true;
             this.BtnDER06R.Click += new System.EventHandler(this.BtnDER06R_Click);
             // 
+            // BtnSonometro
+            // 
+            this.BtnSonometro.Location = new System.Drawing.Point(12, 406);
+            this.BtnSonometro.Name = "BtnSonometro";
+            this.BtnSonometro.Size = new System.Drawing.Size(100, 50);
+            this.BtnSonometro.TabIndex = 9;
+            this.BtnSonometro.Text = "Dist Sonometro";
+            this.BtnSonometro.UseVisualStyleBackColor = true;
+            this.BtnSonometro.Click += new System.EventHandler(this.BtnSonometro_Click);
+            // 
             // IASInformation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(588, 417);
+            this.ClientSize = new System.Drawing.Size(588, 481);
+            this.Controls.Add(this.BtnSonometro);
             this.Controls.Add(this.BtnDER06R);
             this.Controls.Add(this.BtnDER24L);
             this.Controls.Add(this.BtnThres06R);
@@ -181,5 +193,6 @@
         private System.Windows.Forms.Button BtnThres06R;
         private System.Windows.Forms.Button BtnDER24L;
         private System.Windows.Forms.Button BtnDER06R;
+        private System.Windows.Forms.Button BtnSonometro;
     }
 }

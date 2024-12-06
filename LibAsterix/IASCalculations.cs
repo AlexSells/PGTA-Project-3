@@ -270,5 +270,47 @@ namespace LibAsterix
             }
             return thresholdCrossings;
         }
+
+        public class DataSonometro
+        {
+            public string AircraftID { get; set; }
+            public double time_sec { get; set; }
+            public double distance { get; set; }
+            public double altura { get; set; }
+        }
+
+        public List<DataSonometro> GetSonometroDist(List<PlaneFilter> list)
+        {
+            List<DataSonometro> distances = new List<DataSonometro>();
+            list = list.OrderBy(item => item.ID).ToList();
+            double Lat_Son = 41.2719444444;
+            double Lon_Son = 2.04777777778;
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (distances.Count == 0)
+                {
+                    double dist = IASCalculations.HaversineDistance(list[i].Lat, list[i].Lon, Lat_Son, Lon_Son);
+                    distances.Add(new DataSonometro { AircraftID = list[i].AircraftID, time_sec = list[i].time_sec, distance = dist, altura = list[i].Altitude });
+                }
+                else if (list[i].AircraftID != distances[distances.Count - 1].AircraftID)
+                {
+                    double dist = IASCalculations.HaversineDistance(list[i].Lat, list[i].Lon, Lat_Son, Lon_Son);
+                    distances.Add(new DataSonometro { AircraftID = list[i].AircraftID, time_sec = list[i].time_sec, distance = dist, altura = list[i].Altitude });
+                }
+                else if (list[i].AircraftID == distances[distances.Count - 1].AircraftID)
+                {
+                    double dist = IASCalculations.HaversineDistance(list[i].Lat, list[i].Lon, Lat_Son, Lon_Son);
+                    if (dist < distances[distances.Count - 1].distance)
+                    {
+                        distances[distances.Count - 1].distance = dist;
+                        distances[distances.Count - 1].altura = list[i].Altitude;
+                        distances[distances.Count - 1].time_sec = list[i].time_sec;
+                    }
+                }
+            }
+
+            return distances;
+        }
     }
 }

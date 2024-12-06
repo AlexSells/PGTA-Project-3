@@ -21,14 +21,15 @@ namespace FormsAsterix
         List<IASData> ListThresholdLeft;
         List<IASData> ListDERRight;
         List<IASData> ListDERLeft;
-        public IASInformation(List<IASData> IASListFromP3, List<IASData> ThresholListRight, List<IASData> ThresholListLeft, List<IASData> DERListRight, List<IASData> DERListLeft)
+        public IASInformation(List<IASData> IASListFromP3, List<IASData> ThresholListRight, List<IASData> ThresholListLeft, List<IASData> DERListRight, List<IASData> DERListLeft, List<Projecte3.DataSonometro> datSon)
         {
             InitializeComponent();
             this.IASList = IASListFromP3;
-            ListThresholdRight = ThresholListRight;
+            /*ListThresholdRight = ThresholListRight;
             ListThresholdLeft = ThresholListLeft;
             ListDERRight = DERListRight;
             ListDERLeft = DERListLeft;
+            dataSonometro = datSon;*/
         }
 
         private void Back2P3_Click(object sender, EventArgs e)
@@ -43,6 +44,7 @@ namespace FormsAsterix
         List<IASData> ThresholdLeft = new List<IASData>();
         List<IASData> DERRight = new List<IASData>();
         List<IASData> DERLeft = new List<IASData>();
+        List<Projecte3.DataSonometro> dataSonometro= new List<Projecte3.DataSonometro>(); 
         public void AjustarDataGrid()
         {
             // Calcular el ancho total de todas las columnas
@@ -104,6 +106,9 @@ namespace FormsAsterix
                 BtnDER24L.Enabled = true;
                 BtnDER06R.Visible = true;
                 BtnDER06R.Enabled = true;
+
+                BtnSonometro.Visible = true;
+                BtnSonometro.Enabled = true;
                 if (i == 1)
                 {
                     Btn850.Visible = false;
@@ -132,7 +137,7 @@ namespace FormsAsterix
                     Btn3500.Enabled = false;
                 }
             }
-            else
+            else if (i < 0)
             {
                 Btn850.Visible = true;
                 Btn850.Enabled = true;
@@ -140,6 +145,9 @@ namespace FormsAsterix
                 Btn1500.Enabled = true;
                 Btn3500.Visible = true;
                 Btn3500.Enabled = true;
+
+                BtnSonometro.Visible = true;
+                BtnSonometro.Enabled = true;
                 if (i == -1)
                 {
                     BtnThres24L.Visible = false;
@@ -189,11 +197,34 @@ namespace FormsAsterix
                     BtnDER06R.Enabled = false;
                 }
             }
+            else if (i == 0)
+            {
+                BtnThres24L.Visible = true;
+                BtnThres24L.Enabled = true;
+                BtnThres06R.Visible = true;
+                BtnThres06R.Enabled = true;
+
+                BtnDER24L.Visible = true;
+                BtnDER24L.Enabled = true;
+                BtnDER06R.Visible = true;
+                BtnDER06R.Enabled = true;
+
+                Btn850.Visible = true;
+                Btn850.Enabled = true;
+                Btn1500.Visible = true;
+                Btn1500.Enabled = true;
+                Btn3500.Visible = true;
+                Btn3500.Enabled = true;
+
+                BtnSonometro.Visible = false;
+                BtnSonometro.Enabled = false;
+            }
             
         }
         private void IASInformation_Load(object sender, EventArgs e)
         {
             ClassifiyIASList(IASList);
+
             IASdatagrid.DataSource = IASList850;
             AjustarDataGrid();
             SetButtons(1);
@@ -239,6 +270,12 @@ namespace FormsAsterix
         {
             IASdatagrid.DataSource = ListDERRight;
             SetButtons(-4);
+        }
+
+        private void BtnSonometro_Click(object sender, EventArgs e)
+        {
+            IASdatagrid.DataSource = dataSonometro;
+            SetButtons(0);
         }
     }
 }
