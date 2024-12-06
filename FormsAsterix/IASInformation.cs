@@ -25,11 +25,11 @@ namespace FormsAsterix
         {
             InitializeComponent();
             this.IASList = IASListFromP3;
-            /*ListThresholdRight = ThresholListRight;
+            ListThresholdRight = ThresholListRight;
             ListThresholdLeft = ThresholListLeft;
             ListDERRight = DERListRight;
             ListDERLeft = DERListLeft;
-            dataSonometro = datSon;*/
+            dataSonometro = datSon;
         }
 
         private void Back2P3_Click(object sender, EventArgs e)

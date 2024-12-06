@@ -1580,7 +1580,7 @@ namespace FormsAsterix
                 return null; // Ignorar vuelos ya detectados
 
             // Coordenadas iniciales (posición alineada con RWY 24L)
-            double initialHeading = 237.0;      // Rumbo inicial aproximado en grados
+            double initialHeading = 244.0;      // Rumbo inicial aproximado en grados
             double initialRollAngle = prev.RollAngle;
             const double rollAngleThreshold = 3.0;    // Umbral para detectar inicio de viraje (RollAngle)
             const double headingChangeThreshold = 10.0; // Umbral para detectar cambios en el Heading
@@ -2613,8 +2613,9 @@ namespace FormsAsterix
             if (thresholdLat != 0.0 && thresholdLon != 0.0 && DERLat != 0.0 && DERLon != 0.0)
             {
 
-                foreach (var plane in planes)
+                for(int i = 0; i < planes.Count; i++)
                 {
+                    var plane = planes[i];
                     if (plane.TakeoffRWY == runway)
                     {
                         if (aux2 != plane.AircraftID)
@@ -2629,7 +2630,65 @@ namespace FormsAsterix
                             double distTHR = DistHoritzontal(plane.Lon, plane.Lat, plane.Altitude, thresholdLon, thresholdLat); // plane.Lon, plane.Lat, thresholdLon, thresholdLat
                             double distDER = DistHoritzontal(plane.Lon, plane.Lat, plane.Altitude, DERLon, DERLat);
 
-                            if (DistHoritzontal(plane.Lon, plane.Lat, plane.Altitude, thresholdLon, thresholdLat) < DistHoritzontal(plane.Lon, plane.Lat, plane.Altitude, DERLon, DERLat))
+                            if (thresholdFound == false && ThresORder == true)
+                            {
+                                // Calcular la distancia entre el avión y el umbral
+
+                                double distance = IASCalculations.HaversineDistance(plane.Lat, plane.Lon, thresholdLat, thresholdLon);
+
+                                double distUV = DistHoritzontal(plane.Lon, plane.Lat, plane.Altitude, thresholdLon, thresholdLat);
+                                if (distance > distUV)
+                                {
+                                    distance = distUV;
+                                }
+
+                                // Si la distancia es menor al umbral (por ejemplo, 100 metros), consideramos que cruzó el umbral
+                                if (distance <= distanceThreshold)
+                                {
+                                    // Crear un nuevo objeto IASData para guardar los datos del cruce
+                                    IASData data = new IASData
+                                    {
+                                        AircraftId = plane.AircraftID,
+                                        Time = plane.time_sec,
+                                        Altitude = plane.Altitude, // Asegúrate de que la altitud esté corregida por el QNH si es necesario
+                                        IAS = plane.IndicatedAirspeed
+                                    };
+
+                                    // Añadir el cruce a la lista de datos
+                                    thresholdCrossings.Add(data);
+                                    thresholdFound = true;
+                                }
+
+                            }
+
+                            else if (DERFound == false && ThresORder == false)
+                            {
+                                // Calcular la distancia entre el avión y el umbral
+                                double distanceDER = IASCalculations.HaversineDistance(plane.Lat, plane.Lon, DERLat, DERLon);
+                                double distUV = DistHoritzontal(plane.Lon, plane.Lat, plane.Altitude, DERLon, DERLat);
+                                if (distanceDER > distUV)
+                                {
+                                    distanceDER = distUV;
+                                }
+                                // Si la distancia es menor al umbral (por ejemplo, 100 metros), consideramos que cruzó el umbral
+                                if (distanceDER <= distanceThreshold)
+                                {
+                                    // Crear un nuevo objeto IASData para guardar los datos del cruce
+                                    IASData data = new IASData
+                                    {
+                                        AircraftId = plane.AircraftID,
+                                        Time = plane.time_sec,
+                                        Altitude = plane.Altitude, 
+                                        IAS = plane.IndicatedAirspeed
+                                    };
+
+                                    // Añadir el cruce a la lista de datos
+                                    thresholdCrossings.Add(data);
+                                    DERFound = true;
+                                }
+                            }
+
+                            /*if (DistHoritzontal(plane.Lon, plane.Lat, plane.Altitude, thresholdLon, thresholdLat) < DistHoritzontal(plane.Lon, plane.Lat, plane.Altitude, DERLon, DERLat))
                             {
                                 if (thresholdFound == false && ThresORder == false)
                                 {
@@ -2690,7 +2749,7 @@ namespace FormsAsterix
                                         DERFound = true;
                                     }
                                 }
-                            }
+                            }*/
                         }
                     }
                 }
@@ -2702,10 +2761,10 @@ namespace FormsAsterix
         private void IASInfo_Click(object sender, EventArgs e)
         {
             FindIASatDetAltitude();
-            ThresholdListRight = CalculateThresholdCrossings(ListFilteredPlanes, "LEBL-06R", 500.0, true);
-            ThresholdListLeft = CalculateThresholdCrossings(ListFilteredPlanes, "LEBL-24L", 500.0, true);
-            DERListRight = CalculateThresholdCrossings(ListFilteredPlanes, "LEBL-06R", 5000.0, false);
-            DERListLeft = CalculateThresholdCrossings(ListFilteredPlanes, "LEBL-24L", 5000.0, false);
+            ThresholdListRight = CalculateThresholdCrossings(ListFilteredPlanes, "LEBL-06R", 50.0, true);
+            ThresholdListLeft = CalculateThresholdCrossings(ListFilteredPlanes, "LEBL-24L", 50.0, true);
+            DERListRight = CalculateThresholdCrossings(ListFilteredPlanes, "LEBL-06R", 150.0, false);
+            DERListLeft = CalculateThresholdCrossings(ListFilteredPlanes, "LEBL-24L", 150.0, false);
 
             //IASInformation IASInfo = new IASInformation(ListFilteredPlanes);
             IASInformation IASInfo = new IASInformation(IASList, ThresholdListRight, ThresholdListLeft, DERListRight, DERListLeft, GetSnometroDist(ListFilteredPlanes));
