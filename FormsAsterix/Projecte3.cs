@@ -1518,7 +1518,7 @@ namespace FormsAsterix
 
             // 5. Obtenir fitxer KML
             GetKML(ListFilteredPlanes, stats.AverageLon, stats.AverageLat, stats.AverageAltitude);
-            GetKML2(ListFilteredPlanes);
+            //GetKML2(ListFilteredPlanes);
             GetKML4(turnStartPoints);
 
             Viraje formViraje = new Viraje(turnStartPoints_list, sidCompilantList, statsList);

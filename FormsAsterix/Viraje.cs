@@ -40,7 +40,7 @@ namespace FormsAsterix
         {
             // List of column headers to display
             List<string> lista = new List<string> {
-            "Aircraft ID","Latitude", "Longitude","Altitude", "Radial","Initial Mag. Heading ","Viraje Mag. Heading","Viraje RA","Check SID"};
+            "Aircraft ID","Latitude", "Longitude","Altitude", "Radial","Initial Heading ","Viraje Heading","Viraje RA","Check SID"};
 
             // Set some design parameters
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
