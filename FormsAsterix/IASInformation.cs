@@ -68,10 +68,12 @@ namespace FormsAsterix
             IASdatagrid.ScrollBars = ScrollBars.Both; // Activar barras de desplazamiento si es necesario
 
             // Ajusta las columnas al contenido
-            IASdatagrid.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+            //IASdatagrid.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+            IASdatagrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             // Ajusta las filas al contenido
             IASdatagrid.AutoResizeRows(DataGridViewAutoSizeRowsMode.AllCells);
+
         }
     
         public void ClassifiyIASList(List<IASData> IASList)

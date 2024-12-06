@@ -287,5 +287,8 @@
   <ItemGroup>
     <None Include="Resources\plane.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\speedometer.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

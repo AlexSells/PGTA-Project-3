@@ -50,6 +50,8 @@
             this.FilteredValues = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton8 = new System.Windows.Forms.ToolStripButton();
             this.Return_Btn = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton11 = new System.Windows.Forms.ToolStripButton();
+            this.IASInfo = new System.Windows.Forms.ToolStripButton();
             this.TotalPlanesTxt = new System.Windows.Forms.Label();
             this.ANSTotalPlanes = new System.Windows.Forms.Label();
             this.DataGridFiltrado = new System.Windows.Forms.DataGridView();
@@ -57,8 +59,6 @@
             this.BTNCountLeft = new System.Windows.Forms.Button();
             this.LBLNumRight = new System.Windows.Forms.Label();
             this.LBLNumLeft = new System.Windows.Forms.Label();
-            this.toolStripButton11 = new System.Windows.Forms.ToolStripButton();
-            this.IASInfo = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridProject3)).BeginInit();
             this.Project3ToolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridFiltrado)).BeginInit();
@@ -92,6 +92,8 @@
             this.DistanceCSVBtn,
             this.toolStripButton5,
             this.GenStatisticsBtn,
+            this.toolStripButton11,
+            this.IASInfo,
             this.toolStripButton9,
             this.toolStripButton10,
             this.toolStripButton6,
@@ -99,9 +101,7 @@
             this.toolStripButton7,
             this.FilteredValues,
             this.toolStripButton8,
-            this.Return_Btn,
-            this.toolStripButton11,
-            this.IASInfo});
+            this.Return_Btn});
             this.Project3ToolStrip.Location = new System.Drawing.Point(0, 0);
             this.Project3ToolStrip.Name = "Project3ToolStrip";
             this.Project3ToolStrip.Size = new System.Drawing.Size(1482, 31);
@@ -287,6 +287,25 @@
             this.Return_Btn.Visible = false;
             this.Return_Btn.Click += new System.EventHandler(this.Return_Btn_Click);
             // 
+            // toolStripButton11
+            // 
+            this.toolStripButton11.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
+            this.toolStripButton11.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton11.Image")));
+            this.toolStripButton11.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton11.Name = "toolStripButton11";
+            this.toolStripButton11.Size = new System.Drawing.Size(29, 28);
+            this.toolStripButton11.Text = "toolStripButton11";
+            // 
+            // IASInfo
+            // 
+            this.IASInfo.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.IASInfo.Image = global::FormsAsterix.Properties.Resources.speedometer;
+            this.IASInfo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.IASInfo.Name = "IASInfo";
+            this.IASInfo.Size = new System.Drawing.Size(85, 28);
+            this.IASInfo.Text = "IAS Info";
+            this.IASInfo.Click += new System.EventHandler(this.IASInfo_Click);
+            // 
             // TotalPlanesTxt
             // 
             this.TotalPlanesTxt.AutoSize = true;
@@ -356,25 +375,6 @@
             this.LBLNumLeft.Size = new System.Drawing.Size(140, 16);
             this.LBLNumLeft.TabIndex = 26;
             this.LBLNumLeft.Text = "Please click the button";
-            // 
-            // toolStripButton11
-            // 
-            this.toolStripButton11.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.toolStripButton11.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton11.Image")));
-            this.toolStripButton11.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton11.Name = "toolStripButton11";
-            this.toolStripButton11.Size = new System.Drawing.Size(29, 28);
-            this.toolStripButton11.Text = "toolStripButton11";
-            // 
-            // IASInfo
-            // 
-            this.IASInfo.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.IASInfo.Image = ((System.Drawing.Image)(resources.GetObject("IASInfo.Image")));
-            this.IASInfo.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.IASInfo.Name = "IASInfo";
-            this.IASInfo.Size = new System.Drawing.Size(85, 28);
-            this.IASInfo.Text = "IAS Info";
-            this.IASInfo.Click += new System.EventHandler(this.IASInfo_Click);
             // 
             // Projecte3
             // 

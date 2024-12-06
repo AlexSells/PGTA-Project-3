@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IASInformation));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.Back2P3 = new System.Windows.Forms.ToolStripButton();
             this.IASdatagrid = new System.Windows.Forms.DataGridView();
@@ -51,28 +50,31 @@
             this.Back2P3});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(588, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(588, 31);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // Back2P3
             // 
             this.Back2P3.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.Back2P3.Image = ((System.Drawing.Image)(resources.GetObject("Back2P3.Image")));
+            this.Back2P3.Image = global::FormsAsterix.Properties.Resources.back;
             this.Back2P3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Back2P3.Name = "Back2P3";
-            this.Back2P3.Size = new System.Drawing.Size(102, 24);
+            this.Back2P3.Size = new System.Drawing.Size(102, 28);
             this.Back2P3.Text = "Back to P3";
             this.Back2P3.Click += new System.EventHandler(this.Back2P3_Click);
             // 
             // IASdatagrid
             // 
+            this.IASdatagrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.IASdatagrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.IASdatagrid.Location = new System.Drawing.Point(147, 50);
             this.IASdatagrid.Name = "IASdatagrid";
             this.IASdatagrid.RowHeadersWidth = 51;
             this.IASdatagrid.RowTemplate.Height = 24;
-            this.IASdatagrid.Size = new System.Drawing.Size(419, 419);
+            this.IASdatagrid.Size = new System.Drawing.Size(429, 419);
             this.IASdatagrid.TabIndex = 1;
             // 
             // Btn850
