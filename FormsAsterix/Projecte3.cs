@@ -437,34 +437,51 @@ namespace FormsAsterix
         // Genera la lista CSV con las incidencias caluladas
         public void GetListDistanceCSV(bool aux)
         {
-            if (aux == true) { ListDistanceCSV = FindDistances(); }
+            if (aux == true) 
+            { 
+                ListDistanceCSV = FindDistances(); 
+                loaded++;
+                EnableBtn();
+                MessageBox.Show("Fichero cargado correctamente");
+            }
+        }
+
+        public void EnableBtn()
+        {
+            if (loaded >= 3)
+            {
+                DistanceCSVBtn.Enabled = true;
+                DistanceCSVBtn.Visible = true;
+                if (loaded > 3)
+                {
+                    GenStatisticsBtn.Enabled = true;
+                    GenStatisticsBtn.Visible = true;   
+                }
+            }
         }
         /*### EVENTS ############################################################################################################*/
         // Vuelve al proyecto dos
         private void Back2P2Btn_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
         // Carga las tablas de classificacion
         private void LoadTableBtn_Click(object sender, EventArgs e)
         {
             bool aux = StartClassification("Tabla_Clasificacion_aeronaves.xlsx", ref ClasPlanes);
             GetListDistanceCSV(aux);
-            MessageBox.Show("Fichero cargado correctamente");
         }
         // Carga las SIDs 06R
         private void LoadSID06RBtn_Click(object sender, EventArgs e)
         {
             bool aux = StartClassification("Tabla_misma_SID_06R.xlsx", ref ClasSID);
             GetListDistanceCSV(aux);
-            MessageBox.Show("Fichero cargado correctamente");
         }
         // Carga las SIDs 24L
         private void LoadSID24LBtn_Click(object sender, EventArgs e)
         {
             bool aux = StartClassification("Tabla_misma_SID_24L.xlsx", ref ClasSID);
             GetListDistanceCSV(aux);
-            MessageBox.Show("Fichero cargado correctamente");
         }
 
         // Variables gloabales 
@@ -523,7 +540,7 @@ namespace FormsAsterix
                 StringBuilder sbCSV = new StringBuilder();
 
                 // Preparamos las cabeceras donde el delimitador de columna sera el signo =
-                sbCSV.AppendLine("Plane 1= Type_plane 1=Estela 1=Clasification 1=SID 1=Time_1=Plane 2= Type_plane 2=Estela 2=Clasification 2=SID 2=Time_2=Interval time (s)=Delta_U (NM)=Delta_V (NM)=Distance_between (NM)=Minima_radar=Minima_Estela=Minima_LoA=Total of both= Total estela= Radar= Estela = LoA ");
+                sbCSV.AppendLine("Plane 1; Type_plane 1;Estela 1;Clasification 1;SID 1;Time_1;Plane 2; Type_plane 2; Estela 2; Clasification 2; SID 2; Time_2; Interval time (s); Delta_U (NM); Delta_V (NM); Distance_between (NM); Minima_radar; Minima_Estela; Minima_LoA; Total of both; Total estela; Radar; Estela; LoA ");
 
 
                 // NOU: AUXILIARS
@@ -534,13 +551,6 @@ namespace FormsAsterix
                 bool auxDetec = true;
 
                 string auxString = auxList[0].PlaneFront;
-
-                // NOU 2: Classe detect
-                /* PlaneDetections pd = new PlaneDetections();
-                 pd.AircraftID = null;
-                 pd.RadarDetected = false;
-                 pd.EstelaDetected = false;
-                 pd.LoADetected = false;*/
 
                 for (int i = 0; i < auxList.Count; i++)
                 {
@@ -592,12 +602,6 @@ namespace FormsAsterix
                                     TotalRadarIncidents = TotalRadarIncidents + 1;
                                 }
                             }
-                            /* if (list_plane[j].RadarDetected == false) //pd.AircraftID == aux.PlaneFront &&
-                             {
-                                 list_plane[j].RadarDetected = true;
-                                 TotalRadarIncidents = TotalRadarIncidents + 1;
-                             }
-                            */
                         }
 
 
@@ -620,27 +624,6 @@ namespace FormsAsterix
                                     TotalLoAIncidents = TotalLoAIncidents + 1;
                                 }
                             }
-
-
-                            /*
-                            if (aux.init_time_front < aux.time_front)
-                            {
-                                
-
-                                if (j - 1 >= 0)
-                                {
-                                    if (list_plane[j].LoADetected == false && aux.PlaneBack != list_plane[j - 1].AircraftID) // 
-                                    {
-                                        list_plane[j].LoADetected = true;
-                                        TotalLoAIncidents = TotalLoAIncidents + 1;
-                                    }
-                                    else
-                                    {
-                                        
-                                    }
-                                }
-                            }
-                           */
 
                         }
                     }
@@ -672,12 +655,9 @@ namespace FormsAsterix
                         }
                         if ((i + 1) < ListDistanceCSV.Count && auxFront != ListDistanceCSV[i + 1].PlaneFront) //&& auxFront != ListDistanceCSV[i + 1].PlaneFront
                         {
-                            auxData = $"={Convert.ToString(numPlanesTotal)}={Convert.ToString(countEstela)}={Convert.ToString(numPlanesRadar)}={Convert.ToString(numPlanesEstela)}={Convert.ToString(numPlanesLOA)}";
+                            auxData = $";{Convert.ToString(numPlanesTotal)};{Convert.ToString(countEstela)};{Convert.ToString(numPlanesRadar)};{Convert.ToString(numPlanesEstela)};{Convert.ToString(numPlanesLOA)}";
                             if ((numPlanesRadar != 0 || numPlanesEstela != 0 || numPlanesLOA != 0))
                             {
-                                //auxDetec = IncidenceDetector(auxDetec, ListDistanceCSV[i].PlaneFront, auxBack);
-                                //auxBack = ListDistanceCSV[i].PlaneAfter;
-
                                 if (!auxDetec)
                                 {
                                     if (auxBack == ListDistanceCSV[i].PlaneFront)
@@ -703,7 +683,7 @@ namespace FormsAsterix
                         else { auxData = ""; }
                         if (aux.PlaneFront != null) //aux.PlaneAfter)
                         {
-                            string data = $"{aux.PlaneFront};{aux.AircraftTypeFront};{aux.EstelaFront};{aux.ClassFront};{aux.SIDFront};{Convert.ToString(aux.time_front)};{aux.PlaneBack};{aux.AircraftTypeBack};{aux.EstelaBack};{aux.ClassBack};{aux.SIDBack};{Convert.ToString(aux.time_back)};{Convert.ToString(aux.secondsDiffs)};{Convert.ToString(aux.U)};{Convert.ToString(aux.V)};{Convert.ToString(aux.DistanceDiff)};{TotalRadarIncidents};{TotalEstaleComparationMessages};{MinRadar}; N/A ;{MinLoA}" + auxData;
+                            string data = $"{aux.PlaneFront};{aux.AircraftTypeFront};{aux.EstelaFront};{aux.ClassFront};{aux.SIDFront};{Convert.ToString(aux.time_front)};{aux.PlaneBack};{aux.AircraftTypeBack};{aux.EstelaBack};{aux.ClassBack};{aux.SIDBack};{Convert.ToString(aux.time_back)};{Convert.ToString(aux.secondsDiffs)};{Convert.ToString(aux.U)};{Convert.ToString(aux.V)};{Convert.ToString(aux.DistanceDiff*GeoUtils.METERS2NM)};{TotalRadarIncidents};{TotalEstaleComparationMessages};{MinRadar}; N/A ;{MinLoA}" + auxData;
                             sbCSV.AppendLine(data);
                         }
                         bool booool = list_plane[0].RadarDetected;
@@ -715,9 +695,6 @@ namespace FormsAsterix
                             auxData = $"={Convert.ToString(numPlanesTotal)}={Convert.ToString(countEstela)}={Convert.ToString(numPlanesRadar)}={Convert.ToString(numPlanesEstela)}={Convert.ToString(numPlanesLOA)}";
                             if ((numPlanesRadar != 0 || numPlanesEstela != 0 || numPlanesLOA != 0))
                             {
-                                //auxDetec = IncidenceDetector(auxDetec, ListDistanceCSV[i].PlaneFront, auxBack);
-                                //auxBack = ListDistanceCSV[i].PlaneAfter;
-
                                 if (!auxDetec)
                                 {
                                     if (auxBack == ListDistanceCSV[i].PlaneFront)
@@ -746,7 +723,7 @@ namespace FormsAsterix
                         //sbCSV.AppendLine("Plane 1= Type_plane 1=Estela 1=Clasification 1=SID 1=Time_1=Plane 2= Type_plane 2=Estela 2=Clasification 2=SID 2=Time_2=Interval time (s)=Delta_U (NM)=Delta_V (NM)=Distance_between (NM)=Minima_radar=Minima_Estela=Minima_LoA=Total of both= Total estela= Radar= Estela = LoA ");
                         if (aux.PlaneFront != null)
                         {//aux.PlaneAfter){
-                            string data = $"{aux.PlaneFront};{aux.AircraftTypeFront};{aux.EstelaFront};{aux.ClassFront};{aux.SIDFront};{Convert.ToString(aux.time_front)};{aux.PlaneBack};{aux.AircraftTypeBack};{aux.EstelaBack};{aux.ClassBack};{aux.SIDBack};{Convert.ToString(aux.time_back)};{Convert.ToString(aux.secondsDiffs)};{Convert.ToString(aux.U)};{Convert.ToString(aux.V)};{Convert.ToString(aux.DistanceDiff)};{TotalRadarIncidents};{TotalEstaleComparationMessages};{MinRadar}; N/A ;{MinLoA}" + auxData;
+                            string data = $"{aux.PlaneFront};{aux.AircraftTypeFront};{aux.EstelaFront};{aux.ClassFront};{aux.SIDFront};{Convert.ToString(aux.time_front)};{aux.PlaneBack};{aux.AircraftTypeBack};{aux.EstelaBack};{aux.ClassBack};{aux.SIDBack};{Convert.ToString(aux.time_back)};{Convert.ToString(aux.secondsDiffs)};{Convert.ToString(aux.U)};{Convert.ToString(aux.V)};{Convert.ToString(aux.DistanceDiff*GeoUtils.METERS2NM)};{TotalRadarIncidents};{TotalEstaleComparationMessages};{MinRadar}; N/A ;{MinLoA}" + auxData;
                             sbCSV.AppendLine(data);
                         }
                     }
@@ -772,8 +749,17 @@ namespace FormsAsterix
                 TotalRadarIncidents = radar;
                 TotalEstelaIncidents = estela;
                 TotalLoAIncidents = loa;
-
-                File.WriteAllText(filePath, sbCSV.ToString());
+                try
+                {
+                    File.WriteAllText(filePath, sbCSV.ToString());
+                }
+                catch
+                {
+                    MessageBox.Show("Se ha detectatdo un problema con el fichero, prueba otra vez");
+                }
+                
+                loaded++;
+                EnableBtn();
                 MessageBox.Show("CSV file generated");
             }
             else { MessageBox.Show("CSV file generation failed"); }
@@ -792,19 +778,7 @@ namespace FormsAsterix
                 }
             }
         }
-        public void EreaseFilteredColumn(string nombreEncabezado)
-        {
-            // Buscar la columna por nombre de encabezado
-            foreach (DataGridViewColumn columna in dataGridProject3.Columns)
-            {
-                if (columna.HeaderText == nombreEncabezado)
-                {
-                    // Eliminar la columna
-                    dataGridProject3.Columns.Remove(columna);
-                    return; // Salir del método después de eliminar la columna
-                }
-            }
-        }
+
         public void ReplaceString2(int column, string string2change, string replace, int selGrid)
         {
             if (selGrid == 0)
@@ -939,8 +913,13 @@ namespace FormsAsterix
             dataGridProject3.DataSource = ListFilteredPlanes;
             // Substituye los valores -999 por NAN para mejorar la experiencia visual
             ReplaceString2(7, "-999", "NAN", 0);
+            DistanceCSVBtn.Visible = false;
+            DistanceCSVBtn.Enabled = false;
+            GenStatisticsBtn.Visible = false;
+            GenStatisticsBtn.Enabled = false;
+            
         }
-
+        int loaded = 0;
         bool filterEnabled = false;
         private void Btn_Filter_Click(object sender, EventArgs e)
         {
@@ -1475,7 +1454,7 @@ namespace FormsAsterix
                                 turnStartPoints_list.Add(Convert.ToString(turnStart.Longitude));
                                 turnStartPoints_list.Add(Convert.ToString(turnStart.Altitude));
                                 turnStartPoints_list.Add(Convert.ToString(turnStart.Radial));
-                                turnStartPoints_list.Add(Convert.ToString(turnStart.MagHead + 3.0 * k));
+                                turnStartPoints_list.Add(Convert.ToString(turnStart.MagHead - 10.0 * k));
                                 turnStartPoints_list.Add(Convert.ToString(turnStart.MagHead));
                                 turnStartPoints_list.Add(Convert.ToString(turnStart.RA));
                             }
@@ -1583,7 +1562,7 @@ namespace FormsAsterix
             double initialHeading = 244.0;      // Rumbo inicial aproximado en grados
             double initialRollAngle = prev.RollAngle;
             const double rollAngleThreshold = 3.0;    // Umbral para detectar inicio de viraje (RollAngle)
-            const double headingChangeThreshold = 10.0; // Umbral para detectar cambios en el Heading
+            const double headingChangeThreshold = 3.0; // Umbral para detectar cambios en el Heading
 
             if (prev != null)
             {
@@ -1671,28 +1650,6 @@ namespace FormsAsterix
                 AverageAltitude = points.Average(p => p.Altitude),
                 AverageRadial = points.Average(p => p.Radial)
             };
-        }
-
-
-        //*********************** FALTA MIRAR SI EL QUE RETORNA ES EL QUE ES DEMANA
-
-        static List<PlaneFilter> SetRollAngle(List<PlaneFilter> list)
-        {
-            list = list.OrderBy(item => item.AircraftID).ToList();
-            for (int i = 0; i < list.Count; i++) {
-                if (list[i].RollAngle == -999)
-                {
-                    if (i - 1 > 0)
-                    {
-                        if (list[i].ID == list[i - 1].ID)
-                        {
-                            list[i].RollAngle = list[i - 1].RollAngle;
-                        }
-                    }
-                }
-
-            }
-            return list.OrderBy(item => item.time_sec).ToList();
         }
 
         static bool CheckSIDCompliance(TurnStartPoint point, double lon, double lat, HashSet<string> processedFlights)
@@ -1850,7 +1807,7 @@ namespace FormsAsterix
             LBLNumLeft.Text = "Total LEBL-24L takeoffs=" + CountTakeoffRWY(ListFilteredPlanes, "LEBL-24L");
         }
         // Clase para las estadisticas del forms de viraje
-        class Statistics
+        private class Statistics
         {
             public double AverageLat { get; set; }
             public double AverageLon { get; set; }
@@ -1982,10 +1939,10 @@ namespace FormsAsterix
                 AddIndependentLine(document, startPoint1, endPoint1, "Independent Line 1", new Color32(255, 165, 0, 1));
 
                 // Create a second line with calculated offset angle (optional)
-                double angleIncrement = 237; // Degrees
-                double distance = 8.0;    // Distance in degrees (~1km)
-                Vector offsetPoint = CalculateOffsetPoint(startPoint1, distance, angleIncrement);
-                AddIndependentLine(document, startPoint1, offsetPoint, "Independent Line 2", new Color32(255, 165, 0, 1));
+                //double angleIncrement = 237; // Degrees
+                //double distance = 8.0;    // Distance in degrees (~1km)
+                //Vector offsetPoint = CalculateOffsetPoint(startPoint1, distance, angleIncrement);
+                //AddIndependentLine(document, startPoint1, offsetPoint, "Independent Line 2", new Color32(255, 165, 0, 1));
 
                 // Known third line
                 Vector startPoint3 = new Vector(41.307111, 2.107806, 220);  // Start point of third line
@@ -2057,10 +2014,10 @@ namespace FormsAsterix
             var lineString = new LineString
             {
                 Coordinates = new CoordinateCollection
-{
-    startPoint,
-    endPoint
-},
+                {
+                    startPoint,
+                    endPoint
+                },
                 AltitudeMode = AltitudeMode.RelativeToGround
             };
 
@@ -2262,50 +2219,6 @@ namespace FormsAsterix
                 lineStyle.Line.Color = new Color32(0, 255, 0, 255);
 
                 document.AddStyle(lineStyle);
-                /*   FALTA ACABAR DIBUIXAR CERCLE 2 KML :) 
-                // **Añadir el círculo** que representa el área del SID
-                var circlePlacemark = new SharpKml.Dom.Placemark();
-                circlePlacemark.Name = "Área del SID - Círculo de restricción";
-
-                var circleStyle = new Style();
-                circleStyle.Id = "CircleStyle";
-                circleStyle.Line = new LineStyle
-                {
-                    Color = new Color32(0, 0, 255, 255),
-                    Width = 2
-                };
-                circleStyle.Polygon = new PolygonStyle
-                {
-                    Color = new Color32(0, 0, 255, 128) // Azul semi-transparente
-                };
-                circlePlacemark.StyleUrl = new Uri("#" + circleStyle.Id, UriKind.Relative);
-
-                // Círculo alrededor del DVOR
-                var circle = new Polygon();
-                var ring = new LinearRing();
-                double step = 360 / 360; // Esto genera 360 puntos para formar un círculo
-
-                for (int i = 0; i < 360; i++)
-                {
-                    double angle = i * step;
-                    double lat = DVOR_Lat + (radius / 111.32) * Math.Cos(angle * Math.PI / 180); // Aproximación para latitudes
-                    double lon = DVOR_Lon + (radius / 111.32) * Math.Sin(angle * Math.PI / 180) / Math.Cos(DVOR_Lat * Math.PI / 180); // Aproximación para longitudes
-                    ring.Coordinates.Add(new Vector(lat, lon, 0)); // Círculo en el plano horizontal
-                }
-
-                // Crear un OuterBoundary y asignarle el LinearRing
-                var outerBoundary = new OuterBoundary();
-                outerBoundary.LinearRing = ring;
-
-                // Asignamos el OuterBoundary al polígono
-                circle.OuterBoundary = outerBoundary;
-
-                circlePlacemark.Geometry = circle;
-
-                // Add the circle Placemark to the KML document
-                document.AddStyle(circleStyle);
-                document.AddFeature(circlePlacemark);
-                */
 
                 // Add the document (with all the placemarks) to the KML object
                 kml.Feature = document;
@@ -2338,134 +2251,7 @@ namespace FormsAsterix
             public string Description { get; set; }
         }
 
-        static void GetKML3(List<PlaneFilter> list)
-        {
-            // COORDENADES: Centre del cercle (DVOR)
-            double DVOR_Lat = 41.307111;
-            double DVOR_Lon = 2.107806;
-            // COORDENADES: Extrem radi (COSTA)
-            double Coast_Lat = 41.268167;
-            double Coast_Lon = 2.033333;
-
-            // Calcul el radi del cercle (distancia entre DVOR i la costa)
-            double radius = CalculateDistance(DVOR_Lat, DVOR_Lon, Coast_Lat, Coast_Lon);
-
-            // Dialeg per guardar l'arxiu
-            SaveFileDialog saveFileDialog = new SaveFileDialog
-            {
-                Filter = "Archivo KML|*.kml",
-                Title = "Guardar archivo KML"
-            };
-
-            // Cas l'usuari cancela al generar un arxiu
-            if (saveFileDialog.ShowDialog() != DialogResult.OK) { return; }
-
-            // L'usuari tira endavant amb la operació
-            string filePath = saveFileDialog.FileName;
-
-            // Desa els avions que estiguin d'intre del area
-            var posicionsDeRepeticio = new Dictionary<string, KML_DATA2>();
-
-            foreach (var plane in list)
-            {
-                // Només treballarem amb els avions que suerten de la pista LEBL-06R
-                if (plane.TakeoffRWY == "LEBL-24L")
-                {
-                    // Verifiquem si estan dintre del cercle
-                    if (IsWithinCircle(DVOR_Lat, DVOR_Lon, radius, plane.Lat, plane.Lon) == true)
-                    {
-                        if (posicionsDeRepeticio.ContainsKey(plane.AircraftID) == false)
-                        {
-                            posicionsDeRepeticio[plane.AircraftID] = new KML_DATA2
-                            {
-                                Positions = new List<Vector>(),
-                                Description = $"Aircraft Address: {plane.AircraftID};" +
-                                $"Aircraft Identification: {plane.AircraftID};" +
-                                $"Track Number: {plane.TrackNum}"
-                            };
-                        }
-                        posicionsDeRepeticio[plane.AircraftID].Positions.Add(new Vector(plane.Lat, plane.Lon, plane.Altitude));
-                    }
-                }
-            }
-            // Creem el document KML
-            var document = new Document();
-            var kml = new Kml();
-            int styleCount = 0;
-
-            // Crea un estilo único para el círculo
-            var style = new Style
-            {
-                Id = "CircleStyle", // ID único para el estilo
-                Line = new LineStyle
-                {
-                    Color = new Color32(255, 255, 0, 255), // Amarillo
-                    Width = 5 // Línea más gruesa
-                },
-                Polygon = new PolygonStyle
-                {
-                    Color = new Color32(128, 255, 255, 50) // Amarillo semitransparente
-                }
-            };
-
-            // Agregar estilo al documento
-            document.AddStyle(style);
-
-            // Crear un placemark para el círculo
-            var placemark_circle = CreateCirclePlacemark(DVOR_Lat, DVOR_Lon, radius * 1000); // Coordenadas de ejemplo y radio 1000 metros
-            placemark_circle.StyleUrl = new Uri("#CircleStyle", UriKind.Relative);
-
-            // Afegir el placemark del cercle al document
-            document.AddFeature(placemark_circle);
-
-            foreach (var kvp in posicionsDeRepeticio)
-            {
-                var placemark = new SharpKml.Dom.Placemark()
-                {
-                    Name = kvp.Key,
-                    Description = new Description { Text = kvp.Value.Description },
-                    Geometry = CreateLineString(kvp.Value.Positions),
-                    StyleUrl = new Uri($"Style{styleCount}", UriKind.Relative)
-                };
-
-                // Definim el estil de l'aeronau
-                var styles = new Style
-                {
-                    Id = $"Style{styleCount}",
-                    Line = new LineStyle
-                    {
-                        Color = new Color32(255, 0, 0, 255),
-                        Width = 1
-                    }
-                };
-
-                // Guardem la configuració
-                document.AddStyle(styles);
-                document.AddFeature(placemark);
-
-                styleCount++;
-
-            }
-            // Guardem el arxiu KML
-            kml.Feature = document;
-            var kmlFile = KmlFile.Create(kml, false);
-
-            try
-            {
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    kmlFile.Save(fileStream);
-                }
-
-                MessageBox.Show("Archivo KML guardado exitosamente.");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al guardar el archivo: {ex.Message}");
-            }
-        }
-        // Metode per crear una LineString a partir de la llista de posicions
-
+        // Genera el punts del KML
         static void GetKML4(List<TurnStartPoint> points)
         {
 
@@ -2489,7 +2275,7 @@ namespace FormsAsterix
                 Console.WriteLine("No file selected.");
             }
         }
-
+        // Metode per crear una LineString a partir de la llista de posicions
         static LineString CreateLineString(List<Vector> positions)
         {
             var lineString = new LineString
@@ -2554,7 +2340,6 @@ namespace FormsAsterix
             return placemark;
         }
 
-        /*### FINAL JÚLIA #######################################################################################################################################################################################################################################3*/
         // calculamos la distancia horizontal usando la formula de Haversine
         public double DistHoritzontal(double longitud_plane, double latitud_plane, double h1, double longitud_DEP, double latitud_DEP)
         {
@@ -2687,69 +2472,6 @@ namespace FormsAsterix
                                     DERFound = true;
                                 }
                             }
-
-                            /*if (DistHoritzontal(plane.Lon, plane.Lat, plane.Altitude, thresholdLon, thresholdLat) < DistHoritzontal(plane.Lon, plane.Lat, plane.Altitude, DERLon, DERLat))
-                            {
-                                if (thresholdFound == false && ThresORder == false)
-                                {
-                                    // Calcular la distancia entre el avión y el umbral
-
-                                    double distance = IASCalculations.HaversineDistance(plane.Lat, plane.Lon, thresholdLat, thresholdLon);
-
-                                    double distUV = DistHoritzontal(plane.Lon, plane.Lat, plane.Altitude, thresholdLon, thresholdLat);
-                                    if (distance > distUV)
-                                    {
-                                        distance = distUV;
-                                    }
-
-                                    // Si la distancia es menor al umbral (por ejemplo, 100 metros), consideramos que cruzó el umbral
-                                    if (distance <= distanceThreshold)
-                                    {
-                                        // Crear un nuevo objeto IASData para guardar los datos del cruce
-                                        IASData data = new IASData
-                                        {
-                                            AircraftId = plane.AircraftID,
-                                            Time = plane.time_sec,
-                                            Altitude = plane.Altitude, // Asegúrate de que la altitud esté corregida por el QNH si es necesario
-                                            IAS = plane.IndicatedAirspeed
-                                        };
-
-                                        // Añadir el cruce a la lista de datos
-                                        thresholdCrossings.Add(data);
-                                        thresholdFound = true;
-                                    }
-
-                                }
-                            }
-                            else
-                            {
-                                if (DERFound == false && ThresORder == true)
-                                {
-                                    // Calcular la distancia entre el avión y el umbral
-                                    double distanceDER = IASCalculations.HaversineDistance(plane.Lat, plane.Lon, DERLat, DERLon);
-                                    double distUV = DistHoritzontal(plane.Lon, plane.Lat, plane.Altitude, thresholdLon, thresholdLat);
-                                    if (distanceDER > distUV)
-                                    {
-                                        distanceDER = distUV;
-                                    }
-                                    // Si la distancia es menor al umbral (por ejemplo, 100 metros), consideramos que cruzó el umbral
-                                    if (distanceDER <= distanceThreshold)
-                                    {
-                                        // Crear un nuevo objeto IASData para guardar los datos del cruce
-                                        IASData data = new IASData
-                                        {
-                                            AircraftId = plane.AircraftID,
-                                            Time = plane.time_sec,
-                                            Altitude = plane.Altitude, // Asegúrate de que la altitud esté corregida por el QNH si es necesario
-                                            IAS = plane.IndicatedAirspeed
-                                        };
-
-                                        // Añadir el cruce a la lista de datos
-                                        thresholdCrossings.Add(data);
-                                        DERFound = true;
-                                    }
-                                }
-                            }*/
                         }
                     }
                 }
@@ -2880,8 +2602,5 @@ namespace FormsAsterix
 
             return distances;
         }
-
-
-       
     }
 }

@@ -34,7 +34,7 @@ namespace FormsAsterix
 
         private void Back2P3_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
 
         List<IASData> IASList850 = new List<IASData>();
