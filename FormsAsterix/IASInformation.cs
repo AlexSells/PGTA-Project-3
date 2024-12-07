@@ -25,11 +25,11 @@ namespace FormsAsterix
         {
             InitializeComponent();
             this.IASList = IASListFromP3;
-            ListThresholdRight = ThresholListRight;
-            ListThresholdLeft = ThresholListLeft;
-            ListDERRight = DERListRight;
-            ListDERLeft = DERListLeft;
-            dataSonometro = datSon;
+            ListThresholdRight = ThresholListRight.OrderBy(item => item.Time).ToList();
+            ListThresholdLeft = ThresholListLeft.OrderBy(item => item.Time).ToList();
+            ListDERRight = DERListRight.OrderBy(item => item.Time).ToList();
+            ListDERLeft = DERListLeft.OrderBy(item => item.Time).ToList();
+            dataSonometro = datSon.OrderBy(item => item.time_sec).ToList();
         }
 
         private void Back2P3_Click(object sender, EventArgs e)
@@ -227,26 +227,26 @@ namespace FormsAsterix
         {
             ClassifiyIASList(IASList);
 
-            IASdatagrid.DataSource = IASList850;
+            IASdatagrid.DataSource = IASList850.OrderBy(item => item.Time).ToList();
             AjustarDataGrid();
             SetButtons(1);
         }
 
         private void Btn850_Click(object sender, EventArgs e)
         {
-            IASdatagrid.DataSource = IASList850;
+            IASdatagrid.DataSource = IASList850.OrderBy(item => item.Time).ToList();
             SetButtons(1);
         }
 
         private void Btn1500_Click(object sender, EventArgs e)
         {
-            IASdatagrid.DataSource = IASList1500;
+            IASdatagrid.DataSource = IASList1500.OrderBy(item => item.Time).ToList();
             SetButtons(2);
         }
 
         private void Btn3500_Click(object sender, EventArgs e)
         {
-            IASdatagrid.DataSource = IASList3500;
+            IASdatagrid.DataSource = IASList3500.OrderBy(item => item.Time).ToList();
             SetButtons(3);
         }
 
