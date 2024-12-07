@@ -1427,7 +1427,8 @@ namespace FormsAsterix
             var processedFlights_SID = new HashSet<string>();
             ListFilteredPlanes = ListFilteredPlanes.OrderBy(item => item.ID).ToList();
             // Pasar del form principal llistes --> Roll Angle, True Track Angle, heading, posicion (lat,lon) i altitud. 
-            ListFilteredPlanes = InterpolateData(ListFilteredPlanes);
+            List<PlaneFilter> interpolatedList = new List<PlaneFilter>();
+            interpolatedList = InterpolateData(ListFilteredPlanes);
             var prev = ListFilteredPlanes[0];
             prev.time_sec = -1;
             // 2. Calcular el inicio del viraje para cada avión
