@@ -32,8 +32,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.IncidentStatsGrid = new System.Windows.Forms.DataGridView();
+            this.label3 = new System.Windows.Forms.Label();
+            this.IncidentStatsGrid_twr = new System.Windows.Forms.DataGridView();
+            this.label4 = new System.Windows.Forms.Label();
+            this.GenStatisticsGird_twr = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.GenStatisticsGird)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.IncidentStatsGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.IncidentStatsGrid_twr)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GenStatisticsGird_twr)).BeginInit();
             this.SuspendLayout();
             // 
             // GenStatisticsGird
@@ -52,9 +58,9 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(23, 70);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(265, 32);
+            this.label1.Size = new System.Drawing.Size(335, 32);
             this.label1.TabIndex = 1;
-            this.label1.Text = "General Statistics:";
+            this.label1.Text = "General Statistics TMA:";
             // 
             // label2
             // 
@@ -62,9 +68,9 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(489, 70);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(313, 32);
+            this.label2.Size = new System.Drawing.Size(383, 32);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Inciendents Statistics:";
+            this.label2.Text = "Inciendents Statistics TMA:";
             // 
             // IncidentStatsGrid
             // 
@@ -76,11 +82,55 @@
             this.IncidentStatsGrid.Size = new System.Drawing.Size(388, 175);
             this.IncidentStatsGrid.TabIndex = 2;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(489, 364);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(387, 32);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Inciendents Statistics TWR:";
+            // 
+            // IncidentStatsGrid_twr
+            // 
+            this.IncidentStatsGrid_twr.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.IncidentStatsGrid_twr.Location = new System.Drawing.Point(495, 399);
+            this.IncidentStatsGrid_twr.Name = "IncidentStatsGrid_twr";
+            this.IncidentStatsGrid_twr.RowHeadersWidth = 51;
+            this.IncidentStatsGrid_twr.RowTemplate.Height = 24;
+            this.IncidentStatsGrid_twr.Size = new System.Drawing.Size(388, 175);
+            this.IncidentStatsGrid_twr.TabIndex = 6;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(23, 364);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(339, 32);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "General Statistics TWR:";
+            // 
+            // GenStatisticsGird_twr
+            // 
+            this.GenStatisticsGird_twr.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.GenStatisticsGird_twr.Location = new System.Drawing.Point(29, 399);
+            this.GenStatisticsGird_twr.Name = "GenStatisticsGird_twr";
+            this.GenStatisticsGird_twr.RowHeadersWidth = 51;
+            this.GenStatisticsGird_twr.RowTemplate.Height = 24;
+            this.GenStatisticsGird_twr.Size = new System.Drawing.Size(389, 175);
+            this.GenStatisticsGird_twr.TabIndex = 4;
+            // 
             // GeneralStatistics
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(933, 375);
+            this.ClientSize = new System.Drawing.Size(933, 692);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.IncidentStatsGrid_twr);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.GenStatisticsGird_twr);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.IncidentStatsGrid);
             this.Controls.Add(this.label1);
@@ -90,6 +140,8 @@
             this.Load += new System.EventHandler(this.GeneralStatistics_Load);
             ((System.ComponentModel.ISupportInitialize)(this.GenStatisticsGird)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.IncidentStatsGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.IncidentStatsGrid_twr)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GenStatisticsGird_twr)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -101,5 +153,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView IncidentStatsGrid;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.DataGridView IncidentStatsGrid_twr;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.DataGridView GenStatisticsGird_twr;
     }
 }

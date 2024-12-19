@@ -24,7 +24,8 @@ namespace LibAsterix
         public bool sameSID { get; set; }
         public double U {  get; set; }
         public double V { get; set; }
-        public double DistanceDiff { get; set; }
+        public double DistanceDiff_tma { get; set; }
+        public double DistanceDiff_twr { get; set; }
         public double secondsDiffs { get; set; }
 
         // Auxiliar data

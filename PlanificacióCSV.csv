@@ -1,0 +1,21 @@
+Tasques,Persona,Dia,Duració
+Creació del Projecte i funció ReadExel(),Alex,18,2 h
+Solucionar problemes de lectura fitxers excel,Alex,19,1 h
+Diseny del from del projecte 3 i funció FindDistances ,Alex,19 - 20,6 h
+Adaptació del codi ReadExel per llegir els fitxer els altres tres fitxer xlsx,Alex,21,1 h
+Creació de les clases i diccionaris auxiliar per implementar el calcul d'incidencies,Alex,22,6 h
+Implementació del codi en per generar el csv i contar el numero d'incidències,Alex,23,6 h
+Implementació de la clase Functions4Statistics,Alex,24,1 h
+Implementació de la funció viratge i creació de KML,Júlia,25,4 h
+Implementació de funcion de filter de dades,Judit,25,3 h
+Soluionar bugs de l'implementació anterior i correccions professors,Alex,26,4h
+Implemnetació de la clase i form de IAS information,Alex,27,4 h
+Restructuració de la llista de dades per a la implementació correcte de la funció Viratge,Alex,28,4 h
+Continuació i correcció error de virtage,Júlia ,28,4 h
+Solucionar bug en el calcul de les distancies entre avions,Alex,28 - 31,"Moltes hores, no per complexitat sino perquè no es detectava el error"
+Correcció error funció viratge,Júlia,"28 , 2",2 h
+Implemnetació de funcion auxiliar per l'anilisi de les dades,Alex,3 - 5,4 h
+"Rediseny visual dels form, afegir icones...","Júlia, Judit","3,4",2 h
+"Testeig d'error, correcció de bugs finals",Alex,7,2 h
+Testeig final i creació del executable,Judit,7,2 h
+Analisi de dades i readcció de la memòria ,"Judit, Alex, Júlia",6,6 hores per persona

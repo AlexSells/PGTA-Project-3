@@ -50,6 +50,9 @@ namespace FormsAsterix
         // Lista donde se guardarn los datos refernetes a las incidencias de los aviones
         private List<DistanceList> ListDistanceCSV;
 
+        List<int> TMAIncidentes = new List<int>();
+        List<int> TWRIncidentes = new List<int>();
+
         // Funcion que se encarga de crear una lista conn los datos necesarios para analizar una incidencia
         private List<DistanceList> FindDistances()
         {
@@ -91,98 +94,117 @@ namespace FormsAsterix
                 // idealmente 0 aunque trabajaramos con un margen de hasta 4 segundos
                 for (int j = auxSegimiento; j < ListFilteredPlanes.Count; j++)
                 {
-                    double auxSecs = ListFilteredPlanes[j].time_sec - ListFilteredPlanes[i].time_sec;
+                    
 
                     // la diferencia de tiempo solo es valida si los aviones son consecutivos paara
                     // evitar analizar aviones no consecuitiovos y por ende no sujetos a las condiciones
                     // de separacion minima
-                    if (Math.Abs(auxSecs) < 4 && ListFilteredPlanes[j].ID - ListFilteredPlanes[i].ID == 1)
+
+                    if (ListFilteredPlanes[j].ID - ListFilteredPlanes[i].ID == 1)
                     {
+                        double auxSecs = ListFilteredPlanes[j].time_sec - ListFilteredPlanes[i].time_sec;
 
-                        double auxSecsBack = ListFilteredPlanes[j].time_sec - ListFilteredPlanes[i + 1].time_sec;
-
-                        // comprovamos si el siguiente instante de tiempo del primer avion la diferencia
-                        // en tiempo es menor
-                        if (Math.Abs(auxSecs) > Math.Abs(auxSecsBack))
+                        if (Math.Abs(auxSecs) < 4)
                         {
-                            auxSecs = auxSecsBack;
-                            i++;
-                        }
 
-                        if (auxSegimiento - j < 0)
-                        {
-                            // comprovamos si el siguiente instante de tiempo del segundo avion la diferencia
+                            double auxSecsBack = ListFilteredPlanes[j].time_sec - ListFilteredPlanes[i + 1].time_sec;
+
+                            // comprovamos si el siguiente instante de tiempo del primer avion la diferencia
                             // en tiempo es menor
-                            auxSecsBack = ListFilteredPlanes[j + 1].time_sec - ListFilteredPlanes[i].time_sec;
                             if (Math.Abs(auxSecs) > Math.Abs(auxSecsBack))
                             {
                                 auxSecs = auxSecsBack;
-                                j++;
+                                i++;
                             }
+
+                            if (auxSegimiento - j < 0)
+                            {
+                                // comprovamos si el siguiente instante de tiempo del segundo avion la diferencia
+                                // en tiempo es menor
+                                auxSecsBack = ListFilteredPlanes[j + 1].time_sec - ListFilteredPlanes[i].time_sec;
+                                if (Math.Abs(auxSecs) > Math.Abs(auxSecsBack))
+                                {
+                                    auxSecs = auxSecsBack;
+                                    j++;
+                                }
+                            }
+                            
+                            // TMA
+                            double delta_U = Math.Abs(ListFilteredPlanes[i].U_tma - ListFilteredPlanes[j].U_tma);
+                            double delta_V = Math.Abs(ListFilteredPlanes[i].V_tma - ListFilteredPlanes[j].V_tma);
+                            // calculamos la sepraracion entre dos aviones usando sus valores sterograficos
+                            double distanceDiff_TMA = Math.Sqrt(Math.Pow(delta_U, 2) + Math.Pow(delta_V, 2));
+
+                            // TWR
+                            double delta_U_twr = Math.Abs(ListFilteredPlanes[i].U_twr - ListFilteredPlanes[j].U_twr);
+                            double delta_V_twr = Math.Abs(ListFilteredPlanes[i].V_twr - ListFilteredPlanes[j].V_twr);
+                            // calculamos la sepraracion entre dos aviones usando sus valores sterograficos
+                            double distanceDiff_twr = Math.Sqrt(Math.Pow(delta_U_twr, 2) + Math.Pow(delta_V_twr, 2));
+
+                            /////////////////////////////////
+                            CoordinatesUVH coordTHR = null;
+
+                            coordTHR = UVCoordinates.GetUV(41.292219 * GeoUtils.DEGS2RADS, 2.103281 * GeoUtils.DEGS2RADS, 8 * GeoUtils.FEET2METERS, false);
+                            double delta_U_thr = Math.Abs(ListFilteredPlanes[i].U_tma - coordTHR.U);
+                            double delta_V_thr = Math.Abs(ListFilteredPlanes[i].V_tma - coordTHR.V);
+                            double dist_thr = Math.Sqrt(Math.Pow(delta_U_thr, 2) + Math.Pow(delta_V_thr, 2));
+
+                            
+                            // repetimos el proceso con la formual de Haversine para comprovar que la distancia
+                            // es la correcta (no se usa porque dan valores muy parecidos)
+                            //double distDiff = IASCalculations.HaversineDistance(ListFilteredPlanes[i].Lat, ListFilteredPlanes[i].Lon, ListFilteredPlanes[j].Lat, ListFilteredPlanes[j].Lon);
+                            
+
+                            // En este caso consideramos ya al avion consecutivo como candidato a tener incidencia
+                            // por ende llenamos los campos necesarios para su posterior analisis
+                            string ClassBack = "R";
+                            if (ClasPlanes.ContainsKey(ListFilteredPlanes[j].AircraftType))
+                            {
+                                ClassBack = ClasPlanes[ListFilteredPlanes[j].AircraftType];
+                            }
+                            string SameSIDBack = "";
+                            if (ClasSID.ContainsKey(ListFilteredPlanes[j].TakeoffProcess))
+                            {
+                                SameSIDBack = ClasSID[ListFilteredPlanes[j].TakeoffProcess];
+                            }
+                            bool SameSID = SameIDCheck(SameSIDFront, SameSIDBack);
+
+                            // Comprovamos si los dos aviones tienen la misma SID
+                            bool boolSID = SameSIDFront == SameSIDBack ? true : false;
+                            auxSegimiento = j + 1;
+
+                            // Añadimos los valores a la lista  
+                            DistanceList dl = new DistanceList();
+                            dl.ID = ListFilteredPlanes[i].ID;
+                            dl.PlaneFront = ListFilteredPlanes[i].AircraftID;
+                            dl.AircraftTypeFront = ListFilteredPlanes[i].AircraftType;
+                            dl.EstelaFront = ListFilteredPlanes[i].EstelaType;
+                            dl.ClassFront = ClassFront;
+                            dl.SIDFront = SameSIDFront;
+                            dl.time_front = ListFilteredPlanes[i].time_sec;
+
+                            dl.PlaneBack = ListFilteredPlanes[j].AircraftID;
+                            dl.AircraftTypeBack = ListFilteredPlanes[j].AircraftType;
+                            dl.EstelaBack = ListFilteredPlanes[j].EstelaType;
+                            dl.ClassBack = ClassBack;
+                            dl.SIDBack = SameSIDBack;
+                            dl.time_back = ListFilteredPlanes[j].time_sec;
+
+                            dl.sameSID = SameSID;
+                            dl.U = delta_U;
+                            dl.V = delta_V;
+                            dl.DistanceDiff_tma = distanceDiff_TMA;
+                            dl.DistanceDiff_twr = distanceDiff_twr;
+                            dl.secondsDiffs = auxSecs;
+                            //Auxiliar data
+                            dl.init_time_front = ListFilteredPlanes[i].init_takeoff;
+                            dl.init_time_back = ListFilteredPlanes[j].init_takeoff;
+                            dl.dist_thr = dist_thr;
+
+                            distances.Add(dl);
                         }
-                        double delta_U = Math.Abs(ListFilteredPlanes[i].U - ListFilteredPlanes[j].U);
-                        double delta_V = Math.Abs(ListFilteredPlanes[i].V - ListFilteredPlanes[j].V);
-
-                        CoordinatesUVH coordTHR = null;
-                        coordTHR = UVCoordinates.GetUV(41.292219 * GeoUtils.DEGS2RADS, 2.103281 * GeoUtils.DEGS2RADS, 8 * GeoUtils.FEET2METERS);
-                        double delta_U_thr = Math.Abs(ListFilteredPlanes[i].U - coordTHR.U);
-                        double delta_V_thr = Math.Abs(ListFilteredPlanes[i].V - coordTHR.V);
-                        double dist_thr = Math.Sqrt(Math.Pow(delta_U_thr, 2) + Math.Pow(delta_V_thr, 2));
-                        
-                        // calculamos la sepraracion entre dos aviones usando sus valores sterograficos
-                        double distanceDiff = Math.Sqrt(Math.Pow(delta_U, 2) + Math.Pow(delta_V, 2));
-                        // repetimos el proceso con la formual de Haversine para comprovar que la distancia
-                        // es la correcta (no se usa porque dan valores muy parecidos)
-                        //double distDiff = IASCalculations.HaversineDistance(ListFilteredPlanes[i].Lat, ListFilteredPlanes[i].Lon, ListFilteredPlanes[j].Lat, ListFilteredPlanes[j].Lon);
-                        double distDiff = distanceDiff;
-
-                        // En este caso consideramos ya al avion consecutivo como candidato a tener incidencia
-                        // por ende llenamos los campos necesarios para su posterior analisis
-                        string ClassBack = "R";
-                        if (ClasPlanes.ContainsKey(ListFilteredPlanes[j].AircraftType))
-                        {
-                            ClassBack = ClasPlanes[ListFilteredPlanes[j].AircraftType];
-                        }
-                        string SameSIDBack = "";
-                        if (ClasSID.ContainsKey(ListFilteredPlanes[j].TakeoffProcess))
-                        {
-                            SameSIDBack = ClasSID[ListFilteredPlanes[j].TakeoffProcess];
-                        }
-                        bool SameSID = SameIDCheck(SameSIDFront, SameSIDBack);
-
-                        // Comprovamos si los dos aviones tienen la misma SID
-                        bool boolSID = SameSIDFront == SameSIDBack ? true : false;
-                        auxSegimiento = j + 1;
-
-                        // Añadimos los valores a la lista  
-                        DistanceList dl = new DistanceList();
-                        dl.ID = ListFilteredPlanes[i].ID;
-                        dl.PlaneFront = ListFilteredPlanes[i].AircraftID;
-                        dl.AircraftTypeFront = ListFilteredPlanes[i].AircraftType;
-                        dl.EstelaFront = ListFilteredPlanes[i].EstelaType;
-                        dl.ClassFront = ClassFront;
-                        dl.SIDFront = SameSIDFront;
-                        dl.time_front = ListFilteredPlanes[i].time_sec;
-
-                        dl.PlaneBack = ListFilteredPlanes[j].AircraftID;
-                        dl.AircraftTypeBack = ListFilteredPlanes[j].AircraftType;
-                        dl.EstelaBack = ListFilteredPlanes[j].EstelaType;
-                        dl.ClassBack = ClassBack;
-                        dl.SIDBack = SameSIDBack;
-                        dl.time_back = ListFilteredPlanes[j].time_sec;
-
-                        dl.sameSID = SameSID;
-                        dl.U = delta_U;
-                        dl.V = delta_V;
-                        dl.DistanceDiff = distanceDiff;
-                        dl.secondsDiffs = auxSecs;
-                        //Auxiliar data
-                        dl.init_time_front = ListFilteredPlanes[i].init_takeoff;
-                        dl.init_time_back = ListFilteredPlanes[j].init_takeoff;
-                        dl.dist_thr = dist_thr;
-
-                        distances.Add(dl);
                     }
+                    
                 }
             }
 
@@ -491,20 +513,24 @@ namespace FormsAsterix
         int TotalRadarIncidents = 0;
         int TotalEstelaIncidents = 0;
         int TotalLoAIncidents = 0;
+        public void CleanGlobalVar()
+        {
+            // Variables gloabales 
+            TotalIncidencePlanes = 0;
+            TotalMessageComparation = 0;
+            TotalEstaleComparationMessages = 0;
+            TotalRadarIncidents = 0;
+            TotalEstelaIncidents = 0;
+            TotalLoAIncidents = 0;
+        }
         // Auxiliar variables (se borran con cada iteracion)
         int numPlanesTotal, numPlanesRadar, numPlanesEstela, numPlanesLOA, countEstela, numPlanesIncidence = 0, numPlanesComparision = 0;
 
         // Carga dos lista al form GeneralStatistics donde se mostraran datos estadisticos genericos
         private void GenStatisticsBtn_Click(object sender, EventArgs e)
         {
-            List<int> listIncidents = new List<int>();
-            listIncidents.Add(TotalIncidencePlanes);
-            listIncidents.Add(TotalMessageComparation);
-            listIncidents.Add(TotalEstaleComparationMessages);
-            listIncidents.Add(TotalRadarIncidents);
-            listIncidents.Add(TotalEstelaIncidents);
-            listIncidents.Add(TotalLoAIncidents);
-            GeneralStatistics GenStats = new GeneralStatistics(ListDistanceCSV, listIncidents);
+
+            GeneralStatistics GenStats = new GeneralStatistics(ListDistanceCSV, TMAIncidentes, TWRIncidentes);
             GenStats.Show();
         }
         // Clase que se empleara para tener un seguimiento de los aviones y que incidencias tienen cada uno
@@ -516,8 +542,10 @@ namespace FormsAsterix
             public bool EstelaDetected { get; set; }
             public bool LoADetected { get; set; }
         }
-        // genera el csv con los incumplemientos de separacion minima
-        private void DistanceCSVBtn_Click(object sender, EventArgs e)
+
+        bool isTWR=false;
+
+        public void GenerateCSV()
         {
             //GenStatisticsBtn.Enabled = true;
             //GenStatisticsBtn.Visible = true;
@@ -548,6 +576,8 @@ namespace FormsAsterix
                 string auxData;
                 string auxFront = auxList[0].PlaneFront;
                 string auxBack = auxList[0].PlaneBack;
+
+
                 bool auxDetec = true;
 
                 string auxString = auxList[0].PlaneFront;
@@ -555,6 +585,15 @@ namespace FormsAsterix
                 for (int i = 0; i < auxList.Count; i++)
                 {
                     var aux = auxList[i];
+                    double dist = 999999;
+                    if (isTWR == true)
+                    {
+                        dist = aux.DistanceDiff_twr;
+                    }
+                    else
+                    {
+                        dist = aux.DistanceDiff_tma;
+                    }
                     bool MinRadar = true;
                     bool MinEstela = true;
                     bool MinLoA = true;
@@ -562,7 +601,8 @@ namespace FormsAsterix
                     int j = 0;
                     for (int k = j; k < list_plane.Count; k++)
                     {
-                        if (list_plane[k].AircraftID == aux.PlaneFront) {
+                        if (list_plane[k].AircraftID == aux.PlaneFront)
+                        {
                             find = true;
                             break;
                         }
@@ -571,6 +611,7 @@ namespace FormsAsterix
                     {
                         PlaneDetections pd = new PlaneDetections();
                         pd.AircraftID = aux.PlaneFront;
+                        string back = aux.PlaneBack;
                         pd.init_time = aux.init_time_front;
                         pd.RadarDetected = false;
                         pd.EstelaDetected = false;
@@ -585,14 +626,13 @@ namespace FormsAsterix
                     TotalMessageComparation++;
 
                     // Comprovamos si se comple la distancia minima de radar en NM (Nautical Miles)
-                    if (aux.DistanceDiff <= 3.0 * GeoUtils.NM2METERS)
+                    if (dist <= 3.0 /*  *GeoUtils.NM2METERS*/)
                     {
 
                         MinRadar = false;
                         numPlanesRadar++;
 
-                        
-                        if (aux.dist_thr > 0.5*GeoUtils.NM2METERS && aux.init_time_front < aux.time_front) //
+                        if (aux.dist_thr > 0.5 * GeoUtils.NM2METERS && aux.init_time_back <= aux.time_front) //
                         {
                             if (list_plane.Count - 1 >= 0)
                             {
@@ -610,9 +650,9 @@ namespace FormsAsterix
                     // Comprovamos si se comple la distancia minima de LoA
                     if (LoA.ContainsKey((aux.ClassFront, aux.ClassBack, aux.sameSID)))
                     {
-                        if (aux.DistanceDiff * GeoUtils.METERS2NM <= LoA[(aux.ClassFront, aux.ClassBack, aux.sameSID)])
+                        if (dist /* * GeoUtils.METERS2NM*/ <= LoA[(aux.ClassFront, aux.ClassBack, aux.sameSID)] && aux.init_time_back <= aux.time_front)
                         {
-                            
+
                             MinLoA = false;
                             numPlanesLOA++;
 
@@ -635,12 +675,12 @@ namespace FormsAsterix
                         TotalEstaleComparationMessages++;
 
                         // Comprovamos si se comple la distancia minima de LoA
-                        if (aux.DistanceDiff * GeoUtils.METERS2NM <= Estelas[(aux.EstelaFront, aux.EstelaBack)])
+                        if (dist/* * GeoUtils.METERS2NM*/ <= Estelas[(aux.EstelaFront, aux.EstelaBack)] && aux.init_time_back <= aux.time_front)
                         {
                             MinEstela = false;
                             numPlanesEstela++;
 
-                            if (aux.init_time_front < aux.time_front)
+                            if (aux.init_time_front <= aux.time_front)
                             {
                                 if (list_plane.Count - 1 >= 0)
                                 {
@@ -683,7 +723,7 @@ namespace FormsAsterix
                         else { auxData = ""; }
                         if (aux.PlaneFront != null) //aux.PlaneAfter)
                         {
-                            string data = $"{aux.PlaneFront};{aux.AircraftTypeFront};{aux.EstelaFront};{aux.ClassFront};{aux.SIDFront};{Convert.ToString(aux.time_front)};{aux.PlaneBack};{aux.AircraftTypeBack};{aux.EstelaBack};{aux.ClassBack};{aux.SIDBack};{Convert.ToString(aux.time_back)};{Convert.ToString(aux.secondsDiffs)};{Convert.ToString(aux.U)};{Convert.ToString(aux.V)};{Convert.ToString(aux.DistanceDiff*GeoUtils.METERS2NM)};{TotalRadarIncidents};{TotalEstaleComparationMessages};{MinRadar}; N/A ;{MinLoA}" + auxData;
+                            string data = $"{aux.PlaneFront};{aux.AircraftTypeFront};{aux.EstelaFront};{aux.ClassFront};{aux.SIDFront};{Convert.ToString(aux.time_front)};{aux.PlaneBack};{aux.AircraftTypeBack};{aux.EstelaBack};{aux.ClassBack};{aux.SIDBack};{Convert.ToString(aux.time_back)};{Convert.ToString(aux.secondsDiffs)};{Convert.ToString(aux.U)};{Convert.ToString(aux.V)};{Convert.ToString(dist * GeoUtils.METERS2NM)};{TotalRadarIncidents};{TotalEstaleComparationMessages};{MinRadar}; N/A ;{MinLoA}" + auxData;
                             sbCSV.AppendLine(data);
                         }
                         bool booool = list_plane[0].RadarDetected;
@@ -723,7 +763,7 @@ namespace FormsAsterix
                         //sbCSV.AppendLine("Plane 1= Type_plane 1=Estela 1=Clasification 1=SID 1=Time_1=Plane 2= Type_plane 2=Estela 2=Clasification 2=SID 2=Time_2=Interval time (s)=Delta_U (NM)=Delta_V (NM)=Distance_between (NM)=Minima_radar=Minima_Estela=Minima_LoA=Total of both= Total estela= Radar= Estela = LoA ");
                         if (aux.PlaneFront != null)
                         {//aux.PlaneAfter){
-                            string data = $"{aux.PlaneFront};{aux.AircraftTypeFront};{aux.EstelaFront};{aux.ClassFront};{aux.SIDFront};{Convert.ToString(aux.time_front)};{aux.PlaneBack};{aux.AircraftTypeBack};{aux.EstelaBack};{aux.ClassBack};{aux.SIDBack};{Convert.ToString(aux.time_back)};{Convert.ToString(aux.secondsDiffs)};{Convert.ToString(aux.U)};{Convert.ToString(aux.V)};{Convert.ToString(aux.DistanceDiff*GeoUtils.METERS2NM)};{TotalRadarIncidents};{TotalEstaleComparationMessages};{MinRadar}; N/A ;{MinLoA}" + auxData;
+                            string data = $"{aux.PlaneFront};{aux.AircraftTypeFront};{aux.EstelaFront};{aux.ClassFront};{aux.SIDFront};{Convert.ToString(aux.time_front)};{aux.PlaneBack};{aux.AircraftTypeBack};{aux.EstelaBack};{aux.ClassBack};{aux.SIDBack};{Convert.ToString(aux.time_back)};{Convert.ToString(aux.secondsDiffs)};{Convert.ToString(aux.U)};{Convert.ToString(aux.V)};{Convert.ToString(dist * GeoUtils.METERS2NM)};{TotalRadarIncidents};{TotalEstaleComparationMessages};{MinRadar}; N/A ;{MinLoA}" + auxData;
                             sbCSV.AppendLine(data);
                         }
                     }
@@ -757,12 +797,35 @@ namespace FormsAsterix
                 {
                     MessageBox.Show("Se ha detectatdo un problema con el fichero, prueba otra vez");
                 }
-                
+
                 loaded++;
                 EnableBtn();
                 MessageBox.Show("CSV file generated");
             }
             else { MessageBox.Show("CSV file generation failed"); }
+        }
+
+        // genera el csv con los incumplemientos de separacion minima
+        private void DistanceCSVBtn_Click(object sender, EventArgs e)
+        {
+            CleanGlobalVar();
+            GenerateCSV();
+            TMAIncidentes.Add(TotalIncidencePlanes);
+            TMAIncidentes.Add(TotalMessageComparation);
+            TMAIncidentes.Add(TotalEstaleComparationMessages);
+            TMAIncidentes.Add(TotalRadarIncidents);
+            TMAIncidentes.Add(TotalEstelaIncidents);
+            TMAIncidentes.Add(TotalLoAIncidents);
+            isTWR = true;
+            CleanGlobalVar();
+            GenerateCSV();
+            TWRIncidentes.Add(TotalIncidencePlanes);
+            TWRIncidentes.Add(TotalMessageComparation);
+            TWRIncidentes.Add(TotalEstaleComparationMessages);
+            TWRIncidentes.Add(TotalRadarIncidents);
+            TWRIncidentes.Add(TotalEstelaIncidents);
+            TWRIncidentes.Add(TotalLoAIncidents);
+            isTWR =false;
         }
 
         public void EreaseMainColumn(string nombreEncabezado)
@@ -2355,8 +2418,8 @@ namespace FormsAsterix
             lat2 = latitud_DEP * GeoUtils.DEGS2RADS;
             long2 = longitud_DEP * GeoUtils.DEGS2RADS;
 
-            coord1 = UVCoordinates.GetUV(lat1, long1, h1);
-            coord2 = UVCoordinates.GetUV(lat2, long2, 0.0);
+            coord1 = UVCoordinates.GetUV(lat1, long1, h1, false);
+            coord2 = UVCoordinates.GetUV(lat2, long2, 0.0,false);
 
             // Calculate the Euclidean distance between the two aircraft's UV coordinates (U and V)
             double distancia = Math.Round(Math.Sqrt(Math.Pow(coord2.U - coord1.U, 2) + Math.Pow(coord2.V - coord1.V, 2)), 3);

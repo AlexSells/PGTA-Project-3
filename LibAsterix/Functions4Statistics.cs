@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OfficeOpenXml.Drawing.Slicer.Style;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,87 +11,175 @@ namespace LibAsterix
     public class Functions4Statistics
     {
         /*##### DISTANCE DIFFERENCE FUNCTIONS ##############################################*/
-        public static double CalculateAverageDistanceDiff(List<DistanceList> List)
+        public static double CalculateAverageDistanceDiff(List<DistanceList> List, bool isTWR)
         {
-            if (List == null || List.Count == 0)
-                throw new ArgumentException("La lista no puede estar vacía.");
-            List<DistanceList> dl = new List<DistanceList>();
-            for (int i = 0; i < List.Count; i++)
+            if (isTWR == true)
             {
-                if (List[i].time_front > List[i].init_time_front)
+                if (List == null || List.Count == 0)
+                    throw new ArgumentException("La lista no puede estar vacía.");
+                List<DistanceList> dl = new List<DistanceList>();
+                for (int i = 0; i < List.Count; i++)
                 {
-                    dl.Add(List[i]);
+                    if (List[i].time_front > List[i].init_time_front)
+                    {
+                        dl.Add(List[i]);
+                    }
                 }
+                // Calcular el promedio (media) de los valores de DistanceDiff
+                return dl.Average(item => item.DistanceDiff_twr);
             }
-            // Calcular el promedio (media) de los valores de DistanceDiff
-            return dl.Average(item => item.DistanceDiff);
+            else
+            {
+                if (List == null || List.Count == 0)
+                    throw new ArgumentException("La lista no puede estar vacía.");
+                List<DistanceList> dl = new List<DistanceList>();
+                for (int i = 0; i < List.Count; i++)
+                {
+                    if (List[i].time_front > List[i].init_time_front)
+                    {
+                        dl.Add(List[i]);
+                    }
+                }
+                // Calcular el promedio (media) de los valores de DistanceDiff
+                return dl.Average(item => item.DistanceDiff_tma);
+            }
+            
         }
-        public static double CalculateVarianceDistanceDiff(List<DistanceList> List)
+        public static double CalculateVarianceDistanceDiff(List<DistanceList> List, bool isTWR)
         {
             // Calcular el promedio (media) de los valores de DistanceDiff
-            double aux = CalculateAverageDistanceDiff(List);
+            double aux = CalculateAverageDistanceDiff(List,isTWR);
 
-            // Calcular la varianza
-            double variance = List.Average(item => Math.Pow(item.DistanceDiff - aux, 2));
-
-            return variance;
+            if (isTWR == true)
+            {
+                double variance = List.Average(item => Math.Pow(item.DistanceDiff_twr - aux, 2));
+                return variance;
+            }
+            else
+            {
+                double variance = List.Average(item => Math.Pow(item.DistanceDiff_tma - aux, 2));
+                return variance;
+            }  
         }
-        public static double CalculateStandardDeviatioDistanceDiff(List<DistanceList> List)
+        public static double CalculateStandardDeviatioDistanceDiff(List<DistanceList> List, bool isTWR)
         {
             // Calcular la varianza
-            double aux = CalculateVarianceDistanceDiff(List);
+            double aux = CalculateVarianceDistanceDiff(List, isTWR);
             // Raíz cuadrada de la varianza
             return Math.Sqrt(aux); 
         }
-        public static double CalculatePercentile95DistanceDiff(List<DistanceList> List)
+        public static double CalculatePercentile95DistanceDiff(List<DistanceList> List, bool isTWR)
         {
-            if (List == null || List.Count == 0)
-                throw new ArgumentException("La lista no puede estar vacía.");
+            if (isTWR == true)
+            {
+                if (List == null || List.Count == 0)
+                    throw new ArgumentException("La lista no puede estar vacía.");
 
-            // Ordenar la lista por la propiedad DistanceDiff
-            List = List.OrderBy(item => item.DistanceDiff).ToList();
+                // Ordenar la lista por la propiedad DistanceDiff
+                List = List.OrderBy(item => item.DistanceDiff_twr).ToList();
 
-            // Calcular el índice del percentil 95
-            int index = (int)Math.Ceiling(0.95 * List.Count) - 1;
+                // Calcular el índice del percentil 95
+                int index = (int)Math.Ceiling(0.95 * List.Count) - 1;
 
-            // Retornar el valor en ese índice
-            return List[index].DistanceDiff;
+                // Retornar el valor en ese índice
+                return List[index].DistanceDiff_twr;
+            }
+            else
+            {
+                if (List == null || List.Count == 0)
+                    throw new ArgumentException("La lista no puede estar vacía.");
+
+                // Ordenar la lista por la propiedad DistanceDiff
+                List = List.OrderBy(item => item.DistanceDiff_tma).ToList();
+
+                // Calcular el índice del percentil 95
+                int index = (int)Math.Ceiling(0.95 * List.Count) - 1;
+
+                // Retornar el valor en ese índice
+                return List[index].DistanceDiff_tma;
+            }
         }
 
-        public static double CalculatePercentile99DistanceDiff(List<DistanceList> List)
+        public static double CalculatePercentile99DistanceDiff(List<DistanceList> List, bool isTWR)
         {
-            if (List == null || List.Count == 0)
-                throw new ArgumentException("La lista no puede estar vacía.");
+            if (isTWR == true)
+            {
+                if (List == null || List.Count == 0)
+                    throw new ArgumentException("La lista no puede estar vacía.");
 
-            // Ordenar la lista por la propiedad DistanceDiff
-            List = List.OrderBy(item => item.DistanceDiff).ToList();
+                // Ordenar la lista por la propiedad DistanceDiff
+                List = List.OrderBy(item => item.DistanceDiff_twr).ToList();
 
-            // Calcular el índice del percentil 95
-            int index = (int)Math.Ceiling(0.99 * List.Count) - 1;
+                // Calcular el índice del percentil 95
+                int index = (int)Math.Ceiling(0.99 * List.Count) - 1;
 
-            // Retornar el valor en ese índice
-            return List[index].DistanceDiff;
+                // Retornar el valor en ese índice
+                return List[index].DistanceDiff_twr;
+            }
+            else
+            {
+                if (List == null || List.Count == 0)
+                    throw new ArgumentException("La lista no puede estar vacía.");
+
+                // Ordenar la lista por la propiedad DistanceDiff
+                List = List.OrderBy(item => item.DistanceDiff_tma).ToList();
+
+                // Calcular el índice del percentil 95
+                int index = (int)Math.Ceiling(0.99 * List.Count) - 1;
+
+                // Retornar el valor en ese índice
+                return List[index].DistanceDiff_tma;
+            }
+            
         }
 
-        public static double FindMinDistanceDiff(List<DistanceList> List)
+        public static double FindMinDistanceDiff(List<DistanceList> List, bool isTWR)
         {
-            if (List == null || List.Count == 0)
-                throw new ArgumentException("La lista no puede estar vacía.");
+            if (isTWR == true)
+            {
+                if (List == null || List.Count == 0)
+                    throw new ArgumentException("La lista no puede estar vacía.");
 
-            // Buscamos el minimo
-            double aux = List.Min(item => item.DistanceDiff);
+                // Buscamos el minimo
+                double aux = List.Min(item => item.DistanceDiff_twr);
 
-            return aux;
+                return aux;
+            }
+            else
+            {
+                if (List == null || List.Count == 0)
+                    throw new ArgumentException("La lista no puede estar vacía.");
+
+                // Buscamos el minimo
+                double aux = List.Min(item => item.DistanceDiff_tma);
+
+                return aux;
+            }
+            
         }
-        public static double FindMaxDistanceDiff(List<DistanceList> List)
+        public static double FindMaxDistanceDiff(List<DistanceList> List, bool isTWR)
         {
-            if (List == null || List.Count == 0)
-                throw new ArgumentException("La lista no puede estar vacía.");
+            if (isTWR == true)
+            {
+                if (List == null || List.Count == 0)
+                    throw new ArgumentException("La lista no puede estar vacía.");
 
-            // Buscamos el maximo
-            double aux = List.Max(item => item.DistanceDiff);
+                // Buscamos el maximo
+                double aux = List.Max(item => item.DistanceDiff_twr);
 
-            return aux;
+                return aux;
+            }
+            else
+            {
+                if (List == null || List.Count == 0)
+                    throw new ArgumentException("La lista no puede estar vacía.");
+
+                // Buscamos el maximo
+                double aux = List.Max(item => item.DistanceDiff_tma);
+
+                return aux;
+            }
+            
         }
 
         /*##### GENERAL LISTS ##############################################################*/

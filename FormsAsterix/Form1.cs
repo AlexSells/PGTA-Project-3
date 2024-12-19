@@ -2212,13 +2212,21 @@ namespace FormsAsterix
                                         }
                                         else
                                         {
-                                            UVCoordinates WGS84Coordinates = new LibAsterix.UVCoordinates();
+
+
 
                                             // calculamos las coordenadas esterograficas del vuelo analizado
-                                            CoordinatesUVH steorographicSys = UVCoordinates.GetUV(Convert.ToDouble(asterixGrids[i].Latitude) * GeoUtils.DEGS2RADS, Convert.ToDouble(asterixGrids[i].Longitude) * GeoUtils.DEGS2RADS, Convert.ToDouble(asterixGrids[i].Height));
-                                            double U = steorographicSys.U*GeoUtils.METERS2NM;
-                                            double V = steorographicSys.V*GeoUtils.METERS2NM;
-                                            
+                                            // TMA
+                                            //UVCoordinates WGS84Coordinates = new LibAsterix.UVCoordinates();
+                                            CoordinatesUVH steorographicSys = UVCoordinates.GetUV(Convert.ToDouble(asterixGrids[i].Latitude) * GeoUtils.DEGS2RADS, Convert.ToDouble(asterixGrids[i].Longitude) * GeoUtils.DEGS2RADS, Convert.ToDouble(asterixGrids[i].Height), false);
+                                            double U_tma = steorographicSys.U*GeoUtils.METERS2NM;
+                                            double V_tma = steorographicSys.V*GeoUtils.METERS2NM;
+
+                                            // TWR
+                                            steorographicSys = UVCoordinates.GetUV(Convert.ToDouble(asterixGrids[i].Latitude) * GeoUtils.DEGS2RADS, Convert.ToDouble(asterixGrids[i].Longitude) * GeoUtils.DEGS2RADS, Convert.ToDouble(asterixGrids[i].Height), true);
+                                            double U_twr = steorographicSys.U * GeoUtils.METERS2NM;
+                                            double V_twr = steorographicSys.V * GeoUtils.METERS2NM;
+
                                             // Las funciones a continuacion transforman string a double para poder
                                             // trabajar con ellas a lo largo del proyecto 3. Si tenemos un valor 
                                             // invalido se assiganra el -999, un valor impossible. 
@@ -2298,8 +2306,10 @@ namespace FormsAsterix
                                                 EstelaType = AircraftData.EstelaType,
                                                 TakeoffProcess = AircraftData.TakeoffProcess,
                                                 TakeoffRWY = AircraftData.TakeoffRWY,
-                                                U = steorographicSys.U,
-                                                V = steorographicSys.V,
+                                                U_tma = U_tma,
+                                                V_tma = V_tma,
+                                                U_twr = U_twr,
+                                                V_twr = V_twr,
                                                 ID = Convert.ToInt32(AircraftData.ID),
                                                 AircraftType = AircraftData.TypePlane,
                                                 AircraftID = asterixGrids[i].Aircraft_Indentification,

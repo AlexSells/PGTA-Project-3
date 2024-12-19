@@ -18,8 +18,10 @@ namespace LibAsterix
         public double Altitude { get; set; }
         public double Heading { get; set; }
         public double RollAngle { get; set; }
-        public double U { get; set; }
-        public double V { get; set; }
+        public double U_tma { get; set; }
+        public double V_tma { get; set; }
+        public double U_twr { get; set; }
+        public double V_twr { get; set; }
         public int ID { get; set; }
 
         /*### STRING ##################################*/
