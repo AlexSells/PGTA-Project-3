@@ -629,7 +629,7 @@ namespace FormsAsterix
                     if (dist <= 3.0 /*  *GeoUtils.NM2METERS*/)
                     {
 
-                        MinRadar = false;
+                        
                         numPlanesRadar++;
 
                         if (aux.dist_thr > 0.5 * GeoUtils.NM2METERS && aux.init_time_back <= aux.time_front) //
@@ -638,6 +638,7 @@ namespace FormsAsterix
                             {
                                 if (list_plane[list_plane.Count - 1].RadarDetected == false) //pd.AircraftID == aux.PlaneFront &&
                                 {
+                                    MinRadar = false;
                                     list_plane[list_plane.Count - 1].RadarDetected = true;
                                     TotalRadarIncidents = TotalRadarIncidents + 1;
                                 }
@@ -653,13 +654,14 @@ namespace FormsAsterix
                         if (dist /* * GeoUtils.METERS2NM*/ <= LoA[(aux.ClassFront, aux.ClassBack, aux.sameSID)] && aux.init_time_back <= aux.time_front)
                         {
 
-                            MinLoA = false;
+                            
                             numPlanesLOA++;
 
                             if (list_plane.Count - 1 >= 0)
                             {
                                 if (list_plane[list_plane.Count - 1].LoADetected == false) // 
                                 {
+                                    MinLoA = false;
                                     list_plane[list_plane.Count - 1].LoADetected = true;
                                     TotalLoAIncidents = TotalLoAIncidents + 1;
                                 }
@@ -677,7 +679,7 @@ namespace FormsAsterix
                         // Comprovamos si se comple la distancia minima de LoA
                         if (dist/* * GeoUtils.METERS2NM*/ <= Estelas[(aux.EstelaFront, aux.EstelaBack)] && aux.init_time_back <= aux.time_front)
                         {
-                            MinEstela = false;
+                            
                             numPlanesEstela++;
 
                             if (aux.init_time_front <= aux.time_front)
@@ -686,6 +688,7 @@ namespace FormsAsterix
                                 {
                                     if (list_plane[j].EstelaDetected == false)
                                     {
+                                        MinEstela = false;
                                         list_plane[j].EstelaDetected = true;
                                         TotalEstelaIncidents = TotalEstelaIncidents + 1;
                                     }
@@ -726,7 +729,6 @@ namespace FormsAsterix
                             string data = $"{aux.PlaneFront};{aux.AircraftTypeFront};{aux.EstelaFront};{aux.ClassFront};{aux.SIDFront};{Convert.ToString(aux.time_front)};{aux.PlaneBack};{aux.AircraftTypeBack};{aux.EstelaBack};{aux.ClassBack};{aux.SIDBack};{Convert.ToString(aux.time_back)};{Convert.ToString(aux.secondsDiffs)};{Convert.ToString(aux.U)};{Convert.ToString(aux.V)};{Convert.ToString(dist * GeoUtils.METERS2NM)};{TotalRadarIncidents};{TotalEstaleComparationMessages};{MinRadar}; N/A ;{MinLoA}" + auxData;
                             sbCSV.AppendLine(data);
                         }
-                        bool booool = list_plane[0].RadarDetected;
                     }
                     else
                     {
