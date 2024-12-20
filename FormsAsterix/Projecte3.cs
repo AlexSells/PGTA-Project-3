@@ -191,8 +191,18 @@ namespace FormsAsterix
                             dl.time_back = ListFilteredPlanes[j].time_sec;
 
                             dl.sameSID = SameSID;
-                            dl.U = delta_U;
-                            dl.V = delta_V;
+
+                            if (isTWR == true)
+                            {
+                                dl.U = delta_V_twr;
+                                dl.V = delta_V_twr;
+                            }
+                            else
+                            {
+                                dl.U = delta_U;
+                                dl.V = delta_V;
+                            }
+
                             dl.DistanceDiff_tma = distanceDiff_TMA;
                             dl.DistanceDiff_twr = distanceDiff_twr;
                             dl.secondsDiffs = auxSecs;
@@ -568,7 +578,7 @@ namespace FormsAsterix
                 StringBuilder sbCSV = new StringBuilder();
 
                 // Preparamos las cabeceras donde el delimitador de columna sera el signo =
-                sbCSV.AppendLine("Plane 1; Type_plane 1;Estela 1;Clasification 1;SID 1;Time_1;Plane 2; Type_plane 2; Estela 2; Clasification 2; SID 2; Time_2; Interval time (s); Delta_U (NM); Delta_V (NM); Distance_between (NM); Minima_radar; Minima_Estela; Minima_LoA; Total of both; Total estela; Radar; Estela; LoA ");
+                sbCSV.AppendLine("Plane 1; Type_plane 1;Estela 1;Clasification 1;SID 1;Time_1;Plane 2; Type_plane 2; Estela 2; Clasification 2; SID 2; Time_2; Interval time (s); Delta_U (NM); Delta_V (NM); Distance_between (NM); Minima_radar; Minima_Estela; Minima_LoA; Radar Condition; Estela Condition; LoA Condition");
 
 
                 // NOU: AUXILIARS
@@ -581,22 +591,16 @@ namespace FormsAsterix
                 bool auxDetec = true;
 
                 string auxString = auxList[0].PlaneFront;
-
+                bool MinRadar = true;
+                bool MinEstela=true;
+                bool MinLoA=true;
                 for (int i = 0; i < auxList.Count; i++)
                 {
                     var aux = auxList[i];
                     double dist = 999999;
-                    if (isTWR == true)
-                    {
-                        dist = aux.DistanceDiff_twr;
-                    }
-                    else
-                    {
-                        dist = aux.DistanceDiff_tma;
-                    }
-                    bool MinRadar = true;
-                    bool MinEstela = true;
-                    bool MinLoA = true;
+                    if (isTWR == true)  { dist = aux.DistanceDiff_twr; }
+                    else                { dist = aux.DistanceDiff_tma; }
+                
                     bool find = false;
                     int j = 0;
                     for (int k = j; k < list_plane.Count; k++)
@@ -619,17 +623,19 @@ namespace FormsAsterix
                         j = list_plane.Count;
                         list_plane.Add(pd);
                         int c = list_plane.Count;
+                        MinRadar = true;
+                        MinRadar = true;
+                        MinRadar = true;
                     }
 
                     // Contamos el numero de aviones analizados y la comparacion de mensajes
                     numPlanesTotal++;
                     TotalMessageComparation++;
-
+                   
                     // Comprovamos si se comple la distancia minima de radar en NM (Nautical Miles)
                     if (dist <= 3.0 /*  *GeoUtils.NM2METERS*/)
                     {
 
-                        
                         numPlanesRadar++;
 
                         if (aux.dist_thr > 0.5 * GeoUtils.NM2METERS && aux.init_time_back <= aux.time_front) //
@@ -647,14 +653,20 @@ namespace FormsAsterix
 
 
                     }
+                    else if (MinRadar == false)
+                    {
+                        MinRadar = true;
+                    }
 
+                    double mindist_loa = 0;
                     // Comprovamos si se comple la distancia minima de LoA
                     if (LoA.ContainsKey((aux.ClassFront, aux.ClassBack, aux.sameSID)))
                     {
+                        mindist_loa = LoA[(aux.ClassFront, aux.ClassBack, aux.sameSID)];
                         if (dist /* * GeoUtils.METERS2NM*/ <= LoA[(aux.ClassFront, aux.ClassBack, aux.sameSID)] && aux.init_time_back <= aux.time_front)
                         {
 
-                            
+
                             numPlanesLOA++;
 
                             if (list_plane.Count - 1 >= 0)
@@ -668,18 +680,23 @@ namespace FormsAsterix
                             }
 
                         }
+                        else if (MinLoA == false)
+                        {
+                            MinLoA = true;
+                        }
                     }
 
+                    double mindist_estela = 0;
                     // Comprovamos si se comple la distancia minima de estela
                     if (Estelas.ContainsKey((aux.EstelaFront, aux.EstelaBack)))
                     {
                         countEstela++;
                         TotalEstaleComparationMessages++;
-
+                        mindist_estela = Estelas[(aux.EstelaFront, aux.EstelaBack)];
                         // Comprovamos si se comple la distancia minima de LoA
-                        if (dist/* * GeoUtils.METERS2NM*/ <= Estelas[(aux.EstelaFront, aux.EstelaBack)] && aux.init_time_back <= aux.time_front)
+                        if (dist/* * GeoUtils.METERS2NM*/ <= mindist_estela && aux.init_time_back <= aux.time_front)
                         {
-                            
+
                             numPlanesEstela++;
 
                             if (aux.init_time_front <= aux.time_front)
@@ -696,6 +713,12 @@ namespace FormsAsterix
                             }
 
                         }
+                        else if (MinEstela == false)
+                        {
+                            MinEstela = true;
+                        }
+
+
                         if ((i + 1) < ListDistanceCSV.Count && auxFront != ListDistanceCSV[i + 1].PlaneFront) //&& auxFront != ListDistanceCSV[i + 1].PlaneFront
                         {
                             auxData = $";{Convert.ToString(numPlanesTotal)};{Convert.ToString(countEstela)};{Convert.ToString(numPlanesRadar)};{Convert.ToString(numPlanesEstela)};{Convert.ToString(numPlanesLOA)}";
@@ -726,8 +749,19 @@ namespace FormsAsterix
                         else { auxData = ""; }
                         if (aux.PlaneFront != null) //aux.PlaneAfter)
                         {
-                            string data = $"{aux.PlaneFront};{aux.AircraftTypeFront};{aux.EstelaFront};{aux.ClassFront};{aux.SIDFront};{Convert.ToString(aux.time_front)};{aux.PlaneBack};{aux.AircraftTypeBack};{aux.EstelaBack};{aux.ClassBack};{aux.SIDBack};{Convert.ToString(aux.time_back)};{Convert.ToString(aux.secondsDiffs)};{Convert.ToString(aux.U)};{Convert.ToString(aux.V)};{Convert.ToString(dist * GeoUtils.METERS2NM)};{TotalRadarIncidents};{TotalEstaleComparationMessages};{MinRadar}; N/A ;{MinLoA}" + auxData;
-                            sbCSV.AppendLine(data);
+                            if (aux.init_time_back <= aux.time_front)
+                            {
+                                if (isTWR == true)
+                                {
+                                    string data = $"{aux.PlaneFront};{aux.AircraftTypeFront};{aux.EstelaFront};{aux.ClassFront};{aux.SIDFront};{Convert.ToString(aux.time_front)};{aux.PlaneBack};{aux.AircraftTypeBack};{aux.EstelaBack};{aux.ClassBack};{aux.SIDBack};{Convert.ToString(aux.time_back)};{Convert.ToString(aux.secondsDiffs)};{Convert.ToString(aux.U)};{Convert.ToString(aux.V)};{Convert.ToString(dist)};{"3.0"};{"N/A"};{Convert.ToString(mindist_loa)};{MinRadar}; N/A ;{MinLoA}";
+                                    sbCSV.AppendLine(data);
+                                }
+                                else
+                                {
+                                    string data = $"{aux.PlaneFront};{aux.AircraftTypeFront};{aux.EstelaFront};{aux.ClassFront};{aux.SIDFront};{Convert.ToString(aux.time_front)};{aux.PlaneBack};{aux.AircraftTypeBack};{aux.EstelaBack};{aux.ClassBack};{aux.SIDBack};{Convert.ToString(aux.time_back)};{Convert.ToString(aux.secondsDiffs)};{Convert.ToString(aux.U)};{Convert.ToString(aux.V)};{Convert.ToString(dist)};{"3.0"};{Convert.ToString(mindist_estela)};{Convert.ToString(mindist_loa)};{MinRadar}; {MinEstela} ;{MinLoA}";
+                                    sbCSV.AppendLine(data);
+                                }
+                            }
                         }
                     }
                     else
@@ -764,9 +798,21 @@ namespace FormsAsterix
 
                         //sbCSV.AppendLine("Plane 1= Type_plane 1=Estela 1=Clasification 1=SID 1=Time_1=Plane 2= Type_plane 2=Estela 2=Clasification 2=SID 2=Time_2=Interval time (s)=Delta_U (NM)=Delta_V (NM)=Distance_between (NM)=Minima_radar=Minima_Estela=Minima_LoA=Total of both= Total estela= Radar= Estela = LoA ");
                         if (aux.PlaneFront != null)
-                        {//aux.PlaneAfter){
-                            string data = $"{aux.PlaneFront};{aux.AircraftTypeFront};{aux.EstelaFront};{aux.ClassFront};{aux.SIDFront};{Convert.ToString(aux.time_front)};{aux.PlaneBack};{aux.AircraftTypeBack};{aux.EstelaBack};{aux.ClassBack};{aux.SIDBack};{Convert.ToString(aux.time_back)};{Convert.ToString(aux.secondsDiffs)};{Convert.ToString(aux.U)};{Convert.ToString(aux.V)};{Convert.ToString(dist * GeoUtils.METERS2NM)};{TotalRadarIncidents};{TotalEstaleComparationMessages};{MinRadar}; N/A ;{MinLoA}" + auxData;
-                            sbCSV.AppendLine(data);
+                        {
+                            if (aux.init_time_back <= aux.time_front)
+                            {
+                                if (isTWR == true)
+                                {
+                                    string data = $"{aux.PlaneFront};{aux.AircraftTypeFront};{aux.EstelaFront};{aux.ClassFront};{aux.SIDFront};{Convert.ToString(aux.time_front)};{aux.PlaneBack};{aux.AircraftTypeBack};{aux.EstelaBack};{aux.ClassBack};{aux.SIDBack};{Convert.ToString(aux.time_back)};{Convert.ToString(aux.secondsDiffs)};{Convert.ToString(aux.U)};{Convert.ToString(aux.V)};{Convert.ToString(dist)};{"3.0"};{"N/A"};{Convert.ToString(mindist_loa)};{MinRadar}; N/A ;{MinLoA}";
+                                    sbCSV.AppendLine(data);
+                                }
+                                else
+                                {
+                                    string data = $"{aux.PlaneFront};{aux.AircraftTypeFront};{aux.EstelaFront};{aux.ClassFront};{aux.SIDFront};{Convert.ToString(aux.time_front)};{aux.PlaneBack};{aux.AircraftTypeBack};{aux.EstelaBack};{aux.ClassBack};{aux.SIDBack};{Convert.ToString(aux.time_back)};{Convert.ToString(aux.secondsDiffs)};{Convert.ToString(aux.U)};{Convert.ToString(aux.V)};{Convert.ToString(dist)};{"3.0"};{Convert.ToString(mindist_estela)};{Convert.ToString(mindist_loa)};{MinRadar}; {MinEstela} ;{MinLoA}";
+                                    sbCSV.AppendLine(data);
+                                }
+                            }
+                            
                         }
                     }
                 }

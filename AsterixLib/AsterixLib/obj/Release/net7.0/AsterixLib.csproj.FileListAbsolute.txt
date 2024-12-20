@@ -1,0 +1,14 @@
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte 3 versió 1\P3 06122024\PGTA-Project-3\AsterixLib\AsterixLib\bin\Release\net7.0\Accord.dll.config
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte 3 versió 1\P3 06122024\PGTA-Project-3\AsterixLib\AsterixLib\bin\Release\net7.0\AsterixLib.deps.json
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte 3 versió 1\P3 06122024\PGTA-Project-3\AsterixLib\AsterixLib\bin\Release\net7.0\AsterixLib.dll
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte 3 versió 1\P3 06122024\PGTA-Project-3\AsterixLib\AsterixLib\bin\Release\net7.0\AsterixLib.pdb
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte 3 versió 1\P3 06122024\PGTA-Project-3\AsterixLib\AsterixLib\obj\Release\net7.0\AsterixLib.csproj.AssemblyReference.cache
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte 3 versió 1\P3 06122024\PGTA-Project-3\AsterixLib\AsterixLib\obj\Release\net7.0\AsterixLib.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte 3 versió 1\P3 06122024\PGTA-Project-3\AsterixLib\AsterixLib\obj\Release\net7.0\AsterixLib.AssemblyInfoInputs.cache
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte 3 versió 1\P3 06122024\PGTA-Project-3\AsterixLib\AsterixLib\obj\Release\net7.0\AsterixLib.AssemblyInfo.cs
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte 3 versió 1\P3 06122024\PGTA-Project-3\AsterixLib\AsterixLib\obj\Release\net7.0\AsterixLib.csproj.CoreCompileInputs.cache
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte 3 versió 1\P3 06122024\PGTA-Project-3\AsterixLib\AsterixLib\obj\Release\net7.0\AsterixLib.sourcelink.json
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte 3 versió 1\P3 06122024\PGTA-Project-3\AsterixLib\AsterixLib\obj\Release\net7.0\AsterixLib.dll
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte 3 versió 1\P3 06122024\PGTA-Project-3\AsterixLib\AsterixLib\obj\Release\net7.0\refint\AsterixLib.dll
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte 3 versió 1\P3 06122024\PGTA-Project-3\AsterixLib\AsterixLib\obj\Release\net7.0\AsterixLib.pdb
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte 3 versió 1\P3 06122024\PGTA-Project-3\AsterixLib\AsterixLib\obj\Release\net7.0\ref\AsterixLib.dll
